@@ -1,6 +1,15 @@
 /* CSS переменные */
 
 :root {
+  /*Типографика */
+  --font-family-main: 'Roboto-Regular', sans-serif;
+  --font-family-jost: 'Jost-Medium', sans-serif;
+  --font-family-roboto: 'Roboto-Medium', sans-serif;
+  --font-family-openSans: 'OpenSans-SemiBold', sans-serif;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+  --font-weight-semiBold: 600;
+
   /* Цветовая палитра */
   --color-primary: #007bff;
   --color-primary-dark: #0056b3;
