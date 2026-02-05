@@ -19,5 +19,6 @@
     font-family: var(--font-family-jost);
     font-weight: 600;
     font-size: 24px;
+    color: var(--color-text);
   }
 }
