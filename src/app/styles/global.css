@@ -1,0 +1,11 @@
+/* Подключаем стили со шрифтами, так как они нужны на всех страницах */
+@import url('../../fonts/font.css');
+@import url('./reset.css');
+@import url('./variables.css');
+
+/* для примера */
+
+body {
+    box-sizing: border-box;
+}
+

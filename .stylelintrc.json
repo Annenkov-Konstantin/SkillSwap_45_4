@@ -14,8 +14,8 @@
     "color-function-notation": "modern",
     "color-hex-length": "short",
     "length-zero-no-unit": true,
-    "font-family-name-quotes": "always-where-required",
-    "function-url-quotes": "never",
+    "font-family-name-quotes": "always-where-recommended",
+    "function-url-quotes": "always",
     "import-notation": "url",
     "shorthand-property-no-redundant-values": true,
     "declaration-no-important": true,
@@ -23,7 +23,12 @@
     "no-unknown-animations": true,
     "selector-type-case": "lower",
     "rule-empty-line-before": "always",
-    "at-rule-empty-line-before": "always",
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "ignoreAtRules": ["import"]
+      }
+    ],
     "selector-class-pattern": null
   }
 }
