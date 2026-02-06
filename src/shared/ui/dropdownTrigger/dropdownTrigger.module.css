@@ -1,0 +1,5 @@
+.arrow_open {
+	display: block;
+  transform: rotate(180deg);
+}
+
