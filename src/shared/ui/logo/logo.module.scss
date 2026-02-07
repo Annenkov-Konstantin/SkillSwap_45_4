@@ -1,3 +1,5 @@
+@use '@app/styles/variables' as *;
+
 .logo {
   display: flex;
   justify-content: center;
@@ -16,9 +18,9 @@
   }
 
   .text {
-    font-family: var(--font-family-jost);
+    font-family: $font-family-jost;
     font-weight: 600;
     font-size: 24px;
-    color: var(--color-text);
+    color: $color-text;
   }
 }

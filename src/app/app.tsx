@@ -1,11 +1,10 @@
 import { Home } from '@/pages/home';
-import './styles/variables.css';
-import './styles/global.css';
-import styles from './app.module.css';
+import './styles/_variables.scss';
+import './styles/global.scss';
+import styles from './app.module.scss';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
-
 
 const App = () => {
   const location = useLocation();
@@ -13,7 +12,7 @@ const App = () => {
   return (
     <>
       <Routes location={location}>
-        <Route path="/" element={<Home />} />
+        <Route path='/' element={<Home />} />
       </Routes>
 
       {/* {backgroundLocation && (
