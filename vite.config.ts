@@ -10,6 +10,7 @@ export default defineConfig({
       // Основной алиас для src
       '@': path.resolve(__dirname, './src'),
       // Дополнительные алиасы для удобства
+      '@app': path.resolve(__dirname, './src/app'),
       '@components': path.resolve(__dirname, './src/components'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@features': path.resolve(__dirname, './src/features'),
