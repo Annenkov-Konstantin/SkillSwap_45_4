@@ -1,3 +1,5 @@
+@use '@/app/styles/variables' as *;
+
 .trigger_button {
   background: none;
   border: none;
@@ -6,11 +8,11 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  color: var(--color-text);
+  color: $color-text;
   padding: 0;
 }
 
 .arrow_open {
-	display: block;
+  display: block;
   transform: rotate(180deg);
 }

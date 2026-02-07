@@ -1,7 +1,7 @@
 // import { Button, Input, Card } from '@/shared/ui';
 import  {type FC } from 'react';
 import { useState } from 'react';
-import styles from './exampleComponent.module.css';
+import styles from './exampleComponent.module.scss';
 import { DropdownTrigger } from '@/shared/ui';
 
 export const ExampleComponent: FC = () => {
@@ -13,6 +13,7 @@ const [open, setOpen] = useState(false);
         onClick={()=>setOpen(!open)}
         isOpen={open}
         />
+      <button className={styles.btn}>asdasd</button>
     </div>
   );
 };
