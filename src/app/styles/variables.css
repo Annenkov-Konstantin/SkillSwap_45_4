@@ -1,7 +1,7 @@
 /* CSS переменные */
 
 :root {
-  /*Типографика */
+  /* Типографика */
   --font-family-main: 'Roboto-Regular', sans-serif;
   --font-family-jost: 'Jost-Medium', sans-serif;
   --font-family-roboto: 'Roboto-Medium', sans-serif;
@@ -12,7 +12,7 @@
 
   /* Цветовая палитра */
   --color-text: #253017;
-  --color-primary-dark: #0056b3;
+  --color-caption: #69735d;
   --color-secondary: #6c757d;
   --color-success: #28a745;
   --color-danger: #dc3545;
@@ -21,10 +21,6 @@
   --color-light: #f8f9fa;
   --color-dark: #343a40;
 
-  /* Текст */
-  --text: #212529;
-  --text-disabled: #6c757d;
-  --text-light: #f8f9fa;
 
   /* Шрифты */
   --font-main: #fff;
@@ -46,13 +42,6 @@
   --shadow-sm: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
   --shadow: 0 0.5rem 1rem rgb(0 0 0 / 0.15);
   --shadow-lg: 0 1rem 3rem rgb(0 0 0 / 0.175);
-
-  /* Отступы */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
 
   /* Размеры шрифтов */
   --font-size-xs: 0.75rem;
