@@ -1,9 +1,8 @@
 @use '@app/styles/variables' as *;
+@use '@app/styles/mixins' as *;
 
 .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   gap: 12px;
 
   .icon {
