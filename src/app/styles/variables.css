@@ -25,6 +25,7 @@
   --text: #212529;
   --text-disabled: #6c757d;
   --text-light: #f8f9fa;
+  --input-placeholder: #8E8E93;
 
   /* Шрифты */
   --font-main: #fff;
@@ -38,6 +39,8 @@
 
   /* Границы */
   --border-color: #dee2e6;
+  --border-input-color: #69735D;
+  --border-error-color: #bf3920;
   --border-radius-sm: 0.25rem;
   --border-radius: 0.5rem;
   --border-radius-lg: 1rem;

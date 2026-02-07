@@ -1,0 +1,84 @@
+.container {
+  width: 100%;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-input-color);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.inputWrapper.error {
+  border-color: var(--border-error-color);
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--text);
+  background-color: var(--bg-primary);
+}
+
+.input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.passwordToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eyeIcon {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(70%);
+  opacity: 0.7;
+}
+
+.eyeIcon:hover {
+  opacity: 1;
+}
+
+.errorText {
+  color: var(--border-error-color);
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+  margin-right: 8px;
+  margin-top: -2px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input.editing {
+  border-color: #007bff;
+  outline: 2px solid #007bff;
+  background-color: #f8f9fa;
+}
+.editActions {
+  margin-top: 4px;
+  button {
+    margin-left: 4px;
+    padding: 4px 8px;
+  }
+}
