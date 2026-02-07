@@ -1,0 +1,16 @@
+.trigger_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+  padding: 0;
+}
+
+.arrow_open {
+	display: block;
+  transform: rotate(180deg);
+}
