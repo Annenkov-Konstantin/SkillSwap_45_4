@@ -3,9 +3,12 @@ import  {type FC } from 'react';
 import { useState } from 'react';
 import styles from './exampleComponent.module.scss';
 import { DropdownTrigger } from '@/shared/ui';
+import { Input } from '@/shared/ui';
 
 export const ExampleComponent: FC = () => {
 const [open, setOpen] = useState(false);
+const [value, setValue] = useState('');
+
   return (
     <div>
       <p className={styles.test}>Компонент внутри главной страницы</p>
@@ -14,6 +17,7 @@ const [open, setOpen] = useState(false);
         isOpen={open}
         />
       <button className={styles.btn}>asdasd</button>
+      <Input value={value} onChange={setValue} isSearch={true}/>
     </div>
   );
 };
