@@ -1,27 +1,20 @@
+// import { Button, Input, Card } from '@/shared/ui';
+import  {type FC } from 'react';
+import { useState } from 'react';
 import styles from './exampleComponent.module.css';
-import { useState, type FC } from 'react';
-import skills from '../../../public/db/skills.json';
-import { SkillsDropdown } from '@/features/SkillsDropdown';
+import { DropdownTrigger } from '@/shared/ui';
 
-// Тестовый компонент для разных элементов
-// Вставляейте в код ниже и проверяйте реализцию (функционал, визуал )
+
 
 export const ExampleComponent: FC = () => {
-  const [showModal, setShowModal] = useState(false);
-
+const [open, setOpen] = useState(false);
   return (
-    <>
-      <div>
-        <p className={styles.test}>Компонент внутри главной страницы</p>
-        <button onClick= {()=>setShowModal(!showModal)}>{!showModal? 'показать выпадашку':'скрыть'}</button>
-      </div>
-
-      { showModal &&
-        <SkillsDropdown
-          onClose={() => setShowModal(false)}
-          skills={skills.categories}
+    <div>
+      <p className={styles.test}>Компонент внутри главной страницы</p>
+      <DropdownTrigger
+        onClick={()=>setOpen(!open)}
+        isOpen={open}
         />
-      }
-    </>
+    </div>
   );
 };
