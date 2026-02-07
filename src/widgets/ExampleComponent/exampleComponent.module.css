@@ -1,4 +1,4 @@
-.test {
-  font-weight: bold;
-  color: var(--color-primary);
-}
+
+ .test {
+  color: var(--color-text);
+ }
