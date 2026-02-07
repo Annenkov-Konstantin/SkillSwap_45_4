@@ -2,6 +2,7 @@ import { Home } from '@/pages/home';
 import './styles/_variables.scss';
 import './styles/global.scss';
 import styles from './app.module.scss';
+
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ExampleComponent } from '@/widgets/ExampleComponent';

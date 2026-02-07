@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay_blur {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background-color: #8e8e8e99;
+}
+
+.overlay_visible {
+  opacity: 1;
+}
