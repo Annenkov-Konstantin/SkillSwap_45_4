@@ -1,7 +1,7 @@
-import { Home } from '@/pages/home';
 import './styles/variables.css';
 import './styles/global.css';
 import styles from './app.module.css';
+import { Home } from '@/pages/home';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import {  useEffect } from 'react';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
