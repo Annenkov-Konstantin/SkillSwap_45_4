@@ -1,192 +1,82 @@
-[
-  {
-    "_id": "skill_001",
-    "title": "Разработка веб-приложений на React",
-    "description": "Научу создавать современные SPA-приложения с использованием React, TypeScript и современных инструментов разработки.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Управление командой",
-    "images": [
-      "https://picsum.photos/id/0/600/400",
-      "https://picsum.photos/id/1/600/400",
-      "https://picsum.photos/id/4/600/400",
-      "https://picsum.photos/id/8/600/400"
-    ],
-    "likes": 42,
-    "tagging": ["react", "typescript", "frontend", "webdev"],
-    "status": "accepted",
-    "mentorId": "user_1",
-    "createdAt": "2024-01-15T10:30:00.000Z",
-    "updatedAt": "2024-02-01T14:20:00.000Z"
-  },
-  {
-    "_id": "skill_002",
-    "title": "Английский для IT-специалистов",
-    "description": "Подготовлю к техническим собеседованиям на английском, научу профессиональной лексике и ведению переговоров.",
-    "category": "Иностранные языки",
-    "subCategory": "Английский",
-    "images": [
-      "https://picsum.photos/id/9/600/400",
-      "https://picsum.photos/id/10/600/400",
-      "https://picsum.photos/id/11/600/400",
-      "https://picsum.photos/id/12/600/400"
-    ],
-    "likes": 28,
-    "tagging": ["english", "it", "interview", "tech"],
-    "status": "awaitingResponse",
-    "mentorId": "user_2",
-    "createdAt": "2024-01-20T14:15:00.000Z",
-    "updatedAt": "2024-01-25T11:30:00.000Z"
-  },
-  {
-    "_id": "skill_003",
-    "title": "Управление проектами по Agile",
-    "description": "Поделюсь опытом управления IT-проектами, расстановки приоритетов и работы по методологии Scrum.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Управление командой",
-    "images": [
-      "https://picsum.photos/id/13/600/400",
-      "https://picsum.photos/id/14/600/400",
-      "https://picsum.photos/id/15/600/400",
-      "https://picsum.photos/id/16/600/400"
-    ],
-    "likes": 35,
-    "tagging": ["agile", "scrum", "project", "management"],
-    "status": "inWishlist",
-    "mentorId": "user_3",
-    "createdAt": "2024-02-01T09:45:00.000Z",
-    "updatedAt": "2024-02-05T16:10:00.000Z"
-  },
-  {
-    "_id": "skill_004",
-    "title": "Креативное письмо для маркетологов",
-    "description": "Научу писать продающие тексты, сценарии для видео и контент для социальных сетей.",
-    "category": "Творчество и искусство",
-    "subCategory": "Креативное письмо",
-    "images": [
-      "https://picsum.photos/id/17/600/400",
-      "https://picsum.photos/id/18/600/400",
-      "https://picsum.photos/id/19/600/400",
-      "https://picsum.photos/id/20/600/400"
-    ],
-    "likes": 19,
-    "tagging": ["writing", "marketing", "content", "copywriting"],
-    "status": "completed",
-    "mentorId": "user_4",
-    "createdAt": "2024-01-10T13:20:00.000Z",
-    "updatedAt": "2024-01-30T18:40:00.000Z"
-  },
-  {
-    "_id": "skill_005",
-    "title": "Йога для офисных работников",
-    "description": "Провожу занятия по йоге, направленные на снятие напряжения с позвоночника и улучшение осанки.",
-    "category": "Здоровье и лайфстайл",
-    "subCategory": "Йога и медитация",
-    "images": [
-      "https://picsum.photos/id/21/600/400",
-      "https://picsum.photos/id/22/600/400",
-      "https://picsum.photos/id/23/600/400",
-      "https://picsum.photos/id/24/600/400"
-    ],
-    "likes": 47,
-    "tagging": ["yoga", "health", "office", "meditation"],
-    "status": "rejected",
-    "mentorId": "user_5",
-    "createdAt": "2024-01-25T16:50:00.000Z",
-    "updatedAt": "2024-02-03T12:15:00.000Z"
-  },
-  {
-    "_id": "skill_006",
-    "title": "Приготовление итальянской пасты",
-    "description": "Научу готовить настоящую итальянскую пасту с домашними соусами и правильным сочетанием ингредиентов.",
-    "category": "Дом и уют",
-    "subCategory": "Приготовление еды",
-    "images": [
-      "https://picsum.photos/id/25/600/400",
-      "https://picsum.photos/id/26/600/400",
-      "https://picsum.photos/id/27/600/400",
-      "https://picsum.photos/id/28/600/400"
-    ],
-    "likes": 53,
-    "tagging": ["cooking", "italian", "pasta", "food"],
-    "status": "accepted",
-    "mentorId": "user_6",
-    "createdAt": "2024-01-18T11:25:00.000Z",
-    "updatedAt": "2024-01-28T15:45:00.000Z"
-  },
-  {
-    "_id": "skill_007",
-    "title": "Тайм-менеджмент для фрилансеров",
-    "description": "Помогу организовать рабочий день, расставить приоритеты и избежать выгорания при удаленной работе.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Тайм-менеджмент",
-    "images": [
-      "https://picsum.photos/id/29/600/400",
-      "https://picsum.photos/id/30/600/400",
-      "https://picsum.photos/id/31/600/400",
-      "https://picsum.photos/id/32/600/400"
-    ],
-    "likes": 31,
-    "tagging": ["productivity", "freelance", "time", "organization"],
-    "status": "awaitingResponse",
-    "mentorId": "user_7",
-    "createdAt": "2024-02-02T08:30:00.000Z",
-    "updatedAt": "2024-02-06T10:20:00.000Z"
-  },
-  {
-    "_id": "skill_008",
-    "title": "Личный бренд в IT-индустрии",
-    "description": "Научу создавать и продвигать личный бренд для карьерного роста в технологической сфере.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Личный бренд",
-    "images": [
-      "https://picsum.photos/id/33/600/400",
-      "https://picsum.photos/id/34/600/400",
-      "https://picsum.photos/id/35/600/400",
-      "https://picsum.photos/id/36/600/400"
-    ],
-    "likes": 26,
-    "tagging": ["branding", "career", "it", "personal"],
-    "status": "inWishlist",
-    "mentorId": "user_8",
-    "createdAt": "2024-01-22T15:10:00.000Z",
-    "updatedAt": "2024-01-29T14:55:00.000Z"
-  },
-  {
-    "_id": "skill_009",
-    "title": "Фотография на смартфон",
-    "description": "Научу делать профессиональные фотографии на телефон, работать со светом и композицией.",
-    "category": "Творчество и искусство",
-    "subCategory": "Фотография",
-    "images": [
-      "https://picsum.photos/id/37/600/400",
-      "https://picsum.photos/id/38/600/400",
-      "https://picsum.photos/id/39/600/400",
-      "https://picsum.photos/id/40/600/400"
-    ],
-    "likes": 39,
-    "tagging": ["photography", "smartphone", "photo", "mobile"],
-    "status": "completed",
-    "mentorId": "user_9",
-    "createdAt": "2024-01-12T12:40:00.000Z",
-    "updatedAt": "2024-01-27T17:30:00.000Z"
-  },
-  {
-    "_id": "skill_010",
-    "title": "Баланс работы и личной жизни",
-    "description": "Поделюсь техниками и подходами для поддержания гармонии между профессиональными и личными обязанностями.",
-    "category": "Здоровье и лайфстайл",
-    "subCategory": "Баланс жизни и работы",
-    "images": [
-      "https://picsum.photos/id/41/600/400",
-      "https://picsum.photos/id/42/600/400",
-      "https://picsum.photos/id/43/600/400",
-      "https://picsum.photos/id/44/600/400"
-    ],
-    "likes": 44,
-    "tagging": ["balance", "life", "work", "harmony"],
-    "status": "accepted",
-    "mentorId": "user_10",
-    "createdAt": "2024-01-28T10:05:00.000Z",
-    "updatedAt": "2024-02-04T13:50:00.000Z"
-  }
-]
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "Бизнес и карьера",
+      "skills": [
+        "Управление командой",
+        "Маркетинг и реклама",
+        "Продажи и переговоры",
+        "Личный бренд",
+        "Резюме и собеседование",
+        "Тайм-менеджмент",
+        "Проектное управление",
+        "Предпринимательство"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Творчество и искусство",
+      "skills": [
+        "Рисование и иллюстрация",
+        "Фотография",
+        "Видеомонтаж",
+        "Музыка (вук)",
+        "Актёрское мастерство",
+        "Креативное письмо",
+        "Арт-терапия",
+        "Декор и DIY"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Иностранные языки",
+      "skills": [
+        "Английский",
+        "Французский",
+        "Испанский",
+        "Немецкий",
+        "Китайский",
+        "Японский",
+        "Подготовка к экзаменам (IELTS, TOEFL)"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Образование и развитие",
+      "skills": [
+        "Личностное развитие",
+        "Навыки обучения",
+        "Когнитивные техники",
+        "Скорочтение",
+        "Навыки преподавания",
+        "Коучинг"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Дом и уют",
+      "skills": [
+        "Уборка и организация",
+        "Домашние финансы",
+        "Приготовление еды",
+        "Домашние растения",
+        "Ремонт",
+        "Хранение вещей"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Здоровье и лайфстайл",
+      "skills": [
+        "Йога и медитация",
+        "Питание и ЗОЖ",
+        "Ментальное здоровье",
+        "Осознанность",
+        "Физические тренировки",
+        "Сон и восстановление",
+        "Баланс жизни и работы"
+      ]
+    }
+  ]
+}

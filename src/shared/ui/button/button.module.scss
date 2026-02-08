@@ -1,0 +1,43 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+.button {
+  @include button-main;
+
+  &_primary {
+    background-color: $color-accent;
+    &:hover {
+      @include button-transition;
+      background-color: $color-button-hover;
+    }
+    &:active {
+      @include button-transition;
+      background-color: $color-text-link;
+      color: $color-card-input;
+    }
+  }
+
+  &_primary_disabled {
+    @include button-disabled;
+    border-color: transparent;
+  }
+
+  &_secondary {
+    background-color: $color-card-input;
+    border-color: $color-accent;
+    &:hover {
+      @include button-transition;
+      color: $color-caption;
+      border-color: $color-button-hover;
+    }
+    &:active {
+      @include button-transition;
+      border-color: $color-text-link;
+    }
+  }
+
+  &_secondary_disabled {
+    @include button-disabled;
+    background-color: $color-card-input;
+  }
+}

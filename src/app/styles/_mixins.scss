@@ -8,9 +8,11 @@
   display: inline-flex;
   padding: 12px 24px;
   border-radius: 12px;
+  border: 1px solid transparent;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: $color-text; 
 }
 
 @mixin button-transition {
