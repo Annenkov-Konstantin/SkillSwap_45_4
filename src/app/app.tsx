@@ -1,10 +1,11 @@
 import './styles/_variables.scss';
 import './styles/global.scss';
-import styles from './app.module.scss';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
+import { Route, Routes, useLocation } from 'react-router-dom';
+
 import { Home } from '@/pages/home';
-import { ExampleComponent } from '@/widgets/ExampleComponent';
+// import { Button } from '@/shared/ui/button';
+
 
 const App = () => {
   const location = useLocation();
@@ -15,7 +16,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
       </Routes>
 
-      {/* {backgroundLocation && (
+       {/* {backgroundLocation && (
         <Routes>
           <Route
             path="/img/:id"
@@ -27,6 +28,13 @@ const App = () => {
           />
         </Routes>
       )} */}
+
+      {/* <Button status='_primary' textInside='Primary'></Button>
+      <Button status='_primary_disabled' textInside='Primary Disabled'></Button>
+
+      <Button status='_secondary' textInside='Secondary'></Button>
+      <Button status='_secondary_disabled' textInside='Secondary Disabled'></Button> */}
+
     </>
   );
 };
