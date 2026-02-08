@@ -1,23 +1,18 @@
 import type React from 'react';
 import styles from './button.module.scss';
+import type { TButtonProps } from '@/widgets/ExampleComponent/types';
 
-interface ButtonProps {
-  onClick?: () => void; //!temp
-  status: string;
-  textInside: string;
-}
-
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<TButtonProps> = ({
   onClick,
   status,
   textInside
 }) => {
   const isDisabled = status.toLowerCase().includes('disabled');
-  
+
   return (
     <button
       onClick={onClick}
-      className= {`${styles.button} ${styles[`button${status}`]}`}
+      className= {`${styles.button} ${styles[`button_${status}`]}`}
       disabled={isDisabled}
     >
       {textInside}

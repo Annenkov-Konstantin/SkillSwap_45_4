@@ -2,7 +2,7 @@
 import  {type FC } from 'react';
 import { useState } from 'react';
 import styles from './exampleComponent.module.scss';
-import { DropdownTrigger } from '@/shared/ui';
+import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 
 export const ExampleComponent: FC = () => {
@@ -16,8 +16,8 @@ const [value, setValue] = useState('');
         onClick={()=>setOpen(!open)}
         isOpen={open}
         />
-      <button className={styles.btn}>asdasd</button>
       <Input value={value} onChange={setValue} isSearch={true}/>
+      <Button status='primary' textInside='Нажать'/>
     </div>
   );
 };
