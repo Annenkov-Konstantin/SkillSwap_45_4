@@ -8,4 +8,4 @@ export type TButtonProps = {
   onClick?: () => void;
   status: ButtonStatus;
   textInside: string;
-}
+};

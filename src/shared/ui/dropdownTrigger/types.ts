@@ -1,4 +1,4 @@
 export type TDropdownTriggerProps = {
-	onClick: () => void;
-	isOpen: boolean
-}
+  onClick: () => void;
+  isOpen: boolean;
+};

@@ -15,7 +15,9 @@
   /* Анимация появления контента*/
   opacity: 0;
   transform: translateY(-20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 /* Класс для показа модалки */
@@ -51,8 +53,8 @@
 .category_item::before {
   content: '';
   position: absolute;
-  top:0;
-  left:-52px;
+  top: 0;
+  left: -52px;
   width: 40px;
   height: 40px;
   margin-right: 12px;
@@ -98,25 +100,25 @@
 /* Классы смены лого */
 
 .category_item.busines_icon::before {
-  background-image: url("./icons/Frame_6.svg");
+  background-image: url('./icons/Frame_6.svg');
 }
 
 .category_item.creativity_icon::before {
-  background-image: url("./icons/Frame_3.svg");
+  background-image: url('./icons/Frame_3.svg');
 }
 
 .category_item.languages_icon::before {
-  background-image: url("./icons/Frame_1.svg");
+  background-image: url('./icons/Frame_1.svg');
 }
 
 .category_item.education_icon::before {
-  background-image: url("./icons/Frame_4.svg");
+  background-image: url('./icons/Frame_4.svg');
 }
 
 .category_item.home_icon::before {
-  background-image: url("./icons/Frame_2.svg");
+  background-image: url('./icons/Frame_2.svg');
 }
 
 .category_item.health_icon::before {
-  background-image: url("./icons/Frame_5.svg");
+  background-image: url('./icons/Frame_5.svg');
 }

@@ -12,7 +12,7 @@ export const Button: React.FC<TButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className= {`${styles.button} ${styles[`button_${status}`]}`}
+      className={`${styles.button} ${styles[`button_${status}`]}`}
       disabled={isDisabled}
     >
       {textInside}

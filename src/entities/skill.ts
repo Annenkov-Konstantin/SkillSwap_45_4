@@ -137,18 +137,18 @@ export type SubcategoryByCategory = {
 // Тип TSkill с гарантированной согласованностью через условные типы
 export type TSkill = {
   _id: string;
-  title: string;
-  description: string;
-  images: string[];
-  likes: number;
-  tagging: string[];
-  status: TSkillStatus;
-  mentorId: string;
-  createdAt: string;
-  updatedAt: string;
+  skillTitle: string;
+  skillDescription: string;
+  skillImages: string[];
+  skillLikes: number;
+  skillTagging: string[];
+  skillStatus: TSkillStatus;
+  skillMentorId: string;
+  skillCreatedAt: string;
+  skillUpdatedAt: string;
 } & {
   [K in Category]: {
-    category: K;
-    subCategory: SubcategoryByCategory[K];
+    skillCategory: K;
+    skillSubCategory: SubcategoryByCategory[K];
   };
 }[Category];
