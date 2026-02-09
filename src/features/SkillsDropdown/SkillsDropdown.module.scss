@@ -1,3 +1,6 @@
+@use '@app/styles/variables' as *;
+@use '@app/styles/mixins' as *;
+
 .skills_container {
   position: absolute;
   top: 94px;
@@ -7,7 +10,7 @@
   z-index: 101;
   width: 1136px;
   height: 1040px;
-  border: 1px solid var(--color-caption);
+  border: 1px solid $color-caption;
   background-color: #fff;
   overflow-y: auto;
   max-height: 90vh;

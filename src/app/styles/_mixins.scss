@@ -12,7 +12,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: $color-text; 
+  color: $color-text;
+  font-family: $font-family-main;
+  font-weight: $font-weight-regular;
 }
 
 @mixin button-transition {
