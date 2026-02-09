@@ -29,7 +29,7 @@ export const SkillsDropdown: FC<TModalProps> = memo(({onClose, skills }) => {
     useEffect(() => {
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 10); // Небольшая задержка для запуска анимации
+      }, 10); 
 
       return () => clearTimeout(timer);
     }, []);
@@ -39,7 +39,7 @@ export const SkillsDropdown: FC<TModalProps> = memo(({onClose, skills }) => {
       setIsVisible(false);
       setTimeout(() => {
         onClose();
-      }, 300); // Время должно совпадать с duration анимации
+      }, 300);
     };
 
   return ReactDOM.createPortal(

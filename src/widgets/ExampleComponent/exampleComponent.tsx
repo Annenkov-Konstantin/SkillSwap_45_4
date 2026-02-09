@@ -1,4 +1,3 @@
-// import { Button, Input, Card } from '@/shared/ui';
 import  {type FC } from 'react';
 import { useState } from 'react';
 import styles from './exampleComponent.module.scss';
@@ -17,7 +16,7 @@ const [value, setValue] = useState('');
         isOpen={open}
         />
       <Input value={value} onChange={setValue} isSearch={true}/>
-      <Button status='primary' textInside='Нажать'/>
+      <Button status='primary' children='adasdasd'/>
     </div>
   );
 };
