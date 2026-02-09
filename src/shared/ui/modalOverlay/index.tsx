@@ -1,1 +1,1 @@
-export { ModalOverlayUI } from './modalOverlay'
+export { ModalOverlayUI } from './modalOverlay';
