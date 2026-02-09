@@ -1,7 +1,7 @@
 import React from 'react';
 import type { TUserCardAvatarProps } from './type';
-import { formatAgeWithWord } from '@/utils/formatAge';
-import { calculateAge } from '@/utils/calculateAge';
+import { formatAgeWithWord } from '@/shared/lib/utils/formatAge';
+import { calculateAge } from '@/shared/lib/utils/calculateAge';
 import { UserCardAvatarUI } from './UserCardAvatarUI';
 
 export const UserCardAvatar = (
