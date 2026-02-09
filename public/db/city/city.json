@@ -17,5 +17,6 @@
   { "_id": "volgograd", "name": "Волгоград" },
   { "_id": "tyumen", "name": "Тюмень" },
   { "_id": "saratov", "name": "Саратов" },
-  { "_id": "tolyatti", "name": "Тольятти" }
+  { "_id": "tolyatti", "name": "Тольятти" },
+  { "_id": "yaroslavl", "name": "Ярославль" }
 ]

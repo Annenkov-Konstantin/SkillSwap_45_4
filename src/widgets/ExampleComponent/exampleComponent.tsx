@@ -16,7 +16,7 @@ const [value, setValue] = useState('');
         isOpen={open}
         />
       <Input value={value} onChange={setValue} isSearch={true}/>
-      <Button status='primary' children='adasdasd'/>
+      <Button status='primary' children='Войти'/>
     </div>
   );
 };
