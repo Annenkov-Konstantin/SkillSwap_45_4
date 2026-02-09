@@ -1,0 +1,21 @@
+[
+  { "_id": "moscow", "name": "Москва" },
+  { "_id": "spb", "name": "Санкт-Петербург" },
+  { "_id": "novosibirsk", "name": "Новосибирск" },
+  { "_id": "ekaterinburg", "name": "Екатеринбург" },
+  { "_id": "kazan", "name": "Казань" },
+  { "_id": "nizhny-novgorod", "name": "Нижний Новгород" },
+  { "_id": "chelyabinsk", "name": "Челябинск" },
+  { "_id": "samara", "name": "Самара" },
+  { "_id": "omsk", "name": "Омск" },
+  { "_id": "rostov-on-don", "name": "Ростов-на-Дону" },
+  { "_id": "ufa", "name": "Уфа" },
+  { "_id": "kostroma", "name": "Кострома" },
+  { "_id": "voronezh", "name": "Воронеж" },
+  { "_id": "perm", "name": "Пермь" },
+  { "_id": "krasnoyarsk", "name": "Красноярск" },
+  { "_id": "volgograd", "name": "Волгоград" },
+  { "_id": "tyumen", "name": "Тюмень" },
+  { "_id": "saratov", "name": "Саратов" },
+  { "_id": "tolyatti", "name": "Тольятти" }
+]
