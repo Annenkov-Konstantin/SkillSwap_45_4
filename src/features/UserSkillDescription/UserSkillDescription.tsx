@@ -1,7 +1,8 @@
 import styles from './UserSkillDescription.module.scss';
 import type { UserSkillDescriptionUIProps } from './types';
+import React from 'react';
 
-export const UserSkillDescription = ({
+export const UserSkillDescription:React.FC<UserSkillDescriptionUIProps> = ({
   title,
   skill,
   description
