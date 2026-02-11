@@ -1,0 +1,107 @@
+@use '@app/styles/variables' as *;
+@use '@app/styles/mixins' as *;
+
+.container {
+  display: flex;
+  gap: 24px;
+  max-width: 440px;
+  max-height: 324px;
+}
+
+.main-image {
+  max-width: 324px;
+
+  :global(.swiper-button-next) {
+    right: 16px;
+  }
+
+  :global(.swiper-button-prev) {
+    left: 16px;
+  }
+
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    width: 32px;
+    height: 32px;
+    margin-top: 0;
+    top: calc(50% - 16px);
+    transform: none;
+    background-color: $color-disabled;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  :global(.swiper-button-next svg),
+  :global(.swiper-button-prev svg) {
+    width: 6px;
+    height: 11px;
+  }
+
+  :global(.swiper-button-next:hover),
+  :global(.swiper-button-prev:hover) {
+    transform: scale(1.1);
+  }
+
+  &__wrapper {
+    @include border-radius;
+
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.thumbs {
+  width: 92px;
+  height: 348px;
+
+  &-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(.swiper-wrapper) {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  :global(.swiper-slide-thumb-active) {
+    opacity: 1;
+  }
+
+  &__wrapper {
+    @include border-radius;
+
+    width: 100% !important;
+    max-height: 92px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.hidden-count {
+  position: absolute;
+  bottom: 55px;
+  left: 38px;
+  color: #253017;
+  font-size: 16px;
+  font-weight: 400;
+  transform: translateY(100%);
+  z-index: 10;
+}
+
