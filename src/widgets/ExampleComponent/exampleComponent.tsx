@@ -4,7 +4,7 @@ import styles from './exampleComponent.module.scss';
 import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 import { Checkbox } from '@/shared/ui/checkbox/checkbox';
-import { SkillGallery } from '@/features/SkillGallery';
+import { SkillGallery } from '@/features';
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
