@@ -1,0 +1,79 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  /* stylelint-disable-next-line color-function-notation */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 101;
+  max-height: 116px; /* 3 строки + отступы */
+  overflow-y: auto;
+  color: $color-text;
+}
+
+/* Кастомный скролл как в SkillsDropdown */
+/* stylelint-disable-next-line rule-empty-line-before */
+.dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: $color-disabled;
+  min-height: 40px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  margin-right: 8px;
+}
+
+.dropdown::-webkit-scrollbar-thumb:hover {
+  background: $color-toggle;
+  background-clip: content-box;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 4px;
+}
+
+.item {
+  padding: 4px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: background-color 0.2s;
+}
+
+.item:hover {
+  background-color: $color-disabled;
+  color: $color-text;
+}
+
+.highlighted {
+  color: $color-text-link;
+}
+
+.notFound {
+  color: #666;
+  font-style: italic;
+}
+
+.notFound:hover {
+  background-color: #fff3e0;
+}
+
+.notFoundText {
+  display: block;
+}

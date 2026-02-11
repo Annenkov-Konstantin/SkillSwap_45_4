@@ -1,0 +1,72 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+.label {
+  @include body-text;
+  margin-bottom: 0;
+  color: $color-text;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  @include body-text;
+  width: 100%;
+  padding: 12px 54px 12px 20px;
+  border: 1px solid $color-caption;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+  caret-color: $color-text-link;
+
+  /* Placeholder стили с переменными */
+  &::placeholder {
+    color: $color-caption; // Используем цвет подписей
+    opacity: 1;
+    font-weight: $font-weight-regular;
+  }
+
+  /* Для старых браузеров */
+  &::-webkit-input-placeholder {
+    color: $color-caption;
+  }
+
+  &::-moz-placeholder {
+    color: $color-caption;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color-caption;
+  }
+
+  &::-ms-input-placeholder {
+    color: $color-caption;
+  }
+}
+
+.input:focus {
+  border-color: $color-text-link;
+}
+
+/* Позиционирование кнопки */
+.triggerWrapper {
+  position: absolute;
+  right: 20px; /* Отступ от правого края инпута */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Чтобы кнопка была поверх инпута */
+  pointer-events: auto;
+
+  /* Центрирование кнопки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
