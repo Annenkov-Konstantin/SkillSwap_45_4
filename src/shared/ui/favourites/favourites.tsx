@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './favourites.module.css';
 import clsx from 'clsx';
 
-export const Favourites = () => {
+export const Favourites:React.FC<HTMLButtonElement> = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
