@@ -3,12 +3,10 @@ import { useState } from 'react';
 import styles from './exampleComponent.module.scss';
 import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
-import { SkillActionModal } from '../skillActionModal/skillActionModal';
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const [isModalOpen, setModalOpen] = useState(true);
 
   return (
     <div>

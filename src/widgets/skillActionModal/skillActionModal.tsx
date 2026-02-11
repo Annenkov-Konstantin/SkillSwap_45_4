@@ -51,13 +51,13 @@ export const SkillActionModal: React.FC<skillActionModalProps> = ({
             <Button
               onClick={onClose}
               status={'secondary'}
-              textInside={secondaryBtnText}
+              children={secondaryBtnText}
             />
           )}
           <Button
             onClick={onClose}
             status={'primary'}
-            textInside={primaryBtnText}
+            children={primaryBtnText}
           />
         </div>
       </dialog>
