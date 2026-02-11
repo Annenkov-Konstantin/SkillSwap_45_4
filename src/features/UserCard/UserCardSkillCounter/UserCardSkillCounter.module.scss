@@ -1,0 +1,11 @@
+@use '@app/styles/_variables' as *;
+
+.counter {
+  background: $tag-plus;
+  border-radius: 20px;
+  display: inline-flex;
+  padding: 8px 13px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
