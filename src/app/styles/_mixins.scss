@@ -1,4 +1,12 @@
-@use './variables' as *;
+@use '@/app/styles/variables' as *;
+@use 'sass:map';
+
+@mixin apply-text-style($style) {
+  font-weight: map.get($style, 'font-weight');
+  font-size: map.get($style, 'font-size');
+  font-family: map.get($style, 'font-family');
+  line-height: map.get($style, 'line-height');
+}
 
 @mixin border-radius($radius: 12px) {
   border-radius: $radius;
