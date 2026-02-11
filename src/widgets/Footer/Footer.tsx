@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Footer.module.scss';
-import { Logo } from '../../shared/ui/logo/logo';
+import { Logo } from '@/shared/ui';
+import React from 'react';
 
-export const Footer = () => {
+export const Footer:React.FC<HTMLElement> = () => {
   return (
     <footer>
       <div className={styles.footerLogoWrapper}>
