@@ -4,6 +4,7 @@ import styles from './exampleComponent.module.scss';
 import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 import { Checkbox } from '@/shared/ui/checkbox/checkbox';
+import { UserSkillDescription } from '@/features/UserSkillDescription';
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,13 @@ export const ExampleComponent: FC = () => {
       <Checkbox checked={checked} label='Бизнес и карьера' onChange={setChecked} />
       <Checkbox checked={checked1} label='Творчество и искусство' onChange={setChecked1} />
       <Checkbox checked={checked2} label='Спорт и здоровье' onChange={setChecked2} />
+      <p></p>
+      <UserSkillDescription
+      title="Мой навык"
+      categoryId={1}
+      skillId={1}
+      description="Описание моего навыка"
+      />
     </div>
   );
 };

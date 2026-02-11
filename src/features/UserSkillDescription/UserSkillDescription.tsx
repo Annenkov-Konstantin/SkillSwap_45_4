@@ -1,13 +1,18 @@
 import styles from './UserSkillDescription.module.scss';
-import type { UserSkillDescriptionUIProps } from './types';
+import type { UserSkillDescriptionProps } from './types';
 import React from 'react';
+import { useSkill } from '@/shared/hooks/useSkillsCategoryMatcher';
 
-export const UserSkillDescription:React.FC<UserSkillDescriptionUIProps> = ({
+export const UserSkillDescription:React.FC<UserSkillDescriptionProps> = ({
   title,
-  skill,
+  categoryId,
+  skillId,
   description
-}: UserSkillDescriptionUIProps) => {
-  const categoryDisplay = `${skill.categoryTitle} / ${skill.categorySkill}`;
+}: UserSkillDescriptionProps) => {
+  const skillPair = useSkill(categoryId, skillId);
+
+  const categoryDisplay = `${skillPair?.categoryTitle} / ${skillPair?.skill.title}`;
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{title}</h1>
