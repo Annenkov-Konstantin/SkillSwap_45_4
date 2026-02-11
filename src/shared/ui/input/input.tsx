@@ -43,7 +43,7 @@ export const Input = ({
   return (
     <div className={`${styles.container} ${className}`}>
       <div className={`${styles.inputWrapper} ${error ? styles.error : ''}`}>
-        {isSearch && !isFocused && value! === '' &&(
+        {isSearch && !isFocused && value! === '' && (
           <img src={search} alt='Иконка поиска' className={styles.searchIcon} />
         )}
 

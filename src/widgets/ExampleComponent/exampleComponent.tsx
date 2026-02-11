@@ -16,7 +16,7 @@ export const ExampleComponent: FC = () => {
       <p className={styles.test}>Компонент внутри главной страницы</p>
       <DropdownTrigger onClick={() => setOpen(!open)} isOpen={open} />
       <Input value={value} onChange={setValue} isSearch={true} />
-      <Button status='primary' textInside='Нажать' />
+      <Button status='primary' children='Нажать' />
       <SkillActionModal
         image='src/assets/img/done.svg'
         maintText='Пожалуйста, войдите в аккаунт'
@@ -26,6 +26,12 @@ export const ExampleComponent: FC = () => {
         onClose={() => setModalOpen(false)}
         isOpen={isModalOpen}
       ></SkillActionModal>
+      <DropdownTrigger
+        onClick={()=>setOpen(!open)}
+        isOpen={open}
+        />
+      <Input value={value} onChange={setValue} isSearch={true}/>
+      <Button status='primary' children='Войти'/>
     </div>
   );
 };

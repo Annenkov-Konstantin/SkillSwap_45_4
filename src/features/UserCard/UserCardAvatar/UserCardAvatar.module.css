@@ -1,0 +1,39 @@
+.user_account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
+  gap: 4px;
+}
+
+.user_name {
+  font-family: Roboto-Regular, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.32px;
+  color: #253017;
+  margin: 0;
+}
+
+.user_photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.title {
+  font-family: OpenSans-SemiBold, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.011em;
+  margin: 0;
+  color: #253017;
+}

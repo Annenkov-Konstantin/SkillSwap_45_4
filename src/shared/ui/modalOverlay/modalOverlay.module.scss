@@ -16,9 +16,12 @@
 .overlay_blur {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  background-color: #8e8e8e99;
 }
 
 .overlay_visible {
   opacity: 1;
+}
+
+.overlay_backdrop {
+  background-color: #8e8e8e99;
 }

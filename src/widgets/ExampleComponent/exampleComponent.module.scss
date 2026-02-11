@@ -5,7 +5,3 @@
   color: var(--color-text);
  }
 
- .btn {
- @include button-main;
- background-color: $color-text-link;
- }
