@@ -40,4 +40,14 @@
     @include button-disabled;
     background-color: $color-card-input;
   }
+
+  &_form_button_disabled {
+    background-color: $color-card-input;
+    border-color: $color-caption;
+    &:hover {
+      @include button-transition;
+      color: $color-caption;
+      border-color: $color-disabled-text;
+    }
+  }
 }

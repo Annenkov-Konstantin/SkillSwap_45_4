@@ -6,17 +6,16 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { Home } from '@/pages/home';
 // import { Button } from '@/shared/ui/button';
 
-
 const App = () => {
   const location = useLocation();
-  
+
   return (
     <>
       <Routes location={location}>
         <Route path='/' element={<Home />} />
       </Routes>
 
-       {/* {backgroundLocation && (
+      {/* {backgroundLocation && (
         <Routes>
           <Route
             path="/img/:id"
@@ -34,7 +33,6 @@ const App = () => {
 
       <Button status='_secondary' textInside='Secondary'></Button>
       <Button status='_secondary_disabled' textInside='Secondary Disabled'></Button> */}
-
     </>
   );
 };
