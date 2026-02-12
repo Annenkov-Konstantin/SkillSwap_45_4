@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import styles from './favourites.module.css';
+import styles from './favourites.module.scss';
 import clsx from 'clsx';
 
-export const Favourites:React.FC<HTMLButtonElement> = () => {
+export const Favourites:React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
@@ -10,6 +10,7 @@ export const Favourites:React.FC<HTMLButtonElement> = () => {
       onClick={() => setIsLiked(!isLiked)}
       className={clsx(styles.icon, isLiked && styles.is_liked)}
       type='button'
+      aria-label="Добавить в избранное"
     >
       <svg xmlns='http://www.w3.org/2000/svg' width='22' height='20'>
         <path
