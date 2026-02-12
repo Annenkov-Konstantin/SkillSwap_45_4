@@ -2,8 +2,6 @@
 @use '../../app/styles/mixins' as *;
 
 .container {
-  position: relative;
-  width: 100%;
-
-  margin: 50px; // УДАЛИТЬ
+    padding: 20px;
+    width: 476px;
 }

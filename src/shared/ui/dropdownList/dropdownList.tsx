@@ -37,7 +37,7 @@ export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
               onMouseEnter={() => setHighlightedIndex(-1)}
             >
               <span className={styles.notFoundText}>
-                Город не найден. Нажмите Enter, чтобы добавить "{inputValue}"
+                Город не найден. Добавить "{inputValue}"?
               </span>
             </li>
           )}

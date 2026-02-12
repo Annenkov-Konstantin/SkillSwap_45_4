@@ -1,7 +1,7 @@
 import React from 'react';
 import { type IInputForDropdown } from './types';
-import { InputButton } from '@shared/ui/inputButton';
 import styles from './inputForDropdown.module.scss';
+import clsx from 'clsx';
 
 export const InputForDropdown = React.forwardRef<
   HTMLInputElement,
@@ -9,49 +9,33 @@ export const InputForDropdown = React.forwardRef<
 >(
   (
     {
+      button,
       inputValue,
+      inputId,
       handleInputChange,
       handleKeyDown,
       setIsOpen,
       placeholder,
-      labelValue,
-      isOpen,
-      handleOpen,
-      handleClear
+      isOpen
     },
     inputRef
   ) => {
-    // ID для связи label и input
-    const inputId = React.useId();
-
     return (
-      <div className={styles.container}>
-        <label htmlFor={inputId} className={styles.label}>
-          {labelValue}
-        </label>
-        <div className={styles.inputWrapper}>
-          <input
-            id={inputId}
-            ref={inputRef}
-            type='text'
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setIsOpen(true)}
-            placeholder={placeholder}
-            className={styles.input}
-          />
+      <>
+        <input
+          id={inputId}
+          ref={inputRef}
+          type='text'
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsOpen(true)}
+          placeholder={placeholder}
+          className={clsx(styles.input, {[styles.open]: isOpen})}
+        />
 
-          <div className={styles.triggerWrapper}>
-            <InputButton
-              isOpen={isOpen}
-              hasValue={!!inputValue}
-              onOpen={handleOpen}
-              onClear={handleClear}
-            />
-          </div>
-        </div>
-      </div>
+        <div className={styles.triggerWrapper}>{button}</div>
+      </>
     );
   }
 );

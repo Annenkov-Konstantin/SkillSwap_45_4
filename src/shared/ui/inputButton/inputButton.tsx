@@ -1,14 +1,12 @@
-// src/shared/ui/dropdownTrigger/dropdownTrigger.tsx
 import type { TInputButtonProps } from './types';
 import styles from './inputButton.module.scss';
 import clsx from 'clsx';
 
-
-export const InputButton = ({ 
-  isOpen, 
-  onOpen, 
+export const InputButton = ({
+  isOpen,
+  onOpen,
   onClear,
-  hasValue 
+  hasValue
 }: TInputButtonProps) => {
   const handleClick = () => {
     if (isOpen && hasValue) {
@@ -19,13 +17,13 @@ export const InputButton = ({
   };
 
   return (
-    <button 
-      type="button" 
+    <button
+      type='button'
       className={styles.trigger_button}
       onClick={handleClick}
-      aria-label={isOpen ? "Очистить поле" : "Открыть список"}
+      aria-label={isOpen ? 'Очистить поле' : 'Открыть список'}
     >
-      {(isOpen && hasValue) ? (
+      {isOpen && hasValue ? (
         // Крестик при открытом дропдауне и введённом значении
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -50,7 +48,11 @@ export const InputButton = ({
           height='20'
           viewBox='0 0 24 24'
           fill='none'
-          className={clsx(styles.arrow, { [styles.arrow_open]: isOpen })}
+          className={clsx(
+            styles.arrow,
+            { [styles.arrow_open]: isOpen },
+            { [styles.has_value]: hasValue }
+          )}
         >
           <path
             fill='currentColor'

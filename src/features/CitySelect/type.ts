@@ -5,6 +5,5 @@ export interface CitySelectProps {
 }
 
 export interface ICitySelectUI {
-children: React.ReactNode;
-isOpen: boolean;
+  children: React.ReactNode;
 }

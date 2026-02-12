@@ -1,0 +1,28 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+.container {
+  position: relative;
+  width: 100%;
+    border: 1px solid $color-caption;
+  border-radius: 12px;
+  background-color: $color-card-input;    // общий фон
+  transition: border-radius 0.2s, border-color 0.2s;
+}
+
+.containerOpen {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent; // скрываем нижнюю границу
+}
+
+// Обёртка инпута – для абсолютного позиционирования кнопки
+.inputWrapper {
+  position: relative;
+}
+
+// При открытом дропдауне убираем скругление снизу у самого инпута
+.containerOpen .input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

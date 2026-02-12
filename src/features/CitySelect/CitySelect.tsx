@@ -1,10 +1,12 @@
-// src/features/CitySelect/CitySelect.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import { type CitySelectProps } from './type';
-import { CitySelectUI } from './CitySelectUI';
-import { InputForDropdown } from '../../shared/ui/inputForDropdown/index';
-import { DropdownList } from '../../shared/ui/dropdownList/index';
+import { CitySelectUI } from './CitySelectUI'; 
+import { InputForDropdown } from '@shared/ui/inputForDropdown';
+import { DropdownList } from '@shared/ui/dropdownList';
+import { InputLabel } from '@shared/ui/inputLabel';
+import { InputAndDropdownWrapper } from '@shared/ui/inputAndDropdownWrapper';
+import { InputButton } from '@shared/ui/inputButton';
 
 export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,18 +68,15 @@ export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
   useEffect(() => {
     if (highlightedIndex >= 0 && listRef.current) {
       const items = listRef.current.querySelectorAll('li');
-      if (items[highlightedIndex]) {
-        items[highlightedIndex].scrollIntoView({
-          block: 'nearest',
-          behavior: 'smooth'
-        });
-      }
+      items[highlightedIndex]?.scrollIntoView({
+        block: 'nearest',
+        behavior: 'smooth'
+      });
     }
   }, [highlightedIndex]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInputValue(newValue);
+    setInputValue(e.target.value);
     setIsOpen(true);
     setHighlightedIndex(-1);
   };
@@ -92,6 +91,12 @@ export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
     setInputValue('');
     setIsOpen(false);
     setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  };
+
+  // Функция для открытия дропдауна
+  const handleOpen = () => {
+    setIsOpen(true);
     inputRef.current?.focus();
   };
 
@@ -130,37 +135,51 @@ export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
 
   const showNotFound = !!inputValue.trim() && filteredList.length === 0;
 
-  // Функция для открытия дропдауна
-  const handleOpen = () => {
-    setIsOpen(true);
-    inputRef.current?.focus();
-  };
+  const inputId = React.useId();
 
   return (
-    <CitySelectUI ref={containerRef} isOpen={isOpen}>
-      <InputForDropdown
-        ref={inputRef}
-        inputValue={inputValue}
-        handleInputChange={handleInputChange}
-        handleKeyDown={handleKeyDown}
-        setIsOpen={setIsOpen}
-        placeholder='Не указан'
-        labelValue='Город'
+    <CitySelectUI>
+      {/* Лейбл – ВНЕ рамки */}
+      <InputLabel inputId={inputId} labelValue='Город' />
+      {/* Контейнер с рамкой – только инпут + дропдаун */}
+      <InputAndDropdownWrapper
+        ref={containerRef}
         isOpen={isOpen}
-        handleOpen={handleOpen}
-        handleClear={handleClear}
+        input={
+          <InputForDropdown
+            ref={inputRef}
+            isOpen={isOpen}
+            button={
+              <InputButton
+                isOpen={isOpen}
+                hasValue={!!inputValue}
+                onOpen={handleOpen}
+                onClear={handleClear}
+              />
+            }
+            inputId={inputId}
+            inputValue={inputValue}
+            handleInputChange={handleInputChange}
+            handleKeyDown={handleKeyDown}
+            setIsOpen={setIsOpen}
+            placeholder='Не указан'
+          />
+        }
+        dropdownList={
+          isOpen &&
+          (filteredList.length > 0 || showNotFound) && (
+            <DropdownList
+              filteredList={filteredList}
+              showNotFound={showNotFound}
+              highlightedIndex={highlightedIndex}
+              inputValue={inputValue}
+              handleValueSelect={handleValueSelect}
+              setHighlightedIndex={setHighlightedIndex}
+              ref={listRef}
+            />
+          )
+        }
       />
-      {isOpen && (filteredList.length > 0 || showNotFound) && (
-        <DropdownList
-          filteredList={filteredList}
-          showNotFound={showNotFound}
-          highlightedIndex={highlightedIndex}
-          inputValue={inputValue}
-          handleValueSelect={handleValueSelect}
-          setHighlightedIndex={setHighlightedIndex}
-          ref={listRef}
-        />
-      )}
     </CitySelectUI>
   );
 };
