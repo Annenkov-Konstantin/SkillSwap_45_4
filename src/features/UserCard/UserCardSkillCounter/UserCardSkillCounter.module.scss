@@ -1,11 +1,15 @@
 @use '@app/styles/_variables' as *;
+@use 'sass:map';
 
 .counter {
-  background: $tag-plus;
+  font-family: map.get($caption, font-family);
+  font-weight: map.get($caption, font-weight);
+  font-size: map.get($caption, font-size);
+  line-height: map.get($caption, line-height);
+  background-color: $tag-plus;
   border-radius: 20px;
   display: inline-flex;
   padding: 8px 13px;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
 }
