@@ -4,7 +4,7 @@ import { formatAgeWithWord } from '@/shared/lib/utils/formatAge';
 import { calculateAge } from '@/shared/lib/utils/calculateAge';
 import { UserCardAvatarUI } from './UserCardAvatarUI';
 
-export const UserCardAvatar = (
+export const UserCardAvatar:React.FC<TUserCardAvatarProps> = (
   userData: TUserCardAvatarProps
 ): React.JSX.Element => {
   const { avatarPic, name, location, dateOfBirth } = userData || {};
