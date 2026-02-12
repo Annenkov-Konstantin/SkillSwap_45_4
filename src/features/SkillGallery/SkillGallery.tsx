@@ -4,7 +4,10 @@ import type { Swiper as SwiperType } from 'swiper';
 import { SkillGalleryUI } from './SkillGalleryUI';
 import type { SkillGalleryProps } from './type';
 
-export const SkillGallery: React.FC<SkillGalleryProps> = ({ images, title }) => {
+export const SkillGallery: React.FC<SkillGalleryProps> = ({
+  images,
+  title
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [hiddenCount, setHiddenCount] = useState(0);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);

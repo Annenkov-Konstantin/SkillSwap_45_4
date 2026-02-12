@@ -3,7 +3,7 @@ import { Swiper as SwiperType } from 'swiper';
 export type SkillGalleryProps = {
   images: string[];
   title: string;
-}
+};
 
 export type SkillGalleryUIProps = {
   thumbsSwiper: SwiperType | null;
@@ -14,4 +14,4 @@ export type SkillGalleryUIProps = {
   title: string;
   handleThumbsSlideChange: (swiper: SwiperType) => void;
   shouldShowCounter: boolean;
-}
+};

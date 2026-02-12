@@ -1,1 +1,1 @@
-export {InputAndDropdownWrapper} from './inputAndDropdownWrapper'
+export { InputAndDropdownWrapper } from './inputAndDropdownWrapper';

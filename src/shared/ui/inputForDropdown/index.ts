@@ -1,1 +1,1 @@
-export {InputForDropdown} from './inputForDropdown';
+export { InputForDropdown } from './inputForDropdown';

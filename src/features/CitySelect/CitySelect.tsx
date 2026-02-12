@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDebounce } from '@/shared/hooks/useDebounce';
 import { type CitySelectProps } from './type';
-import { CitySelectUI } from './CitySelectUI'; 
+import { CitySelectUI } from './CitySelectUI';
 import { InputForDropdown } from '@shared/ui/inputForDropdown';
 import { DropdownList } from '@shared/ui/dropdownList';
 import { InputLabel } from '@shared/ui/inputLabel';

@@ -31,7 +31,7 @@ export const InputForDropdown = React.forwardRef<
           onKeyDown={handleKeyDown}
           onFocus={() => setIsOpen(true)}
           placeholder={placeholder}
-          className={clsx(styles.input, {[styles.open]: isOpen})}
+          className={clsx(styles.input, { [styles.open]: isOpen })}
         />
 
         <div className={styles.triggerWrapper}>{button}</div>

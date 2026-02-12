@@ -1,6 +1,6 @@
 import React from 'react';
 import { type IDropdownList } from './types';
-import styles from './dropdownList.module.scss'; 
+import styles from './dropdownList.module.scss';
 
 export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
   (

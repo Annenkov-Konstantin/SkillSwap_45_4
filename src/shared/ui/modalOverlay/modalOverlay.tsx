@@ -13,7 +13,7 @@ export const ModalOverlayUI: React.FC<TModalOverlayUI> = ({
     className={clsx(styles.overlay, {
       [styles.overlay_blur]: blur,
       [styles.overlay_visible]: isVisible,
-      [styles.overlay_backdrop]: backdrop,
+      [styles.overlay_backdrop]: backdrop
     })}
     onClick={onClick}
   ></div>

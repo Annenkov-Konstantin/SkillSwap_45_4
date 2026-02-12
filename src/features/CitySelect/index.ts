@@ -1,1 +1,1 @@
-export {CitySelect} from './CitySelect';
+export { CitySelect } from './CitySelect';

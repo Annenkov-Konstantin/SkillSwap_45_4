@@ -1,10 +1,10 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css'
-import 'swiper/css/free-mode'
-import 'swiper/css/navigation'
-import 'swiper/css/thumbs'
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
 
 import styles from './SkillGallery.module.scss';
 
@@ -20,59 +20,58 @@ export const SkillGalleryUI: React.FC<SkillGalleryUIProps> = ({
   images,
   title,
   handleThumbsSlideChange,
-  shouldShowCounter,
-  }) => {
-
+  shouldShowCounter
+}) => {
   return (
-    <div className={styles["container"]}>
+    <div className={styles['container']}>
       <Swiper
-        style={{
-          '--swiper-navigation-color': '#69735d',
-        } as React.CSSProperties}
+        style={
+          {
+            '--swiper-navigation-color': '#69735d'
+          } as React.CSSProperties
+        }
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         onSlideChange={handleMainSlideChange}
         modules={[FreeMode, Navigation, Thumbs]}
-        className={styles["main-image"]}
+        className={styles['main-image']}
       >
         {images.map((image, imgIndex) => (
-          <SwiperSlide key={imgIndex} className={styles["main-image__wrapper"]}>
+          <SwiperSlide key={imgIndex} className={styles['main-image__wrapper']}>
             <img
-              className={styles["main-image__inner"]}
+              className={styles['main-image__inner']}
               src={image.trim()}
               alt={`Фотография пользователя на тему его навыка ${title}`}
-              loading="lazy"
+              loading='lazy'
             />
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className={styles["thumbs-container"]}>
+      <div className={styles['thumbs-container']}>
         <Swiper
           onSwiper={setThumbsSwiper}
           onSlideChange={handleThumbsSlideChange}
-          direction="vertical"
+          direction='vertical'
           slidesPerView={3}
           freeMode={false}
           watchSlidesProgress={true}
           slideToClickedSlide={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className={styles["thumbs"]}
+          className={styles['thumbs']}
         >
           {images.map((image, imgIndex) => (
-            <SwiperSlide key={imgIndex} className={styles["thumbs__wrapper"]}>
+            <SwiperSlide key={imgIndex} className={styles['thumbs__wrapper']}>
               <img
-                className={styles["thumbs__inner"]}
+                className={styles['thumbs__inner']}
                 src={image.trim()}
                 alt={`Фотография пользователя на тему его навыка ${title}`}
-                loading="lazy"
+                loading='lazy'
               />
             </SwiperSlide>
           ))}
         </Swiper>
         {shouldShowCounter && (
-          <div className={styles["hidden-count"]}>
-            +{hiddenCount}
-          </div>
+          <div className={styles['hidden-count']}>+{hiddenCount}</div>
         )}
       </div>
     </div>

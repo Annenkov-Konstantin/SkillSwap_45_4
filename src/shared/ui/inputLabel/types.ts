@@ -1,4 +1,4 @@
 export interface IInputWrapper {
-    inputId: string;
-    labelValue: string;
+  inputId: string;
+  labelValue: string;
 }

@@ -13,20 +13,19 @@
   cursor: pointer;
   color: $color-caption;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: $color-text;
   }
-  
+
   &:focus {
     outline: none;
     color: $color-text-link;
   }
 
   &:active {
-    color: $color-text-link; 
+    color: $color-text-link;
   }
-
 }
 
 .arrow {
@@ -48,7 +47,7 @@
   color: $color-text;
   transform: none; // Убираем вращение для крестика
   transition: transform 0.2s ease;
-  
+
   path {
     stroke: currentColor;
     stroke-width: 2;

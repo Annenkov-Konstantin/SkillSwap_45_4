@@ -4,10 +4,12 @@
 .container {
   position: relative;
   width: 100%;
-    border: 1px solid $color-caption;
+  border: 1px solid $color-caption;
   border-radius: 12px;
-  background-color: $color-card-input;    // общий фон
-  transition: border-radius 0.2s, border-color 0.2s;
+  background-color: $color-card-input; // общий фон
+  transition:
+    border-radius 0.2s,
+    border-color 0.2s;
 }
 
 .containerOpen {

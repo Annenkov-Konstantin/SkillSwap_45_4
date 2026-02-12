@@ -1,9 +1,8 @@
-import {type IInputWrapper} from './types';
+import { type IInputWrapper } from './types';
 import styles from './inputLabel.module.scss';
 
-
-export const InputLabel = ({inputId, labelValue}: IInputWrapper) => {
- return (
+export const InputLabel = ({ inputId, labelValue }: IInputWrapper) => {
+  return (
     <>
       {/* Лейбл – ВНЕ рамки */}
       {labelValue && (
@@ -12,5 +11,5 @@ export const InputLabel = ({inputId, labelValue}: IInputWrapper) => {
         </label>
       )}
     </>
- );
-}
+  );
+};

@@ -1,5 +1,5 @@
 export interface IInputAndDropdownWrapper {
-input: React.ReactNode;
-dropdownList: React.ReactNode;
-isOpen: boolean;
+  input: React.ReactNode;
+  dropdownList: React.ReactNode;
+  isOpen: boolean;
 }

@@ -3,7 +3,7 @@ import type { UserSkillDescriptionProps } from './types';
 import React from 'react';
 import { useSkill } from '@/shared/hooks/useSkillsCategoryMatcher';
 
-export const UserSkillDescription:React.FC<UserSkillDescriptionProps> = ({
+export const UserSkillDescription: React.FC<UserSkillDescriptionProps> = ({
   title,
   categoryId,
   skillId,
