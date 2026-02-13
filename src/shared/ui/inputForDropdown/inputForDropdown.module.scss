@@ -1,0 +1,43 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+.label {
+  @include body-text;
+  margin-bottom: 0;
+  color: $color-text;
+}
+
+.input {
+  @include body-text;
+  min-width: 0;
+  width: 100%;
+  padding: 12px 54px 12px 20px;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  outline: none;
+  transition: border-radius 0.2s;
+  min-height: 48px;
+  caret-color: $color-text-link;
+}
+
+.open {
+  border-bottom: 1px solid $color-disabled;
+}
+
+/* Позиционирование кнопки */
+.triggerWrapper {
+  position: absolute;
+  right: 20px; /* Отступ от правого края инпута */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2; /* Кнопка была поверх инпута */
+  pointer-events: auto;
+
+  /* Центрирование кнопки */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}

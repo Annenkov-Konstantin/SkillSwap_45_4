@@ -13,7 +13,6 @@ export const SkillActionModal: React.FC<TSkillActionModalProps> = ({
   onClose,
   isOpen
 }) => {
-
   useEffect(() => {
     if (!isOpen) return;
 

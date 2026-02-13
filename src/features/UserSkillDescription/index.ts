@@ -1,1 +1,1 @@
-export { UserSkillDescription } from './UserSkillDescription'
+export { UserSkillDescription } from './UserSkillDescription';

@@ -3,7 +3,10 @@ import styles from './dropdownTrigger.module.scss';
 import clsx from 'clsx';
 import React from 'react';
 
-export const DropdownTrigger:React.FC<TDropdownTriggerProps> = ({ isOpen, onClick }: TDropdownTriggerProps) => {
+export const DropdownTrigger: React.FC<TDropdownTriggerProps> = ({
+  isOpen,
+  onClick
+}: TDropdownTriggerProps) => {
   return (
     <button className={styles.trigger_button}>
       <svg

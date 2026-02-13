@@ -5,4 +5,9 @@ export { Button } from './button';
 export { Favourites } from './favourites';
 export { RadioButton } from './radioButton';
 export { Logo } from './logo';
-export { Checkbox } from './checkbox'
+export { Checkbox } from './checkbox';
+export { InputLabel } from './inputLabel';
+export { InputAndDropdownWrapper } from './inputAndDropdownWrapper';
+export { InputForDropdown } from './inputForDropdown';
+export { InputButton } from './inputButton';
+export { DropdownList } from './dropdownList';

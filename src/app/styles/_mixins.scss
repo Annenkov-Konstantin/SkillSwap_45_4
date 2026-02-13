@@ -4,6 +4,13 @@
   border-radius: $radius;
 }
 
+@mixin body-text {
+  font-family: map-get($body, font-family);
+  font-weight: map-get($body, font-weight);
+  font-size: map-get($body, font-size);
+  line-height: map-get($body, line-height);
+}
+
 @mixin button-main {
   display: inline-flex;
   padding: 12px 24px;
