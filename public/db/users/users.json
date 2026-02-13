@@ -148,5 +148,20 @@
     "favoriteSkills": ["skill_018", "skill_032"],
     "toLearn": ["skill_007", "skill_023"],
     "canTeach": ["skill_034", "skill_039", "skill_040"]
+  },
+  {
+    "_id": "user_11",
+    "name": "София",
+    "location": "Нижний Новгород",
+    "dateOfBirth": "1999-01-28",
+    "gender": "женский",
+    "avatarPic": "https://randomuser.me/api/portraits/women/10.jpg",
+    "email": "sofia.user10@example.com",
+    "aboutMe": "Фитнес-тренер и нутрициолог. Помогаю людям найти гармонию с телом и питанием",
+    "createdAt": "2024-01-22T17:50:00.000Z",
+    "updatedAt": "2024-02-13T09:45:00.000Z",
+    "favoriteSkills": ["skill_018", "skill_032"],
+    "toLearn": ["skill_007", "skill_023"],
+    "canTeach": ["skill_034", "skill_039", "skill_040"]
   }
 ]

@@ -1,4 +1,4 @@
-export type TSkillStatus =
+export type TUserSkillStatus =
   | 'inWishlist'
   | 'awaitingResponse'
   | 'accepted'
@@ -135,14 +135,14 @@ export type SubcategoryByCategory = {
 };
 
 // Тип TSkill с гарантированной согласованностью через условные типы
-export type TSkill = {
+export type TUserSkill = {
   _id: string;
   title: string;
   description: string;
   images: string[];
   likes: number;
   tagging: string[];
-  status: TSkillStatus;
+  status: TUserSkillStatus;
   mentorId: string;
   createdAt: string;
   updatedAt: string;
