@@ -1,5 +1,4 @@
-import './styles/_variables.scss';
-import './styles/global.scss';
+import './styles/index.module.scss';
 
 import { Route, Routes, useLocation } from 'react-router-dom';
 
