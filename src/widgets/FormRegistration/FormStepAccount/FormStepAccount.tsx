@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { Button, Input } from '@/shared/ui';
 
 import googleIcon from '../../../assets/icons/google.svg';
@@ -7,7 +8,7 @@ import styles from './FormStepAccount.module.scss';
 
 import { useState } from 'react';
 
-export const FormStepAccount = () => {
+export const FormStepAccount: FC = () => {
   const [value, setValue] = useState(''); // email
   const [password, setPassword] = useState(''); // пароль
 
