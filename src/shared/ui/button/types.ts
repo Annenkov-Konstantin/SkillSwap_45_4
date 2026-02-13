@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 type ButtonStatus =
   | 'primary'
@@ -11,4 +11,4 @@ export type TButtonProps = {
   onClick?: () => void;
   status: ButtonStatus;
   children: ReactNode;
-}
+};

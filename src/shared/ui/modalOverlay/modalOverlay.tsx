@@ -1,14 +1,9 @@
+import React from 'react';
+import type { TModalOverlayUI } from './types';
 import styles from './modalOverlay.module.scss';
 import clsx from 'clsx';
 
-type TModalOverlayUI = {
-  onClick: () => void;
-  blur?: boolean;
-  isVisible?: boolean;
-  backdrop?:boolean;
-};
-
-export const ModalOverlayUI = ({
+export const ModalOverlayUI: React.FC<TModalOverlayUI> = ({
   onClick,
   isVisible,
   blur = true,
@@ -18,7 +13,7 @@ export const ModalOverlayUI = ({
     className={clsx(styles.overlay, {
       [styles.overlay_blur]: blur,
       [styles.overlay_visible]: isVisible,
-      [styles.overlay_backdrop]: backdrop,
+      [styles.overlay_backdrop]: backdrop
     })}
     onClick={onClick}
   ></div>

@@ -6,7 +6,7 @@ import search from './icons/search.svg';
 
 import type { InputType, InputUIProps } from './types';
 
-export const Input = ({
+export const Input: React.FC<InputUIProps> = ({
   type = 'text',
   placeholder,
   value,

@@ -1,7 +1,6 @@
 @use '@/app/styles/variables' as *;
 @use '@/app/styles/mixins' as *;
 
- .test {
-  color: var(--color-text);
- }
-
+.test {
+  color: $color-text;
+}

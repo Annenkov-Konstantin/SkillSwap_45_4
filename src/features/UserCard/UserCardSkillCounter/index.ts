@@ -1,0 +1,1 @@
+export { UserCardSkillCounter } from './UserCardSkillCounter';

@@ -1,0 +1,57 @@
+@use '@/app/styles/variables' as *;
+
+footer {
+  display: flex;
+  align-items: center;
+  background-color: $color-card-input;
+  color: $color-text;
+  padding: 36px 32px;
+  font-family: $font-family-main;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  height: 232px;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footerLogoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  font-family: $font-family-jost;
+  font-size: 24px;
+  max-height: 168px;
+}
+
+.footerLinksGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 12px;
+  top: 8px;
+  right: 80px;
+  margin: 0;
+  padding: 0;
+}
+
+.footerLink {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    color: $color-text;
+    opacity: 0.6;
+  }
+}
+
+.copyright {
+  justify-content: center;
+  color: $color-caption;
+  font-family: $font-family-main;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+}
