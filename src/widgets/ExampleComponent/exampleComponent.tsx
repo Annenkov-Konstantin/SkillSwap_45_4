@@ -5,6 +5,7 @@ import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
 import { Checkbox } from '@/shared/ui/checkbox/checkbox';
 import { SkillDetails } from '../SkillDetails/SkillDetails';
+import { UserCardSkillUI } from '@/features/UserCard/UserCardSkill';
 
 const images = [
   "https://i.pinimg.com/1200x/9a/35/00/9a35001136e00e4f6ba6d16125077886.jpg",
@@ -18,8 +19,23 @@ export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [checked, setChecked] = useState(false);
-  const [checked1, setChecked1] = useState(false);
-  const [checked2, setChecked2] = useState(false);
+
+
+ const skill1 = {
+  category: 'Бизнес и карьера',
+  subCategory: 'Управление командой',
+  title: 'Разработка веб-приложений на React'
+};
+const skill2 = {
+  category: 'Иностранные языки',
+  subCategory: 'Английский',
+  title: 'Английский для IT-специалистов'
+};
+const skill3 = {
+  category: 'Творчество и искусство',
+  subCategory: 'Креативное письмо',
+  title: 'Креативное письмо для маркетологов'
+};
 
   return (
     <div>
@@ -31,8 +47,6 @@ export const ExampleComponent: FC = () => {
       <Input value={value} onChange={setValue} isSearch={true} />
       <Button status='primary' children='Войти' />
       <Checkbox checked={checked} label='Бизнес и карьера' onChange={setChecked} />
-      <Checkbox checked={checked1} label='Творчество и искусство' onChange={setChecked1} />
-      <Checkbox checked={checked2} label='Спорт и здоровье' onChange={setChecked2} />
       <SkillDetails
         title={"Разработка веб-приложений на React"}
         images={images}
@@ -40,6 +54,10 @@ export const ExampleComponent: FC = () => {
         skillId={1}
         description={"Научу создавать современные SPA-приложения с использованием React, TypeScript и современных инструментов разработки."}
       />
+      <UserCardSkillUI
+       title= 'Может научить'
+       skills={[skill1, skill2, skill3]}
+       />
     </div>
   );
 };
