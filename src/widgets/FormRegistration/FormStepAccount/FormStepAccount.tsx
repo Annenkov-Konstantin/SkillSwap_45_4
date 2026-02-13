@@ -93,11 +93,6 @@ export const FormStepAccount: FC = () => {
           name='password-input'
         />
       </div>
-
-      {/* Кнопка «Далее» */}
-      <div className={styles.buttonNextWrapper}>
-        <Button status='primary' children='Далее' />
-      </div>
     </form>
   );
 };
