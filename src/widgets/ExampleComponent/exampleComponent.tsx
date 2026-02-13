@@ -1,22 +1,21 @@
-import  {type FC } from 'react';
+import { type FC } from 'react';
 import { useState } from 'react';
 import styles from './exampleComponent.module.scss';
 import { Button, DropdownTrigger } from '@/shared/ui';
 import { Input } from '@/shared/ui';
+import { FormStepAccount } from '../FormRegistration/FormStepAccount/FormStepAccount';
 
 export const ExampleComponent: FC = () => {
-const [open, setOpen] = useState(false);
-const [value, setValue] = useState('');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
 
   return (
     <div>
       <p className={styles.test}>Компонент внутри главной страницы</p>
-      <DropdownTrigger
-        onClick={()=>setOpen(!open)}
-        isOpen={open}
-        />
-      <Input value={value} onChange={setValue} isSearch={true}/>
-      <Button status='primary' children='Войти'/>
+      <DropdownTrigger onClick={() => setOpen(!open)} isOpen={open} />
+      <Input value={value} onChange={setValue} isSearch={true} />
+      <Button status='primary' children='Войти' />
+      <FormStepAccount />
     </div>
   );
 };

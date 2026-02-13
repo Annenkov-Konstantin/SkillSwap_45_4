@@ -1,3 +1,6 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
 .container {
   width: 100%;
 }
@@ -5,14 +8,14 @@
 .inputWrapper {
   display: flex;
   align-items: center;
-  border: 1px solid var(--border-input-color);
+  border: 1px solid $border-input-color;
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.2s ease;
 }
 
 .inputWrapper.error {
-  border-color: var(--border-error-color);
+  border-color: $border-error-color;
 }
 
 .input {
@@ -20,13 +23,13 @@
   padding: 10px 12px;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text);
-  background-color: var(--bg-primary);
+  //background-color: var(--bg-primary);
 }
 
 .input::placeholder {
-  color: var(--input-placeholder);
+  color: $input-placeholder;
 }
 
 .passwordToggle {
@@ -51,10 +54,11 @@
 }
 
 .errorText {
-  color: var(--border-error-color);
+  color: $border-error-color;
   font-size: 12px;
   margin-top: 4px;
   display: block;
+  position: absolute; //fix, чтобы не прыгала форма
 }
 
 .searchIcon {

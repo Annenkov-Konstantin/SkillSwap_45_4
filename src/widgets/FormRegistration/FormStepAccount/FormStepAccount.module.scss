@@ -1,0 +1,65 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+// Контейнер формы
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #253017;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: $form-bg-color;
+}
+
+.formContainer > Button {
+  width: 100%;
+}
+
+.formContainer .buttonNextWrapper Button {
+  width: 100%;
+}
+
+.buttonSvg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+// Разделитель «или»
+.separator {
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 45%;
+    height: 1px;
+    background-color: $color-disabled;
+    transform: translateY(-50%);
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  span {
+    padding: 0 8px;
+    background-color: #fff;
+  }
+}
+
+.buttonNextWrapper {
+  margin-top: 16px;
+}

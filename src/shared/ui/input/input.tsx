@@ -57,8 +57,8 @@ export const Input = ({
           name={name}
           aria-invalid={error}
           aria-describedby={error && errorText ? `${name}-error` : undefined}
-          onFocus={() => setIsFocused(true)} // при фокусе — true
-          onBlur={() => setIsFocused(false)} // при потере фокуса — false
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
 
         {isPasswordType && (
