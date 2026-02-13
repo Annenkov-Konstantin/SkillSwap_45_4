@@ -8,10 +8,10 @@ import { InputLabel } from '@shared/ui/inputLabel';
 import { InputAndDropdownWrapper } from '@shared/ui/inputAndDropdownWrapper';
 import { InputButton } from '@shared/ui/inputButton';
 
-export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
+export const CitySelect: React.FC<CitySelectProps> = ({ cityList }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [filteredList, setFilteredList] = useState(someList);
+  const [filteredList, setFilteredList] = useState(cityList);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -24,15 +24,15 @@ export const CitySelect: React.FC<CitySelectProps> = ({ someList }) => {
   // Фильтрация городов
   useEffect(() => {
     if (!debouncedSearch.trim()) {
-      setFilteredList(someList);
+      setFilteredList(cityList);
       return;
     }
 
-    const filtered = someList.filter((value) =>
+    const filtered = cityList.filter((value) =>
       value.name.toLowerCase().includes(debouncedSearch.toLowerCase())
     );
     setFilteredList(filtered);
-  }, [debouncedSearch, someList]);
+  }, [debouncedSearch, cityList]);
 
   // Обработчик клика вне компонента
   useEffect(() => {

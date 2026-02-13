@@ -30,7 +30,7 @@ export const ExampleComponent: FC = () => {
   return (
     <div>
       <div>
-        <CitySelect someList={cities} />
+        <CitySelect cityList={cities} />
       </div>
       <p className={styles.test}>Компонент внутри главной страницы</p>
       <DropdownTrigger onClick={() => setOpen(!open)} isOpen={open} />

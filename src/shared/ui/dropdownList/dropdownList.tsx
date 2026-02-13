@@ -1,6 +1,7 @@
 import React from 'react';
 import { type IDropdownList } from './types';
 import styles from './dropdownList.module.scss';
+import clsx from 'clsx';
 
 export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
   (
@@ -20,9 +21,10 @@ export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
           {filteredList.slice(0, 50).map((value, index) => (
             <li
               key={value._id}
-              className={`${styles.item} ${
-                highlightedIndex === index ? styles.highlighted : ''
-              }`}
+              className={clsx(
+                styles.item,
+                highlightedIndex === index && styles.highlighted
+              )}
               onClick={() => handleValueSelect(value.name)}
               onMouseEnter={() => setHighlightedIndex(index)}
             >
@@ -32,7 +34,7 @@ export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
 
           {showNotFound && (
             <li
-              className={`${styles.item} ${styles.notFound}`}
+              className={clsx(styles.item, styles.notFound)}
               onClick={() => handleValueSelect(inputValue)}
               onMouseEnter={() => setHighlightedIndex(-1)}
             >
@@ -46,6 +48,3 @@ export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
     );
   }
 );
-
-// Для отладки
-DropdownList.displayName = 'DropdownList';

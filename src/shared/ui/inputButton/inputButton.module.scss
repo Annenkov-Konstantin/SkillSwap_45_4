@@ -45,7 +45,7 @@
   width: 20px;
   height: 20px;
   color: $color-text;
-  transform: none; // Убираем вращение для крестика
+  transform: none;
   transition: transform 0.2s ease;
 
   path {

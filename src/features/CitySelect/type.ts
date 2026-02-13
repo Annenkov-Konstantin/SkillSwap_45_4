@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface CitySelectProps {
-  someList: { _id: string; name: string }[];
+  cityList: { _id: string; name: string }[];
 }
 
 export interface ICitySelectUI {
