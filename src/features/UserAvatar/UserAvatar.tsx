@@ -1,4 +1,4 @@
-import styles from './UserAvatar.module.css';
+import styles from './UserAvatar.module.scss';
 import React from 'react';
 
 export const UserAvatar: React.FC<HTMLDivElement> = () => {

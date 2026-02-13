@@ -2,5 +2,5 @@
 @use '@/app/styles/mixins' as *;
 
 .test {
-  color: var(--color-text);
+  color: $color-text;
 }

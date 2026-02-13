@@ -1,5 +1,6 @@
-@use '../../../app/styles/variables' as *;
-@use '../../../app/styles/mixins' as *;
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
 
 .trigger_button {
   display: flex;

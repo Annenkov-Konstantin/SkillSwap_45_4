@@ -1,3 +1,6 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
 .icon {
   display: flex;
   align-items: center;
