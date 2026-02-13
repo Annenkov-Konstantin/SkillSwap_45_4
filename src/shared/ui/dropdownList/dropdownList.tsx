@@ -20,7 +20,7 @@ export const DropdownList = React.forwardRef<HTMLUListElement, IDropdownList>(
         <ul ref={listRef} className={styles.list}>
           {filteredList.slice(0, 50).map((value, index) => (
             <li
-              key={value._id}
+              key={`${value._id}-${index}`}
               className={clsx(
                 styles.item,
                 highlightedIndex === index && styles.highlighted

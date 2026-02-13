@@ -41,16 +41,13 @@ export const ExampleComponent: FC = () => {
         label='Бизнес и карьера'
         onChange={setChecked}
       />
-      <Checkbox
-        checked={checked1}
-        label='Творчество и искусство'
-        onChange={setChecked1}
-      />
-      <Checkbox
-        checked={checked2}
-        label='Спорт и здоровье'
-        onChange={setChecked2}
-      />
+     <CitySelect
+      cityList={[
+         {_id:'2',name:'Бытовая химия'},
+         {_id:'2',name:'Лавоввая лампа'},
+         {_id:'2',name:'Ходячие хомячки'},
+         {_id:'2',name:'Лунная походка'} ]}
+     />
       <SkillGallery images={images} title={title} />
     </div>
   );
