@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './favourites.module.css';
+import styles from './favourites.module.scss';
 import clsx from 'clsx';
 
 export const Favourites: React.FC<HTMLButtonElement> = () => {

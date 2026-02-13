@@ -1,3 +1,7 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+
 .user_account {
   display: flex;
   align-items: center;

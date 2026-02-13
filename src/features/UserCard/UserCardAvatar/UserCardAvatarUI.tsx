@@ -1,6 +1,6 @@
 import React from 'react';
 import type { TUserCardAvatarPropsUI } from './type';
-import styles from './UserCardAvatar.module.css';
+import styles from './UserCardAvatar.module.scss';
 
 export const UserCardAvatarUI: React.FC<TUserCardAvatarPropsUI> = ({
   avatarPic,
