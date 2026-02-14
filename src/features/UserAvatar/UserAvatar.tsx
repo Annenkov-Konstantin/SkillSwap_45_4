@@ -1,11 +1,12 @@
+import type { FC } from 'react';
+import type { TUserAvatarProps } from './type';
 import styles from './UserAvatar.module.scss';
-import React from 'react';
 
-export const UserAvatar: React.FC<HTMLDivElement> = () => {
+export const UserAvatar: FC<TUserAvatarProps> = ({ userName, userPhoto }) => {
   return (
     <div className={styles.user_account}>
-      <p className={styles.user_name}>Мария</p>
-      <img src='/' alt='Photo of user' className={styles.user_photo} />
+      <p className={styles.user_name}>{userName}</p>
+      <img src={userPhoto} alt='Photo of user' className={styles.user_photo} />
     </div>
   );
 };
