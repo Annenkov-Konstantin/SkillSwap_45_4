@@ -1,65 +1,138 @@
-/* Reset для SkillSwap — только используемые в проекте элементы */
-
-html,
+/* Основные блочные элементы */
 body,
-main,
+section,
+article,
+aside,
+nav,
+header,
 footer,
+main,
 div,
-span,
-p,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Заголовки */
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+/* Абзацы и текстовые элементы */
+p,
+blockquote,
+figure,
+pre,
+address {
+  margin: 0;
+  padding: 0;
+}
+
+/* Списки */
 ul,
 ol,
-li,
-a,
-button,
-input,
-label,
-img,
-dialog {
+dl,
+menu,
+dir {
+  margin: 0;
+  padding: 0;
+}
+
+/* Элементы списка */
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Таблицы */
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
 }
 
-main,
-footer {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
+/* Формы и интерактивные элементы */
+form,
+fieldset,
+legend,
+label,
+input,
 button,
-input {
-  font: inherit;
-  color: inherit;
-  background-color: transparent;
+select,
+textarea,
+optgroup,
+option {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-button {
-  cursor: pointer;
+/* Ссылки */
+a {
+  margin: 0;
+  padding: 0;
 }
 
-input {
-  line-height: inherit;
+/* Медиа-элементы */
+img,
+picture,
+video,
+audio,
+canvas,
+svg {
+  margin: 0;
+  padding: 0;
+  display: block; /* Убираем строчное поведение */
+  max-width: 100%; /* Защита от переполнения */
+}
+
+/* Прочие блочные элементы */
+hr,
+br,
+wbr {
+  margin: 0;
+  padding: 0;
+}
+
+/* Inline-элементы (осторожно: могут потребовать корректировки) */
+span,
+strong,
+em,
+cite,
+q,
+code,
+samp,
+kbd,
+var,
+sub,
+sup,
+i,
+b,
+u,
+s,
+strike,
+small,
+abbr,
+acronym,
+dfn,
+time,
+mark,
+ruby,
+rt,
+rp {
+  margin: 0;
+  padding: 0;
 }
