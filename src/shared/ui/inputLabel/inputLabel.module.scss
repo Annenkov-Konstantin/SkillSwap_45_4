@@ -1,0 +1,11 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+
+// Лейбл – полностью отдельно, вне рамки
+.label {
+  @include body-text;
+  display: block;
+  margin-bottom: 4px; // небольшой отступ перед рамкой
+  color: $color-text;
+}

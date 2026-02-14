@@ -1,3 +1,3 @@
-export type TUserCardSkillCounterProps ={
+export type TUserCardSkillCounterProps = {
   counter: number;
-}
+};
