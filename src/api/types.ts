@@ -1,5 +1,7 @@
 import type { TCity } from "@/entities/city";
+import type { TSkills } from "@/entities/skills";
 import type { TUser } from "@/entities/user";
+import type { TUserSkill } from "@/entities/userSkill";
 
 export type TServerResponse<T> = {
   success: boolean;
@@ -9,34 +11,9 @@ export type TCityResponse = TServerResponse<{
   data:TCity[];
 }>;
 
-export type TGetAllUsers = TServerResponse<{
-  data:TUser[]
+export type TDefaultSkills = TServerResponse<{
+  data:TSkills;
 }>;
-
-export type TTokens = {
-  refresh_token: string;
-  access_token: string;
-}
-
-export type TRegisterData = Pick<TUser,
-  'name' |
-  'location' |
-  'dateOfBirth' |
-  'gender' |
-  'avatarPic' |
-  'email' |
-  'aboutMe' |
-  'toLearn' |
-  'canTeach'|
-  'favoriteSkills'
-> & {
-  password: string;
-};
-
-export type TLoginCredentials = {
-  email: string;
-  password: string;
-};
 
 export type TRegisterResponse =
   | {
@@ -52,13 +29,52 @@ export type TRegisterResponse =
       error_code?: string;  // error
     };
 
+export type TGetAllUsers = TServerResponse<{
+  data:TUser[]
+}>;
+
+export type TTokens = {
+  refresh_token: string;
+  access_token: string;
+}
+
+export type TRegisterData = Omit<TUser,
+    '_id'
+  | 'createdAt'
+  | 'updatedAt'
+> & {
+  password: string;
+};
+
+export type TLoginCredentials = {
+  email: string;
+  password: string;
+};
+
 
 export type TGetAuthUserById = TServerResponse<{
   data: TUser;
   message?:string;
 }>;
 
+export type TUserSkillResponse = TServerResponse<{
+  data:TUserSkill;
+  message:string;
+}>;
 
+export type TUserAllSkillsResponse = TServerResponse<{
+  data:TUserSkill[];
+  message:string;
+}>;
+
+export type TSkillData = {
+  title: string;
+  description: string;
+  type: 'teach' | 'learn';
+  category: number;
+  subcategory: number;
+  images?: string[];
+}
 
 export type TUserResponse= {
     id: string;
@@ -75,3 +91,12 @@ export type TRefreshAuthResponse = {
     email: string;
   }
 }
+
+export type TLikeResponse = {
+  success: boolean;
+  message: string;
+  data?: {
+    likes: number;
+    skillId: string;
+  };
+};

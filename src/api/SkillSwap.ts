@@ -12,6 +12,11 @@ import type {
   TUserResponse,
   TLoginCredentials,
   TGetAuthUserById,
+  TUserSkillResponse,
+  TSkillData,
+  TUserAllSkillsResponse,
+  TLikeResponse,
+  TDefaultSkills,
 
 } from './types';
 import type { TUser } from '@/entities/user';
@@ -61,7 +66,7 @@ export class Api {
     .catch((error) => Promise.reject(new Error('Failed to refresh token')));
 }
 
-// Отдельный метод для auth/v1/user
+// Отдельный метод для auth/v1/user по id через supabase uuid
   private fetchAuthUser = async (): Promise<TUserResponse> => {
 
     let accessToken = getCookie('access_token');
@@ -81,22 +86,22 @@ export class Api {
         return Promise.reject(new Error('Ваша сессия истекла'));
       }
 
-    try {
-      await this.refreshToken();
-      const newAccessToken = getCookie('access_token');
+      try {
+        await this.refreshToken();
+        const newAccessToken = getCookie('access_token');
 
-      const retryRes = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.authUser}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${newAccessToken}`,
-          'apikey': this.apiKey
+        const retryRes = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.authUser}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${newAccessToken}`,
+            'apikey': this.apiKey
+          }
+        });
+          return  await this.checkResponse<TUserResponse>(retryRes);
+        } catch (error) {
+          return Promise.reject(new Error('Session expired. Please login again.'));
         }
-      });
-        return  await this.checkResponse<TUserResponse>(retryRes);
-      } catch (error) {
-        return Promise.reject(new Error('Session expired. Please login again.'));
       }
-    }
 
     if (res.ok) {
       return await this.checkResponse<TUserResponse>(res);
@@ -171,11 +176,11 @@ export class Api {
     }
   }
 
-  // Запрос на регистрацию
+
   registerUserApi = (data: TRegisterData): Promise<TRegisterResponse> => {
     const { email, password, ...profileData } = data;
 
-    return fetch(`${this.baseUrl}/auth/v1/signup`, {
+    return fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.signUp}`, {
       method: 'POST',
       headers: {
         'apikey': this.apiKey,
@@ -183,13 +188,24 @@ export class Api {
       },
       body: JSON.stringify({ email, password })
     })
-    .then(res => res.json())
-    .then(authData => {
+    .then(async res => {
+      const authData = await res.json();
+
+
+      if (!res.ok) {
+        if (res.status === 422 || res.status === 400) {
+          throw {
+            success: false,
+            error_code: 'user_already_exists',
+            message: 'Пользователь с таким email уже зарегистрирован '
+          };
+        }
+      }
       if (!authData.access_token) {
-        return {
+        throw {
           success: false,
           error_code: 'user_already_exists',
-          message: 'Пользователь с таким email уже зарегистрирован отсюда'
+          message: 'Пользователь с таким email уже зарегистрирован'
         };
       }
 
@@ -198,7 +214,6 @@ export class Api {
         refresh_token: authData.refresh_token,
       };
 
-      // Автоматически создаём профиль после регистрации
       return this.createUserProfile(
         { email, ...profileData },
         authData.access_token
@@ -209,21 +224,28 @@ export class Api {
         message,
         ...tokens
       }))
-      .catch(error => ({
-        success: false,
-        message: error.message
-      }));
+      .catch(error => {
+        throw {
+          success: false,
+          message: error.message
+        };
+      });
+    })
+    .catch(error => {
+      // Здесь можно дополнительно обработать ошибку
+      console.error('Registration error:', error);
+      return error; // или throw error, если хотите пробросить дальше
     });
   }
 
 
   // Обновление профиля
-  public updateUserProfile = async (profileData: Partial<TUser>): Promise<TGetAuthUserById> => {
+  updateUserProfileApi = async (profileData: Partial<TUser>): Promise<TGetAuthUserById> => {
     try {
-      // 1️⃣ Получаем актуальные токены и auth данные
-      const authData = await this.fetchAuthUser(); // 👈 Твоя функция, обновляет токены при необходимости
+      // Получаем актуальные токены и auth данные
+      const authData = await this.fetchAuthUser();
       const userId = authData.id; // UUID из auth
-      // 2️⃣ Получаем _id пользователя из твоей таблицы
+      // Получаем _id пользователя из таблицы
       const userResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`, {
         method: 'POST',
         headers: {
@@ -231,7 +253,7 @@ export class Api {
           'apikey': this.apiKey,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ auth_id: userId })
+        body: JSON.stringify({auth_id: userId })
       });
 
       const userResult = await userResponse.json();
@@ -248,7 +270,7 @@ export class Api {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          _id: userResult.data._id, // 👈 _id из твоей таблицы
+          _id: userResult.data._id, // _id из таблицы
           ...profileData
         })
       });
@@ -272,6 +294,69 @@ export class Api {
     }
   };
 
+
+  // Добавление нового навыка
+  addNewUserSkillApi = async (skillData:TSkillData): Promise<TUserSkillResponse> => {
+    try {
+      // Получаем актуальные токены и auth данные
+      const authData = await this.fetchAuthUser();
+      const userId = authData.id; // UUID из auth
+
+      // Получаем _id пользователя из твоей таблицы
+      const userResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${getCookie('access_token')}`,
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ auth_id: userId })
+      });
+
+      const userResult = await userResponse.json();
+
+      if (!userResult.success) {
+        throw new Error(userResult.message || 'Пользователь не найден');
+      }
+
+      // Добавляем новый навык
+      const response = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.addNewUserSkill}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${getCookie('access_token')}`,
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: skillData.title,
+          description: skillData.description,
+          type: skillData.type,
+          category: skillData.category,
+          subcategory: skillData.subcategory,
+          images: skillData.images || []
+        })
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+
+      return result;
+
+    } catch (error) {
+      console.error('Ошибка добавления навыка:', error);
+
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('Session expired') || errorMessage.includes('сессия истекла')) {
+        return Promise.reject(new Error('Сессия истекла. Пожалуйста, войдите снова'));
+      }
+
+      return Promise.reject(error);
+    }
+  };
+
   // Запрос всех городов
   getCitiesApi = () =>
     fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getAllCities}`,{
@@ -285,9 +370,29 @@ export class Api {
         return Promise.reject(data);
       });
 
+  // Запрос всех скилов (список )
+  getDefaultSkillsApi = async (): Promise<TDefaultSkills> => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${QUERY_ENDPOINTS.getDefaultSkills}`,
+        {
+          method: 'GET',
+          headers: {
+            'apikey': this.apiKey,
+          },
+        }
+      );
 
+      const result = await response.json();
+      return result;
+
+    } catch (error) {
+      console.error('Ошибка получения навыков пользователя:', error);
+      return Promise.reject(error);
+    }
+  };
   // Запрос всех пользователей
-  getAllUsersApi = () =>
+  getAllUsersApi = (): Promise<TUser[]> =>
     fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getAllUsers}`,{
       headers: {
         'apikey': this.apiKey,
@@ -301,14 +406,14 @@ export class Api {
 
 
   // Запрос на пользователя по id
-  getUserById = (data:TUser) =>
+  getUserByIdApi = (id:TUser['_id']) =>
     fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getUserById}`,{
       method: 'POST',
       headers: {
         'apikey': this.apiKey,
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({ id: data._id })
+      body: JSON.stringify({ id: id })
     })
       .then((res) => this.checkResponse<TGetAllUsers>(res))
       .then((data) => {
@@ -319,7 +424,7 @@ export class Api {
 
 
   // Функция логина
-  public login = async (credentials: TLoginCredentials): Promise<{user:TUser,tokens:TTokens}> => {
+  loginApi = async (credentials: TLoginCredentials): Promise<{user:TUser,tokens:TTokens}> => {
     try {
       // Логинимся в Supabase Auth
       const authResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.loginUser}`, {
@@ -349,7 +454,7 @@ export class Api {
           headers: {
             'Authorization': `Bearer ${authData.access_token}`,
             'apikey': this.apiKey,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json;charset=utf-8'
           },
           body: JSON.stringify({
             auth_id: authData.user.id
@@ -379,9 +484,87 @@ export class Api {
     }
   };
 
+  // Запрос за получением конкретного навыка по id
+  getUserSkillByIdApi = async (skillId: string): Promise<TUserSkillResponse> => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${QUERY_ENDPOINTS.getSkillById}`,
+        {
+          method: 'POST',
+          headers: {
+            'apikey': this.apiKey,
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            skill_id: skillId
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      return result;
+
+    } catch (error) {
+      console.error('Ошибка получения навыков пользователя:', error);
+      return Promise.reject(error);
+    }
+  };
+
+  // Запрос на получение всех Предложений навыков
+  getUserSkillsApi = async (): Promise<TUserAllSkillsResponse> => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${QUERY_ENDPOINTS.getAllUserSkills}`,
+        {
+          method: 'GET',
+          headers: {
+            'apikey': this.apiKey,
+          },
+        }
+      );
+
+      const result = await response.json();
+      return result;
+
+    } catch (error) {
+      console.error('Ошибка получения навыков пользователя:', error);
+      return Promise.reject(error);
+    }
+  };
+
+  // Ставим лайк только авторизованный пользователь
+  updateSkillLikesApi = async (skillId: string, delta: 1 | -1): Promise<TLikeResponse> => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${QUERY_ENDPOINTS.likeUserSkill}`,
+        {
+          method: 'POST',
+          headers: {
+            'apikey': this.apiKey,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('access_token')}` // 👈 Токен для авторизации
+          },
+          body: JSON.stringify({
+            skill_id: skillId,
+            delta: delta
+          })
+        }
+      );
+
+      const result = await response.json();
+      return result;
+
+    } catch (error) {
+        console.error('Ошибка обновления лайка:', error);
+        return Promise.reject(error);
+    }
+  };
+
 }
-
-
-
 
 export const api = new Api(URL,APIKEY);

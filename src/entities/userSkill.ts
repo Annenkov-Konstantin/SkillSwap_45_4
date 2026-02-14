@@ -1,4 +1,4 @@
-export type TSkill = {
+export type TUserSkill = {
   _id: string;
   type: 'teach' | 'learn';
   title: string;
@@ -7,7 +7,7 @@ export type TSkill = {
   subCategory: number;
   images: string[];
   likes: number;
-  userId: string;                  
+  userId: string;
   createdAt: string;
   updatedAt: string;
 };
