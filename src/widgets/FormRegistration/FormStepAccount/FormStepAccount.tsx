@@ -6,35 +6,28 @@ import appleIcon from '../../../assets/icons/apple.svg';
 
 import styles from './FormStepAccount.module.scss';
 
+import type { TAuthForm } from './types';
 import { useState } from 'react';
 
-export const FormStepAccount: FC = () => {
-  const [value, setValue] = useState(''); // email
-  const [password, setPassword] = useState(''); // пароль
-
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+export const FormStepAccount: FC<TAuthForm> = ({
+  passPlaceholder,
+  emailErrorText,
+  passwordChange,
+  emailChange,
+  passValue,
+  emailValue,
+  emailError,
+  passwordError,
+  isFormRegistr,
+  registrInfo
+}) => {
 
   const handleEmailChange = (newValue: string) => {
-    setValue(newValue);
-    // Валидация email: минимум 3 символа
-    setEmailError(newValue.length < 3 && newValue.length > 0);
+    emailChange(newValue); // вызываем пропс с новым значением
   };
 
   const handlePasswordChange = (newPassword: string) => {
-    setPassword(newPassword);
-    // Валидация пароля: минимум 6 символов
-    setPasswordError(newPassword.length < 6);
-  };
-
-  const handleGoogleLogin = () => {
-    // Логика авторизации через Google (например, редирект или вызов API)
-    console.log('Авторизация через Google...');
-  };
-
-  const handleAppleLogin = () => {
-    // Логика авторизации через Apple
-    console.log('Авторизация через Apple...');
+    passwordChange(newPassword); // вызываем пропс с новым паролем
   };
 
   return (
@@ -70,13 +63,12 @@ export const FormStepAccount: FC = () => {
         <label htmlFor='email'>Email</label>
         <Input
           type='email'
-          pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
           placeholder='Введите email'
-          value={value}
+          value={emailValue}
           onChange={handleEmailChange}
           error={emailError}
-          errorText='Слишком коротко (минимум 3 символа)'
-          name='email-input'
+          errorText={emailErrorText || ''}
+          name='email'
         />
       </div>
 
@@ -85,14 +77,18 @@ export const FormStepAccount: FC = () => {
         <label htmlFor='password'>Пароль</label>
         <Input
           type='password'
-          placeholder='Введите ваш пароль'
-          value={password}
+          placeholder={passPlaceholder}
+          value={passValue}
           onChange={handlePasswordChange}
           error={passwordError}
-          errorText='Пароль слишком короткий (минимум 6 символов)'
-          name='password-input'
+          errorText=''
+          name='password'
         />
       </div>
+      {
+      isFormRegistr && !passwordError &&
+      <p>{registrInfo}</p>
+      }
     </form>
   );
 };
