@@ -116,7 +116,7 @@ export class Api {
 
   private createUserProfile = (data: Omit<TRegisterData, 'password'>, accessToken: string): Promise<{ profile: TUser; message: string }> => {
       const { email, ...dataWithoutEmail } = data;
-    const toLowerCase = transformKeysToLowercase(dataWithoutEmail);
+    const toLowerCaseData = transformKeysToLowercase(dataWithoutEmail);
 
     return fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.registerUser}`, {
       method: 'POST',
@@ -125,7 +125,7 @@ export class Api {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify(toLowerCase)
+      body: JSON.stringify(toLowerCaseData)
     })
     .then(res => res.json())
     .then(response => {
@@ -241,6 +241,7 @@ export class Api {
 
   // Обновление профиля
   updateUserProfileApi = async (profileData: Partial<TUser>): Promise<TGetAuthUserById> => {
+    const toLowerCaseData = transformKeysToLowercase(profileData);
     try {
       // Получаем актуальные токены и auth данные
       const authData = await this.fetchAuthUser();
@@ -271,7 +272,7 @@ export class Api {
         },
         body: JSON.stringify({
           _id: userResult.data._id, // _id из таблицы
-          ...profileData
+          ...toLowerCaseData
         })
       });
 

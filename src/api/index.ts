@@ -1,1 +1,1 @@
-export { api } from './SkillSwap';
+export { api } from './api';
