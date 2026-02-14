@@ -33,10 +33,10 @@ export type TRegisterData = Pick<TUser,
   password: string;
 };
 
-export type TRegisterErrorResponse = {
-  success: boolean;
-  message: string;
-}
+export type TLoginCredentials = {
+  email: string;
+  password: string;
+};
 
 export type TRegisterResponse =
   | {
@@ -53,10 +53,11 @@ export type TRegisterResponse =
     };
 
 
-export type TUpdateUserResponse = TServerResponse<{
+export type TGetAuthUserById = TServerResponse<{
   data: TUser;
-  message:string;
+  message?:string;
 }>;
+
 
 
 export type TUserResponse= {
@@ -64,7 +65,7 @@ export type TUserResponse= {
     email: string;
   }
 
-export type TAuthUser = {
+export type TRefreshAuthResponse = {
   access_token: string;
   refresh_token: string;
   expires_in: number;
@@ -74,41 +75,3 @@ export type TAuthUser = {
     email: string;
   }
 }
-
-// export type TIngredientsResponse = TServerResponse<{
-//   data: TIngredient[];
-// }>;
-
-// export type TFeedsResponse = TServerResponse<{
-//   orders: TOrder[];
-//   total: number;
-//   totalToday: number;
-// }>;
-
-// export type TOrdersResponse = TServerResponse<{
-//   data: TOrder[];
-// }>;
-
-// export type TNewOrderResponse = TServerResponse<{
-//   order: TOrder;
-//   name: string;
-// }>;
-
-// export type TOrderResponse = TServerResponse<{
-//   orders: TOrder[];
-// }>;
-
-
-// export type TAuthResponse = TServerResponse<{
-//   refreshToken: string;
-//   accessToken: string;
-//   user: TUser;
-//   message?: string;
-// }>;
-
-// export type TUserResponse = TServerResponse<{ user: TUser }>;
-
-// export type TLoginData = {
-//   email: string;
-//   password: string;
-// };

@@ -12,33 +12,29 @@ export const ExampleComponent: FC = () => {
   const [name, setName] = useState('');
 
 useEffect(() => {
-    const testUpdate = async () => {
-      try {
-        // 🎯 ХАРДКОД - тестовые данные пользователя
-        const testUserData = {
+  const testLogin = async () => {
+    try {
+      // 🎯 ХАРДКОД - тестовые данные для входа
+      const credentials = {
+        email: '0999999@55555.ru',  // 👈 ТВОЙ ТЕСТОВЫЙ EMAIL
+        password: '123456'           // 👈 ТВОЙ ТЕСТОВЫЙ ПАРОЛЬ
+      };
 
-          name: 'Сережа',
-          email: 'test@example.com',
-          location: 'Москва',
-          dateofbirth: '1990-01-01',  // 👈 snake_case!
-          gender: 'мужицкий',
-          aboutme: 'Это тестовый профиль'  // 👈 snake_case!
-        };
+      console.log('🚀 Отправляем запрос на вход:', credentials);
 
-        console.log('🚀 Отправляем тестовые данные:', testUserData);
+      const result = await api.login(credentials);
 
-        const result = await api.updateUserProfile(testUserData);
+      console.log('✅ Успешный вход!');
+      console.log('📦 Данные пользователя:', result.user);
+      console.log('🔑 Токены:', result.tokens);
 
-        console.log('✅ Результат обновления:', result);
-        console.log('📦 Обновленные данные:', result.data);
+    } catch (error) {
+      console.error('❌ Ошибка входа:', error);
+    }
+  };
 
-      } catch (error) {
-        console.error('❌ Ошибка:', error);
-      }
-    };
-
-    testUpdate();
-  }, []); // Запускается один раз при монтировании
+  testLogin();
+}, []); // Запускается один раз при монтировании
 
 
   return (

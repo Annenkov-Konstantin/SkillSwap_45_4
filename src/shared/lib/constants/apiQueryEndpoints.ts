@@ -7,5 +7,6 @@ export const QUERY_ENDPOINTS = {
   authUser:'auth/v1/user',
   getUserByAuthId:'rest/v1/rpc/get_user_by_auth_id',
   updateUserProfile:'rest/v1/rpc/update_user_profile',
+  loginUser:'auth/v1/token?grant_type=password'
 
 } as const;

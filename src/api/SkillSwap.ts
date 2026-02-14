@@ -2,15 +2,18 @@
 import { setCookie, getCookie } from '@/shared/lib/utils/cookie';
 import { QUERY_ENDPOINTS } from '@/shared/lib/constants/apiQueryEndpoints';
 import type {
-  TAuthUser,
+  TRefreshAuthResponse,
   TCityResponse,
   TGetAllUsers,
   TRegisterData,
   TRegisterResponse,
   TServerResponse,
   TTokens,
-  TUpdateUserResponse,
-  TUserResponse } from './types';
+  TUserResponse,
+  TLoginCredentials,
+  TGetAuthUserById,
+
+} from './types';
 import type { TUser } from '@/entities/user';
 import { transformKeysToLowercase } from '@/shared/lib/utils/transformApiKeysToLowercase';
 
@@ -30,7 +33,7 @@ export class Api {
     res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
  // Функция авторизации через refresh токен
-  private refreshToken = (): Promise<TAuthUser> => {
+  private refreshToken = (): Promise<TRefreshAuthResponse> => {
     const refreshToken = localStorage.getItem('refresh_token');
     if (!refreshToken) {
       return Promise.reject(new Error('No refresh token available'));
@@ -47,7 +50,7 @@ export class Api {
       })
     })
     .then((res) => {
-    return this.checkResponse<TAuthUser>(res);
+    return this.checkResponse<TRefreshAuthResponse>(res);
     })
     .then((refreshData) => {
       // Сохраняем токены!
@@ -215,68 +218,59 @@ export class Api {
 
 
   // Обновление профиля
-  public updateUserProfile = async (profileData: Partial<TUser>): Promise<TUpdateUserResponse> => {
-  try {
-    // 1️⃣ Получаем актуальные токены и auth данные
-    const authData = await this.fetchAuthUser(); // 👈 Твоя функция, обновляет токены при необходимости
-    const userId = authData.id; // UUID из auth
-    // 2️⃣ Получаем _id пользователя из твоей таблицы
-    const userResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${getCookie('access_token')}`,
-        'apikey': this.apiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ auth_id: userId })
-    });
+  public updateUserProfile = async (profileData: Partial<TUser>): Promise<TGetAuthUserById> => {
+    try {
+      // 1️⃣ Получаем актуальные токены и auth данные
+      const authData = await this.fetchAuthUser(); // 👈 Твоя функция, обновляет токены при необходимости
+      const userId = authData.id; // UUID из auth
+      // 2️⃣ Получаем _id пользователя из твоей таблицы
+      const userResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${getCookie('access_token')}`,
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ auth_id: userId })
+      });
 
-    const userResult = await userResponse.json();
+      const userResult = await userResponse.json();
 
-    if (!userResult.success) {
-      throw new Error(userResult.message || 'Пользователь не найден');
+      if (!userResult.success) {
+        throw new Error(userResult.message || 'Пользователь не найден');
+      }
+      // Обновляем профиль
+      const response = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.updateUserProfile}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${getCookie('access_token')}`,
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          _id: userResult.data._id, // 👈 _id из твоей таблицы
+          ...profileData
+        })
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+      return result;
+
+    } catch (error) {
+      console.error('Ошибка обновления профиля:', error);
+
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('Session expired') || errorMessage.includes('сессия истекла')) {
+        return Promise.reject(new Error('Сессия истекла. Пожалуйста, войдите снова'));
+      }
+
+      return Promise.reject(error);
     }
-
-    // Обновляем профиль
-    const response = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.updateUserProfile}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${getCookie('access_token')}`,
-        'apikey': this.apiKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        _id: userResult.data._id, // 👈 _id из твоей таблицы
-        ...profileData
-      })
-    });
-
-    const result = await response.json();
-
-    if (!result.success) {
-      throw new Error(result.message);
-    }
-
-    return result;
-
-  } catch (error) {
-    console.error('Ошибка обновления профиля:', error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    if (errorMessage.includes('Session expired') || errorMessage.includes('сессия истекла')) {
-      return Promise.reject(new Error('Сессия истекла. Пожалуйста, войдите снова'));
-    }
-
-    return Promise.reject(error);
-  }
-};
-
-
-
-
-
-
-
+  };
 
   // Запрос всех городов
   getCitiesApi = () =>
@@ -324,153 +318,70 @@ export class Api {
 
 
 
+  // Функция логина
+  public login = async (credentials: TLoginCredentials): Promise<{user:TUser,tokens:TTokens}> => {
+    try {
+      // Логинимся в Supabase Auth
+      const authResponse = await fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.loginUser}`, {
+        method: 'POST',
+        headers: {
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password
+        })
+      });
+
+      if (!authResponse.ok) {
+        const error = await authResponse.json();
+        throw new Error(error.msg || 'Ошибка входа. Проверьте email и пароль');
+      }
+
+      const authData:TRefreshAuthResponse = await authResponse.json();
+
+      // Получаем данные пользователя из твоей таблицы по auth_user_id
+      const userResponse = await fetch(
+        `${this.baseUrl}/rest/v1/rpc/get_user_by_auth_id`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authData.access_token}`,
+            'apikey': this.apiKey,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            auth_id: authData.user.id
+          })
+        }
+      );
+
+      const userResult:TGetAuthUserById = await userResponse.json();
+
+      // Если пользователь не найден - выбрасываем ошибку!
+      if (!userResult.success) {
+        throw new Error('Профиль пользователя не найден. Сначала зарегистрируйтесь.');
+      }
+
+      // Возвращаем данные
+      return {
+        user: userResult.data,
+        tokens: {
+          access_token: authData.access_token,
+          refresh_token: authData.refresh_token,
+        }
+      };
+
+    } catch (error) {
+      console.error(' Ошибка входа:', error);
+      return Promise.reject(error);
+    }
+  };
+
 }
 
 
 
 
 export const api = new Api(URL,APIKEY);
-
-
-
-
-
-
-
-
-
-
-//   getIngredientsApi = () =>
-//     fetch(`${this.baseUrl}/ingredients`)
-//       .then((res) => this.checkResponse<TIngredientsResponse>(res))
-//       .then((data) => {
-//         if (data?.success) return data.data;
-//         return Promise.reject(data);
-//       });
-
-//   getFeedsApi = () =>
-//     fetch(`${this.baseUrl}/orders/all`)
-//       .then((res) => this.checkResponse<TFeedsResponse>(res))
-//       .then((data) => {
-//         if (data?.success) return data;
-//         return Promise.reject(data);
-//       });
-
-//   getOrdersApi = () =>
-//     this.fetchWithRefresh<TFeedsResponse>(`${this.baseUrl}/orders`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8',
-//         authorization: getCookie('accessToken')
-//       } as HeadersInit
-//     }).then((data) => {
-//       if (data?.success) return data.orders;
-//       return Promise.reject(data);
-//     });
-
-//   orderBurgerApi = (data: string[]) =>
-//     this.fetchWithRefresh<TNewOrderResponse>(`${this.baseUrl}/orders`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8',
-//         authorization: getCookie('accessToken')
-//       } as HeadersInit,
-//       body: JSON.stringify({
-//         ingredients: data
-//       })
-//     }).then((data) => {
-//       if (data?.success) return data;
-//       return Promise.reject(data);
-//     });
-
-//   getOrderByNumberApi = (number: number) =>
-//     fetch(`${this.baseUrl}/orders/${number}`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     }).then((res) => this.checkResponse<TOrderResponse>(res));
-
-//   registerUserApi = (data: TRegisterData) =>
-//     fetch(`${this.baseUrl}/auth/register`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//       .then((res) => this.checkResponse<TAuthResponse>(res))
-//       .then((data) => {
-//         if (data?.success) return data;
-//         return Promise.reject(data);
-//       });
-
-//   loginUserApi = (data: TLoginData) =>
-//     fetch(`${this.baseUrl}/auth/login`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//       .then((res) => this.checkResponse<TAuthResponse>(res))
-//       .then((data) => {
-//         if (data?.success) return data;
-//         return Promise.reject(data);
-//       });
-
-//   forgotPasswordApi = (data: { email: string }) =>
-//     fetch(`${this.baseUrl}/password-reset`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//       .then((res) => this.checkResponse<TServerResponse<{}>>(res))
-//       .then((data) => {
-//         if (data?.success) return data;
-//         return Promise.reject(data);
-//       });
-
-//   resetPasswordApi = (data: { password: string; token: string }) =>
-//     fetch(`${this.baseUrl}/password-reset/reset`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//       .then((res) => this.checkResponse<TServerResponse<{}>>(res))
-//       .then((data) => {
-//         if (data?.success) return data;
-//         return Promise.reject(data);
-//       });
-
-//   getUserApi = () =>
-//     this.fetchWithRefresh<TUserResponse>(`${this.baseUrl}/auth/user`, {
-//       headers: {
-//         authorization: getCookie('accessToken')
-//       } as HeadersInit
-//     });
-
-//   updateUserApi = (user: Partial<TRegisterData>) =>
-//     this.fetchWithRefresh<TUserResponse>(`${this.baseUrl}/auth/user`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8',
-//         authorization: getCookie('accessToken')
-//       } as HeadersInit,
-//       body: JSON.stringify(user)
-//     });
-
-//   logoutApi = () =>
-//     fetch(`${this.baseUrl}/auth/logout`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify({
-//         token: localStorage.getItem('refreshToken')
-//       })
-//     }).then((res) => this.checkResponse<TServerResponse<{}>>(res));
