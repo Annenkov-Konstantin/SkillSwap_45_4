@@ -1,138 +1,65 @@
-/* Основные блочные элементы */
-body,
-section,
-article,
-aside,
-nav,
-header,
-footer,
-main,
-div,
-p {
-  margin: 0;
-  padding: 0;
-}
+/* Reset для SkillSwap — только используемые в проекте элементы */
 
-/* Заголовки */
+html,
+body,
+main,
+footer,
+div,
+span,
+p,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  margin: 0;
-  padding: 0;
-}
-
-/* Абзацы и текстовые элементы */
-p,
-blockquote,
-figure,
-pre,
-address {
-  margin: 0;
-  padding: 0;
-}
-
-/* Списки */
+h6,
 ul,
 ol,
-dl,
-menu,
-dir {
-  margin: 0;
-  padding: 0;
-}
-
-/* Элементы списка */
-li {
-  margin: 0;
-  padding: 0;
-}
-
-/* Таблицы */
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* Формы и интерактивные элементы */
-form,
-fieldset,
-legend,
-label,
-input,
+li,
+a,
 button,
-select,
-textarea,
-optgroup,
-option {
+input,
+label,
+img,
+dialog {
   margin: 0;
   padding: 0;
   border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
-/* Ссылки */
-a {
-  margin: 0;
-  padding: 0;
+main,
+footer {
+  display: block;
 }
 
-/* Медиа-элементы */
-img,
-picture,
-video,
-audio,
-canvas,
-svg {
-  margin: 0;
-  padding: 0;
-  display: block; /* Убираем строчное поведение */
-  max-width: 100%; /* Защита от переполнения */
+body {
+  line-height: 1;
 }
 
-/* Прочие блочные элементы */
-hr,
-br,
-wbr {
-  margin: 0;
-  padding: 0;
+ul,
+ol {
+  list-style: none;
 }
 
-/* Inline-элементы (осторожно: могут потребовать корректировки) */
-span,
-strong,
-em,
-cite,
-q,
-code,
-samp,
-kbd,
-var,
-sub,
-sup,
-i,
-b,
-u,
-s,
-strike,
-small,
-abbr,
-acronym,
-dfn,
-time,
-mark,
-ruby,
-rt,
-rp {
-  margin: 0;
-  padding: 0;
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  line-height: inherit;
 }
