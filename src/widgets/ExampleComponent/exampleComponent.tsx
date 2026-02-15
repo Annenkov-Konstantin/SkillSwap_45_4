@@ -21,33 +21,31 @@
 //     </div>
 //   );
 // };
+import React from 'react';
+import  {useState} from 'react';
+import { Header } from '../Header/Header';
 
-import  {useState, type FC } from 'react';
-import { HeaderUI } from '../Header';
+export type TExample = {
+  isSkillsOpen:boolean;
+  setIsSkillsOpen:(value:boolean)=>void;
+}
 
-export const ExampleComponent: FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+export const ExampleComponent: React.FC<TExample> = ({isSkillsOpen, setIsSkillsOpen}) => {
   const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
   const userName = 'Мария'; //данные из стора
-  const [isSkillsOpen, setIsSkilsOpen] = useState(false);
 
   const isLogin = true; //данные из стора - для теста поменять на false
 
-  const handleTriggerClick = () => {
-    console.log('Hello'); //заглушка для теста
-    setIsSkilsOpen(!isSkillsOpen);
-  };
 
   return (
     <div>
-      <HeaderUI
+      <Header
         userPhoto={userPhoto}
         userName={userName}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handleTriggerClick={handleTriggerClick}
+        isLogin={isLogin}
         isSkillsOpen={isSkillsOpen}
-        isLogin={isLogin}/>
+        setIsSkillsOpen={setIsSkillsOpen}
+      />
     </div>
   );
 };

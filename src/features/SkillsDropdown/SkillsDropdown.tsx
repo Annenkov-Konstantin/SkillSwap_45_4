@@ -6,22 +6,12 @@ import { SkillsDropdownUI } from './SkillsDropdownUI';
 
 const modalRoot = document.getElementById('modals');
 
-export const SkillsDropdown: FC<TModalProps> = memo(({ onClose, skills }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Обработка закрытия с анимацией
-  const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose();
-    }, 300); // Время должно совпадать с duration анимации
-  };
+export const SkillsDropdown: FC<TModalProps> = memo(({ skills, isVisible, onClose }) => {
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
-        handleClose();
+        onClose()
       }
     };
 
@@ -34,15 +24,17 @@ export const SkillsDropdown: FC<TModalProps> = memo(({ onClose, skills }) => {
   // Анимация появления при монтировании
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(true);
     }, 10); // Небольшая задержка для запуска анимации
 
     return () => clearTimeout(timer);
   }, []);
 
+  if (!isVisible)
+    return null
+
   return ReactDOM.createPortal(
     <SkillsDropdownUI
-      onClose={handleClose}
+      onClose={onClose}
       skills={skills}
       isVisible={isVisible}
     ></SkillsDropdownUI>,
