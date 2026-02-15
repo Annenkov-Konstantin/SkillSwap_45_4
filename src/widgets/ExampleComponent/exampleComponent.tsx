@@ -7,6 +7,11 @@ import users from '../../../public/db/users/users.json'
 import type { TSkillData } from '@/api/types';
 import type { TUser } from '@/entities/user';
 
+import { FilterAside } from '../FilterAside/FilterAside';
+import skills from '../../../public/db/skills/skills.json';
+import city from '../../../public/db/city/city.json';
+import type {Filters}  from '../FilterAside/types';
+
 const user = {
     name:"Елизавета Михайловна Xrfkjdf",
 };
@@ -15,6 +20,13 @@ const user = {
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
+
+const demoFilters: Filters = {
+  preferenceFilter: 'all',
+  skillFilter: [],
+  genderFilter: 'any',
+  cityFilter: []
+};
 
 
 // useEffect(() => {
@@ -72,6 +84,25 @@ export const ExampleComponent: FC = () => {
       <div>
       {name}
       </div>
+      <FilterAside
+        filters={demoFilters}
+        selectedCount={2}
+        cityArray={city}
+        skillArray={skills}
+        openCategories={[1]}
+        showAllCategories={true}
+        showAllCities={true}
+        onReset={() => {}}
+        onPreferenceChange={() => {}}
+        onGenderChange={() => {}}
+        onCityToggle={() => {}}
+        onSkillToggle={() => {}}
+        onCategoryToggle={() => {}}
+        onCategorySkillsToggle={() => {}}
+        onShowAllCategoriesToggle={() => {}}
+        onShowAllCitiesToggle={() => {}}
+        getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
+      />
     </>
   );
 }
