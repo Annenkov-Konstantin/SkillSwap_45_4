@@ -8,14 +8,12 @@ import { ModalOverlayUI } from '@/shared/ui';
 export const SkillsDropdownUI: FC<TModalProps> = memo(
   ({ onClose, skills, isVisible }) => (
     <>
-      <div
-        className={`${styles.skills_container} ${
-          isVisible ? styles.visible : ''
-        }`}
-      >
+      <div className= {`${styles.skills_container} ${
+        isVisible? styles.visible : ''
+      }`}>
         <ul className={styles.content}>
-          {skills.map((category) => {
-            const iconClassName = categoryIcon[category.title];
+          { skills.map(category => {
+            const iconClassName = categoryIcon[category.title]  ;
             return (
               <li
                 key={category.id}

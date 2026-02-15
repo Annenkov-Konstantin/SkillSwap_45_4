@@ -12,6 +12,12 @@
   padding: 0;
 }
 
+.arrow {
+  display: block;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
 .arrow_open {
   display: block;
   transform: rotate(180deg);

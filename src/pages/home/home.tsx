@@ -8,9 +8,9 @@ export const Home: FC = () => {
   return (
     <main>
       <div>
-        <h1 className={styles.heading}>Главная страница</h1>
+        {/* <h1 className={styles.heading}>Главная страница</h1> */}
         <ExampleComponent />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </main>
   );

@@ -1,0 +1,61 @@
+@use '@app/styles/variables' as *;
+
+.menue {
+  display: flex;
+  align-items: center;
+  max-width: 1440px;
+  height: 104px;
+  gap: 32px;
+  padding: 40px 36px 24px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.menue_part_left {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  min-width: 222px;
+}
+
+.menue_part_right {
+  display: flex;
+  min-width: 195px;
+}
+
+
+.theme_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  min-width: 24px;
+  height: 24px;
+}
+
+.input_container {
+  min-width: 527px;
+}
+
+.skills_container {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.input {
+  background-color: $color-card-input;
+  border-radius: 12px;
+}
+
+.link {
+  display: block;
+}

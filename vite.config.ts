@@ -19,6 +19,7 @@ export default defineConfig({
       '@entities': path.resolve(__dirname, './src/entities'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@api': path.resolve(__dirname, './src/api'),
+      '@images': path.resolve(__dirname, './src/images')
     }
   },
   server: {
