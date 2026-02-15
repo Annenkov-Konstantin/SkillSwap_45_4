@@ -8,14 +8,17 @@ export const DropdownTrigger: React.FC<TDropdownTriggerProps> = ({
   onClick
 }: TDropdownTriggerProps) => {
   return (
-    <button className={styles.trigger_button}>
+    <button
+      type='button'
+      className={styles.trigger_button}
+      onClick={onClick}
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='24'
         height='24'
         fill='none'
         className={clsx(styles.arrow, { [styles.arrow_open]: isOpen })}
-        onClick={onClick}
       >
         <path
           fill='currentColor'
