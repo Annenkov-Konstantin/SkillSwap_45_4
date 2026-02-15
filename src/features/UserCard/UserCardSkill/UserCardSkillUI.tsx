@@ -3,17 +3,15 @@ import type { TUserCardSkillUIProps } from './type';
 import type { FC } from 'react';
 import { useRef, useState, useLayoutEffect } from 'react';
 import { UserCardSkillCounter } from '@features/UserCard/UserCardSkillCounter';
-import { CATEGORIES, type Category } from '@entities/skill';
 import clsx from 'clsx';
 
-const CATEGORY_CLASS_MAP: Record<Category, string> = {
-  [CATEGORIES.BUSINESS_AND_CAREER]: styles.skills_item_businessCareer,
-  [CATEGORIES.CREATIVITY_AND_ART]: styles.skills_item_creativityArt,
-  [CATEGORIES.LANGUAGES]: styles.skills_item_foreignLanguages,
-  [CATEGORIES.EDUCATION_AND_DEVELOPMENT]:
-    styles.skills_item_educationDevelopment,
-  [CATEGORIES.HOME_COSINESS]: styles.skills_item_homeComfort,
-  [CATEGORIES.HEALTH_AND_LIFESTYLE]: styles.skills_item_healthLifestyle
+const CATEGORY_CLASS_MAP: Record<number, string> = {
+  [1]: styles.skills_item_businessCareer,
+  [2]: styles.skills_item_creativityArt,
+  [3]: styles.skills_item_foreignLanguages,
+  [4]: styles.skills_item_educationDevelopment,
+  [5]: styles.skills_item_homeComfort,
+  [6]: styles.skills_item_healthLifestyle
 };
 
 export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TUserCardSkillUIProps) => {
@@ -78,12 +76,12 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TU
           <li
             className={clsx(
               styles['skills_item'],
-              CATEGORY_CLASS_MAP[skill.category as Category]
+              CATEGORY_CLASS_MAP[skill.categoryId]
             )}
             data-skill-item='true'
             key={index}
           >
-            <span className={styles['skills_item_title']}>{skill.title}</span>
+            <span className={styles['skills_item_title']}>{skill.subCategory}</span>
           </li>
         ))}
 

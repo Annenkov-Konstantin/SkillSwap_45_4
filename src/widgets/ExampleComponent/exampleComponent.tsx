@@ -6,6 +6,8 @@ import { api } from '@/api';
 import users from '../../../public/db/users/users.json'
 import type { TSkillData } from '@/api/types';
 import type { TUser } from '@/entities/user';
+import { UserCardSkillUI } from '@features/index';
+
 
 const user = {
     name:"Елизавета Михайловна Xrfkjdf",
@@ -59,6 +61,25 @@ export const ExampleComponent: FC = () => {
 //   testLike();
 // }, []);
 
+const skills = [
+  {
+    categoryId: 1,
+    subCategory: 'Тайм-менеджмент'
+  },
+  {
+    categoryId: 4,
+    subCategory: 'Навыки обучения'
+  },
+  {
+    categoryId: 6,
+    subCategory: 'Йога и медитация'
+  },
+  {
+    categoryId: 1,
+    subCategory: 'Тайм-менеджмент'
+  },
+]
+
   return (
     <>
       <div>
@@ -67,6 +88,12 @@ export const ExampleComponent: FC = () => {
           onClick={() => setOpen(!open)}
           isOpen={open}
         />
+      </div>
+      <div style={{width: 300}}>
+        <UserCardSkillUI title='Хочет научиться' skills={skills} />
+      </div>
+      <div style={{width: 550}}>
+        <UserCardSkillUI title='Хочет научиться' skills={skills} />
       </div>
       <div>
       {name}

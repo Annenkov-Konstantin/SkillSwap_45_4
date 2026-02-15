@@ -4,3 +4,4 @@ export { SkillGallery } from './SkillGallery';
 export { UserAvatar } from './UserAvatar';
 export { UserCardSkillCounter } from './UserCard/UserCardSkillCounter';
 export { CitySelect } from './CitySelect';
+export { UserCardSkillUI } from './UserCard/UserCardSkill'

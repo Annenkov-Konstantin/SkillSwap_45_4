@@ -1,8 +1,8 @@
-// Добавить правильные типы данных
+import type {TCategory, TSkill as Skill} from "@entities/skills";
+
 export type TSkill = {
-  category: string;
-  subCategory: string;
-  title: string;
+  categoryId: TCategory['id'];
+  subCategory: Skill['title'];
 };
 
 export type TUserCardSkillUIProps = {

@@ -13,12 +13,14 @@
   display: flex;
   column-gap: 4px;
   list-style-type: none;
+  align-items: flex-start;
 }
 
 .skills_item {
   padding: 8px 12px;
   background-color: $tag-education-development;
   border-radius: 20px;
+  line-height: map.get($caption, line-height);
 }
 
 .skills_item_title {
