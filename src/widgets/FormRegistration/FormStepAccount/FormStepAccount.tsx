@@ -7,6 +7,7 @@ import appleIcon from '../../../assets/icons/apple.svg';
 import styles from './FormStepAccount.module.scss';
 
 import type { TAuthForm } from './types';
+
 import { useState } from 'react';
 
 export const FormStepAccount: FC<TAuthForm> = ({
