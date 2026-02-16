@@ -11,3 +11,4 @@ export { InputAndDropdownWrapper } from './inputAndDropdownWrapper';
 export { InputForDropdown } from './inputForDropdown';
 export { InputButton } from './inputButton';
 export { DropdownList } from './dropdownList';
+export { Select } from './select';

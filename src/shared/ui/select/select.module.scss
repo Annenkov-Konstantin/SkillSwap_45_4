@@ -1,0 +1,120 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.controlWrapper {
+  position: relative;
+  width: 100%;
+  border: 1px solid $color-caption;
+  border-radius: 12px;
+  background-color: $color-card-input;
+  transition:
+    border-radius 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.controlWrapperOpen {
+  border-radius: 12px 12px 0 0;
+  border-bottom-color: transparent;
+
+  .control {
+    border-radius: 12px 12px 0 0;
+  }
+
+  .control::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 12px;
+    border-bottom: 1px solid $color-disabled;
+    border-radius: 0 0 12px 12px;
+    pointer-events: none;
+  }
+}
+
+.controlWrapperDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  .control {
+    cursor: not-allowed;
+  }
+}
+
+.control {
+  @include body-text;
+  display: block;
+  position: relative;
+  height: 48px;
+  width: 100%;
+  padding: 12px 54px 12px 20px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  color: $color-text;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px $color-accent;
+  }
+}
+
+.placeholder {
+  color: $color-caption;
+}
+
+.trigger {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  max-height: 220px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: $color-card-input;
+  border: 1px solid $color-caption;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.option {
+  @include body-text;
+  width: 100%;
+  padding: 6px 20px;
+  color: $color-text;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.optionHighlighted {
+  background-color: transparent;
+}
+
+.optionSelected {
+  color: $color-text;
+}
