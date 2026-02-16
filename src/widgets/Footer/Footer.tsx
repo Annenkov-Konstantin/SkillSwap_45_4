@@ -3,7 +3,7 @@ import styles from './Footer.module.scss';
 import { Logo } from '@/shared/ui';
 import React from 'react';
 
-export const Footer: React.FC<HTMLElement> = () => {
+export const Footer: React.FC = () => {
   return (
     <footer>
       <div className={styles.footerLogoWrapper}>
