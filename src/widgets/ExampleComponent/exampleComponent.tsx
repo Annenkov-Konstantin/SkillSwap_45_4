@@ -6,6 +6,7 @@ import { api } from '@/api';
 import users from '../../../public/db/users/users.json'
 import type { TSkillData } from '@/api/types';
 import type { TUser } from '@/entities/user';
+import {SkillSwapModal} from '../SkillSwapModal';
 
 const user = {
     name:"Елизавета Михайловна Xrfkjdf",
@@ -72,6 +73,7 @@ export const ExampleComponent: FC = () => {
       <div>
       {name}
       </div>
+      <SkillSwapModal />
     </>
   );
 }
