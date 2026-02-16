@@ -22,6 +22,7 @@
 @mixin button-main {
   display: inline-flex;
   padding: 12px 24px;
+  width: 100%;
   border-radius: 12px;
   border: 1px solid transparent;
   align-items: center;
