@@ -13,8 +13,9 @@ export const DropdownTrigger: React.FC<TDropdownTriggerProps> = ({
 
   return (
     <button
-    className={styles.trigger_button}
-    onClick={(e) => {e.stopPropagation(); onClick()}}
+      type='button'
+      className={styles.trigger_button}
+      onClick={onClick}
     >
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -22,7 +23,7 @@ export const DropdownTrigger: React.FC<TDropdownTriggerProps> = ({
         height='24'
         fill='none'
         className={clsx(styles.arrow, {
-          [styles.arrow_up]: invert ? !isOpen : isOpen
+          [styles.arrow_open]: invert ? !isOpen : isOpen
         }
 
         )}
