@@ -1,6 +1,7 @@
 @use '@/app/styles/reset.module';
 @use '@/app/styles/variables' as *;
 @use '@/app/styles/mixins' as *;
+@use '../../fonts/font';
 
 * {
   box-sizing: border-box;
@@ -17,11 +18,10 @@ body {
     background-color 0.8s ease,
     color 0.8s ease;
   color: $color-text;
-
 }
 
 body.modal-open {
- overflow: hidden;
+  overflow: hidden;
 }
 
 a {

@@ -13,15 +13,16 @@
 }
 
 @mixin body-text {
-  font-family: map-get($body-text, font-family);
-  font-weight: map-get($body-text, font-weight);
-  font-size: map-get($body-text, font-size);
-  line-height: map-get($body-text, line-height);
+  font-family: map.get($body-text, font-family);
+  font-weight: map.get($body-text, font-weight);
+  font-size: map.get($body-text, font-size);
+  line-height: map.get($body-text, line-height);
 }
 
 @mixin button-main {
   display: inline-flex;
   padding: 12px 24px;
+  width: 100%;
   border-radius: 12px;
   border: 1px solid transparent;
   align-items: center;
@@ -102,4 +103,3 @@
   border: 0;
   clip-path: inset(50%);
 }
-
