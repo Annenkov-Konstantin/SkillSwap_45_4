@@ -1,3 +1,8 @@
+type TSkillCategory = {
+  category: number;
+  subcategory: number[];
+};
+
 export type TUser = {
   _id: string;
   name: string;
@@ -10,6 +15,8 @@ export type TUser = {
   createdAt: string;
   updatedAt: string;
   favoriteSkills: string[];
-  toLearn: string[];
-  canTeach: string[];
+  toLearn: TSkillCategory[];
+  canTeach: TSkillCategory[];
 };
+
+

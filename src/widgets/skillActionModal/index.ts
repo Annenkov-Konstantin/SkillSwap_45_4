@@ -1,1 +1,1 @@
-export { skillActionModal } from './skillActionModal';
+export { SkillActionModal } from './skillActionModal';

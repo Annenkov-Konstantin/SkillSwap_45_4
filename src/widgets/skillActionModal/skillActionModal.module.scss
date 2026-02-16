@@ -1,5 +1,5 @@
-@use '../../app/styles/variables' as *;
-@use '../../app/styles/mixins' as *;
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
 
 .modal {
   font-family: 'Inter', Arial, sans-serif;
@@ -49,7 +49,7 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
-  gap: 8px; 
+  gap: 8px;
   align-items: center;
   justify-content: center;
 }

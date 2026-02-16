@@ -1,0 +1,15 @@
+@use '@app/styles/mixins' as *;
+
+.icon {
+  @include icon-button;
+}
+
+.heart {
+  fill: transparent;
+  stroke: #253017;
+}
+
+.icon.is_liked .heart {
+  fill: #abd27a;
+  stroke: #abd27a;
+}

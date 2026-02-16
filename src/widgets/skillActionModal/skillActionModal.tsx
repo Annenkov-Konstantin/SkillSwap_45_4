@@ -2,9 +2,9 @@ import { Button, ModalOverlayUI } from '@/shared/ui';
 import type React from 'react';
 import styles from './skillActionModal.module.scss';
 import { useEffect } from 'react';
-import type { skillActionModalProps } from './types';
+import type { TSkillActionModalProps } from './types';
 
-export const SkillActionModal: React.FC<skillActionModalProps> = ({
+export const SkillActionModal: React.FC<TSkillActionModalProps> = ({
   image,
   maintText,
   secondaryText,
@@ -13,7 +13,6 @@ export const SkillActionModal: React.FC<skillActionModalProps> = ({
   onClose,
   isOpen
 }) => {
-
   useEffect(() => {
     if (!isOpen) return;
 

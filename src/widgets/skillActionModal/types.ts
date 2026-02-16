@@ -1,4 +1,4 @@
-export type skillActionModalProps = {
+export type TSkillActionModalProps = {
   image?: string;
   maintText: string;
   secondaryText: string;

@@ -1,192 +1,365 @@
 [
   {
     "_id": "skill_001",
-    "title": "Разработка веб-приложений на React",
-    "description": "Научу создавать современные SPA-приложения с использованием React, TypeScript и современных инструментов разработки.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Управление командой",
+    "type": "teach",
+    "title": "Научу создавать личный бренд",
+    "description": "Вы научитесь создавать личный бренд. Продвигать свои услуги, навыки и знания на рынке используя свой собственный бренд для привлечения внимания новых клиентов либо для поиска новой работы.",
+    "category": 1,
+    "subCategory": 4,
     "images": [
-      "https://picsum.photos/id/0/600/400",
-      "https://picsum.photos/id/1/600/400",
-      "https://picsum.photos/id/4/600/400",
-      "https://picsum.photos/id/8/600/400"
+      "https://img.freepik.com/premium-photo/personal-brand-text-with-marker-piece-paper-wooden-table_507676-2273.jpg?semt=ais_hybrid",
+      "https://img.freepik.com/premium-vector/branding-team-concept-with-people-scene-flat-design-woman-generates-new-ideas-creating-strategy-brand-identity-targeting-finds-solution-vector-illustration-with-character-situation-web_9209-10038.jpg?semt=ais_hybrid&w=740",
+      "https://img.freepik.com/premium-vector/brand-construction-concept-illustration_86047-750.jpg?semt=ais_hybrid&w=740&q=80",
+      "https://img.freepik.com/premium-vector/brand-building-abstract-concept-vector-illustration_107173-53469.jpg?semt=ais_hybrid&w=740&q=80"
     ],
     "likes": 42,
-    "tagging": ["react", "typescript", "frontend", "webdev"],
-    "status": "accepted",
-    "mentorId": "user_1",
+    "userId": "user_3",
     "createdAt": "2024-01-15T10:30:00.000Z",
     "updatedAt": "2024-02-01T14:20:00.000Z"
   },
   {
     "_id": "skill_002",
+    "type": "learn",
+    "title": "Хочу освоить декор и DIY",
+    "description": "Ищу ментора, который научит меня основам декора и DIY",
+    "category": 2,
+    "subCategory": 8,
+    "images": [
+      "https://ir.ozone.ru/s3/multimedia-h/w1200/6538486901.jpg",
+      "https://i.pinimg.com/736x/a1/c7/ef/a1c7ef2f108daeae8bfae85940d7ac7d.jpg",
+      "https://i.etsystatic.com/24025247/r/il/216f27/6354159182/il_800x800.6354159182_5zv0.jpg",
+      "https://i.pinimg.com/736x/1d/38/a6/1d38a6afdc2b0e1b944c5d09017787d3.jpg"
+    ],
+    "likes": 15,
+    "userId": "user_8",
+    "createdAt": "2024-02-10T09:20:00.000Z",
+    "updatedAt": "2024-02-10T09:20:00.000Z"
+  },
+  {
+    "_id": "skill_003",
+    "type": "teach",
     "title": "Английский для IT-специалистов",
     "description": "Подготовлю к техническим собеседованиям на английском, научу профессиональной лексике и ведению переговоров.",
-    "category": "Иностранные языки",
-    "subCategory": "Английский",
+    "category": 3,
+    "subCategory": 1,
     "images": [
-      "https://picsum.photos/id/9/600/400",
-      "https://picsum.photos/id/10/600/400",
-      "https://picsum.photos/id/11/600/400",
-      "https://picsum.photos/id/12/600/400"
+      "https://www.windsor.ru/upload/medialibrary/706/706d31cd33ce297de2f3aeea768051d6.jpg",
+      "https://lingualeo.com/ru/blog/wp-content/uploads/2024/07/e74338ff-7233-42b6-81f9-fce72023c007-1.jpg",
+      "https://avatars.mds.yandex.net/i?id=69eb53e798c89106019b4198ed11e5dd_l-4782879-images-thumbs&n=13",
+      "https://www.schoolioneri.com/wp-content/uploads/cache/images/2026/01/1-1/1-1-3609059617.jpeg",
+      "https://р46.навигатор.дети/images/events/cover/de2bad20f70a9b47ff003e8e2d960c73_big.jpg"
     ],
     "likes": 28,
-    "tagging": ["english", "it", "interview", "tech"],
-    "status": "awaitingResponse",
-    "mentorId": "user_2",
+    "userId": "user_4",
     "createdAt": "2024-01-20T14:15:00.000Z",
     "updatedAt": "2024-01-25T11:30:00.000Z"
   },
   {
-    "_id": "skill_003",
+    "_id": "skill_004",
+    "type": "learn",
+    "title": "Хочу научиться готовить итальянскую пиццу",
+    "description": "Хочу знать все тонкости выпекания итальянской пиццы на тонком тесте",
+    "category": 5,
+    "subCategory": 3,
+    "images": [
+      "https://avatars.mds.yandex.net/i?id=40305c68ec1bb916fbb5ae7992a437dee26d57af-9271022-images-thumbs&n=13",
+      "https://avatars.mds.yandex.net/i?id=1e443eda2bba5d3b1f43811b196df34b71b0df90-4592885-images-thumbs&n=13",
+      "https://img.povar.ru/640w/ec/98/6a/8e/picca_tonkoe_testo-405483.jpeg",
+      "https://img.povar.ru/main-micro/89/c7/16/7d/vkusnaya_picca_na_tonkom_teste-439931.jpg"
+    ],
+    "likes": 88,
+    "userId": "user_2",
+    "createdAt": "2024-02-09T14:30:00.000Z",
+    "updatedAt": "2024-02-09T14:30:00.000Z"
+  },
+  {
+    "_id": "skill_005",
+    "type": "learn",
+    "title": "Хочу научиться видеомонтажу",
+    "description": "Хочу делать качественные видео со спецэффектами",
+    "category": 2,
+    "subCategory": 3,
+    "images": [
+      "https://otblogerov.com/wp-content/uploads/2023/08/videomontazh-obuchenie-level-up-studio_64d4350f637b6.png",
+      "https://user72902.clients-cdnnow.ru/localStorage/news/c9/4f/b6/bd/c94fb6bd_resizedScaled_1020to574.png",
+      "https://static.tildacdn.com/tild3530-3130-4963-b163-616362643132/__.png",
+      "https://avatars.mds.yandex.net/i?id=b9d58f88cd1fb1ec09e0b378f87206994b7f7460-16333797-images-thumbs&n=13"
+    ],
+    "likes": 22,
+    "userId": "user_1",
+    "createdAt": "2024-02-05T12:40:00.000Z",
+    "updatedAt": "2024-02-05T12:40:00.000Z"
+  },
+  {
+    "_id": "skill_006",
+    "type": "learn",
+    "title": "Хочу научиться паркуру",
+    "description": "Ищу тренера который научит основам паркура, правильным тренировкам и тому как держать себя в тонусе",
+    "category": 6,
+    "subCategory": 5,
+    "images": [
+      "https://www.parkourperception.ru/wp-content/uploads/2024/07/650869d8d3740466e3393669_a4575.jpg",
+      "https://i.pinimg.com/originals/5f/c1/1c/5fc11cd550cdff3472f5c1fc88ffb19d.jpg?nii=t",
+      "https://img.freepik.com/free-photo/full-shot-fit-man-doing-parkour_23-2150490225.jpg",
+      "https://i.pinimg.com/474x/12/26/d7/1226d76d0b79ee13744fdf8914e590ea.jpg?nii=t"
+    ],
+    "likes": 92,
+    "userId": "user_5",
+    "createdAt": "2024-02-08T11:45:00.000Z",
+    "updatedAt": "2024-02-08T11:45:00.000Z"
+  },
+  {
+    "_id": "skill_007",
+    "type": "teach",
     "title": "Управление проектами по Agile",
     "description": "Поделюсь опытом управления IT-проектами, расстановки приоритетов и работы по методологии Scrum.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Управление командой",
+    "category": 1,
+    "subCategory": 1,
     "images": [
-      "https://picsum.photos/id/13/600/400",
-      "https://picsum.photos/id/14/600/400",
-      "https://picsum.photos/id/15/600/400",
-      "https://picsum.photos/id/16/600/400"
+      "https://endocs.ru/wp-content/uploads/2025/09/ggggg-1024x585.png",
+      "https://quasa.io/storage/photos/%D0%A4%D0%BE%D1%82%D0%BE%2014/%D1%8D%D0%B4%D0%B6%205.png",
+      "https://habrastorage.org/getpro/habr/upload_files/ae1/431/c41/ae1431c4171bb18602b05a0720a30b5a.jpg",
+      "https://static.tildacdn.com/tild3764-3338-4330-a435-383130643732/12.png"
     ],
     "likes": 35,
-    "tagging": ["agile", "scrum", "project", "management"],
-    "status": "inWishlist",
-    "mentorId": "user_3",
+    "userId": "user_5",
     "createdAt": "2024-02-01T09:45:00.000Z",
     "updatedAt": "2024-02-05T16:10:00.000Z"
   },
   {
-    "_id": "skill_004",
+    "_id": "skill_008",
+    "type": "teach",
     "title": "Креативное письмо для маркетологов",
     "description": "Научу писать продающие тексты, сценарии для видео и контент для социальных сетей.",
-    "category": "Творчество и искусство",
-    "subCategory": "Креативное письмо",
+    "category": 2,
+    "subCategory": 6,
     "images": [
-      "https://picsum.photos/id/17/600/400",
-      "https://picsum.photos/id/18/600/400",
-      "https://picsum.photos/id/19/600/400",
-      "https://picsum.photos/id/20/600/400"
+      "https://avatars.mds.yandex.net/i?id=3d53c5719b5ae65a8a95371677cf7800_l-12421637-images-thumbs&n=13",
+      "https://cdn1.tenchat.ru/static/vbc-gostinder/2024-05-14/compressed/31680c2c-d55e-4b96-963c-3baa65e20ead.jpeg?width=720&height=720&fmt=webp",
+      "https://cdn-imgproxy.mamado.su/twXt3Tgiz_hBj71T6OSM-P6F42WTpxap0h9ZWfJ44-Y/rs:fit:2000:2000:1/g:ce/q:90/czM6Ly9tYW1hZG8t/YXBpLXByb2R1Y3Rp/b24vc3RvcmFnZS83/MDY1My9nYWxsZXJ5/XzBfb3JpZ2luYWwu/anBn.webp",
+      "https://enkod.io/wp-content/uploads/2021/04/%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D1%8E%D1%89%D0%B8%D1%85-%D0%BF%D0%B8%D1%81%D0%B5%D0%BC-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D0%B8_-%D0%B3%D0%B0%D0%B9%D0%B4-%D0%B4%D0%BB%D1%8F-%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E%D1%89%D0%B8%D1%85-%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%BE%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2.png"
     ],
     "likes": 19,
-    "tagging": ["writing", "marketing", "content", "copywriting"],
-    "status": "completed",
-    "mentorId": "user_4",
+    "userId": "user_6",
     "createdAt": "2024-01-10T13:20:00.000Z",
     "updatedAt": "2024-01-30T18:40:00.000Z"
   },
   {
-    "_id": "skill_005",
-    "title": "Йога для офисных работников",
-    "description": "Провожу занятия по йоге, направленные на снятие напряжения с позвоночника и улучшение осанки.",
-    "category": "Здоровье и лайфстайл",
-    "subCategory": "Йога и медитация",
+    "_id": "skill_009",
+    "type": "learn",
+    "title": "Научите меня работать со звуком",
+    "description": "Хочу научиться делать классные музыкальные сопровождния для рекламных видеороликов, подбирать нужный ритм и тематику",
+    "category": 2,
+    "subCategory": 4,
     "images": [
-      "https://picsum.photos/id/21/600/400",
-      "https://picsum.photos/id/22/600/400",
-      "https://picsum.photos/id/23/600/400",
-      "https://picsum.photos/id/24/600/400"
+      "https://avatars.mds.yandex.net/i?id=16a63e0f4e97ce9171ed2688bb8cb71b_l-4825091-images-thumbs&n=13",
+      "https://static.tildacdn.com/tild3434-6133-4733-a130-666238323166/_.jpg",
+      "https://cdn-edge.kwork.ru/pics/t3/27/2044148-1611991846.jpg",
+      "https://sun9-66.userapi.com/impg/_96M-6w3LAVPUMb2mhcykSgk09Hq3IK7o6ttvQ/V9ercQsak9Y.jpg?quality=90&proxy=1&sign=9152c619d69837793c016bc3becbfabc&type=video_thumb"
+    ],
+    "likes": 6,
+    "userId": "user_9",
+    "createdAt": "2024-02-07T16:20:00.000Z",
+    "updatedAt": "2024-02-07T16:20:00.000Z"
+  },
+  {
+    "_id": "skill_010",
+    "type": "teach",
+    "title": "Научу скорочтению",
+    "description": "Научимся бытро читать, при это мне теряя фокус на восприятии информации. Вы узнаете несколько способов как экономить время при чтении больших массивов текста.",
+    "category": 4,
+    "subCategory": 4,
+    "images": [
+      "https://ir.ozone.ru/s3/multimedia-7/6605163979.jpg",
+      "https://cdn-main.infourok.ru/is00/0001/00408d02-0e3415cf-771x771.png",
+      "https://telegra.ph/file/b9393328d97fed5619b90.jpg",
+      "https://fs.znanio.ru/d5af0e/6d/cb/7b7740b1feda56cef42a5a053d24caa1da.jpg"
     ],
     "likes": 47,
-    "tagging": ["yoga", "health", "office", "meditation"],
-    "status": "rejected",
-    "mentorId": "user_5",
+    "userId": "user_1",
     "createdAt": "2024-01-25T16:50:00.000Z",
     "updatedAt": "2024-02-03T12:15:00.000Z"
   },
   {
-    "_id": "skill_006",
+    "_id": "skill_011",
+    "type": "teach",
     "title": "Приготовление итальянской пасты",
     "description": "Научу готовить настоящую итальянскую пасту с домашними соусами и правильным сочетанием ингредиентов.",
-    "category": "Дом и уют",
-    "subCategory": "Приготовление еды",
+    "category": 5,
+    "subCategory": 3,
     "images": [
-      "https://picsum.photos/id/25/600/400",
-      "https://picsum.photos/id/26/600/400",
-      "https://picsum.photos/id/27/600/400",
-      "https://picsum.photos/id/28/600/400"
+      "https://img.povar.ru/uploads/82/30/01/e1/italyanskaya_pasta-728065.JPG",
+      "https://static.tildacdn.com/tild6234-6130-4639-a530-343837373966/photo.jpg",
+      "https://images.gastronom.ru/rdnMdoNG2wWEZO1hpcQQ73wevREG0JwsGc7hwDh-RF8/pr:recipe-cover-image/g:ce/rs:auto:0:0:0/L2Ntcy9hbGwtaW1hZ2VzLzgxY2M0ZTkyLTkzZjEtNDkzYy1iMDM3LWExODViMWRmOWYxYS5qcGVn.webp",
+      "https://nasledie.digital/wp-content/uploads/2024/09/istochnik_uavgusta.net_.jpg"
     ],
     "likes": 53,
-    "tagging": ["cooking", "italian", "pasta", "food"],
-    "status": "accepted",
-    "mentorId": "user_6",
+    "userId": "user_7",
     "createdAt": "2024-01-18T11:25:00.000Z",
     "updatedAt": "2024-01-28T15:45:00.000Z"
   },
   {
-    "_id": "skill_007",
-    "title": "Тайм-менеджмент для фрилансеров",
-    "description": "Помогу организовать рабочий день, расставить приоритеты и избежать выгорания при удаленной работе.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Тайм-менеджмент",
+    "_id": "skill_012",
+    "type": "learn",
+    "title": "Хочу научиться йоге",
+    "description": "Ищу тренера по йоге и медитации. Хочу найти дзен и быть на чиле",
+    "category": 6,
+    "subCategory": 1,
     "images": [
-      "https://picsum.photos/id/29/600/400",
-      "https://picsum.photos/id/30/600/400",
-      "https://picsum.photos/id/31/600/400",
-      "https://picsum.photos/id/32/600/400"
+      "https://avatars.mds.yandex.net/i?id=7fd0d45794d44057dfb9f78e17dfdf41_l-4010583-images-thumbs&n=13",
+      "https://avatars.yandex.net/get-music-content/16508792/957069ed.a.38737806-1/m1000x1000",
+      "https://cdn-image.zvuk.com/pic?hash=c54a4144-8cce-482b-99f4-a9607b2dee78&id=38969550&size=large&type=release",
+      "https://avatars.yandex.net/get-music-content/16464214/c71e556d.a.39899899-1/m1000x1000"
+    ],
+    "likes": 16,
+    "userId": "user_4",
+    "createdAt": "2024-02-06T10:15:00.000Z",
+    "updatedAt": "2024-02-06T10:15:00.000Z"
+  },
+  {
+    "_id": "skill_013",
+    "type": "learn",
+    "title": "Хочу научиться тому как стать коучем",
+    "description": "Ищу ментора по обучению коучингу чтобы продавать свои курсы по вязанию шерстяных носков.",
+    "category": 4,
+    "subCategory": 6,
+    "images": [
+      "https://v-ct.ru/images/kouching.jpg",
+      "https://f.sravni.ru/cms/KnowledgeBaseArticle/2kursy/1669103428267.png",
+      "https://avatars.mds.yandex.net/get-altay/5234599/2a0000017ff42ca0105fb093f9d59b40888f/XXXL",
+      "https://spark.ru/upload/blogs_covers/n_682727bb98a2e.jpg"
+    ],
+    "likes": 18,
+    "userId": "user_6",
+    "createdAt": "2024-02-04T15:30:00.000Z",
+    "updatedAt": "2024-02-04T15:30:00.000Z"
+  },
+  {
+    "_id": "skill_014",
+    "type": "learn",
+    "title": "Хочу научиться проектному управлению",
+    "description": "Ищу наставника по проектному управлению, для  выполнения проекта в срок, с нужным качеством и в пределах бюджета.",
+    "category": 1,
+    "subCategory": 7,
+    "images": [
+      "https://neiros.ru/img/project-management/sovety-po-upravleniyu-proektami.png",
+      "https://чойский-район.рф/images/banners/7ffc4e00-9b37-48db-b84f-f081e7a8a943.jpg",
+      "https://р16.навигатор.дети/images/events/cover/edd01e4642a60fc12b5937f8f6bcfcae_big.jpg",
+      "https://cdn.msp29-services.ru/news/aff63281d025da6d65f018bc3bf37706_93ca0c8f34.png"
+    ],
+    "likes": 9,
+    "userId": "user_7",
+    "createdAt": "2024-02-01T17:25:00.000Z",
+    "updatedAt": "2024-02-01T17:25:00.000Z"
+  },
+  {
+    "_id": "skill_015",
+    "type": "teach",
+    "title": "Осознанное поведение",
+    "description": "Помогу организовать рабочий день, расставить приоритеты и избежать выгорания при удаленной работе. Осознанный вобор товаров на маркетплейсах",
+    "category": 6,
+    "subCategory": 4,
+    "images": [
+      "https://skillbox.ru/upload/setka_images/14264905072022_aadc6dada1c2b47a57ee8a782537d4bcc1e79599.jpg",
+      "https://knife.media/wp-content/uploads/2025/03/scale_1200.jpeg",
+      "https://iknigi.net/books_files/online_html/182646/i_004.png",
+      "http://ic.pics.livejournal.com/sofia_paluhina/40678044/19475/19475_original.jpg"
     ],
     "likes": 31,
-    "tagging": ["productivity", "freelance", "time", "organization"],
-    "status": "awaitingResponse",
-    "mentorId": "user_7",
+    "userId": "user_8",
     "createdAt": "2024-02-02T08:30:00.000Z",
     "updatedAt": "2024-02-06T10:20:00.000Z"
   },
   {
-    "_id": "skill_008",
-    "title": "Личный бренд в IT-индустрии",
-    "description": "Научу создавать и продвигать личный бренд для карьерного роста в технологической сфере.",
-    "category": "Бизнес и карьера",
-    "subCategory": "Личный бренд",
+    "_id": "skill_016",
+    "type": "teach",
+    "title": "Ремонт и декор",
+    "description": "Научу создавать уникальные интерьерные решения. Вы сможете научиться делать ремонт в квартире самостоятельно согласно вашим идеям.",
+    "category": 5,
+    "subCategory": 5,
     "images": [
-      "https://picsum.photos/id/33/600/400",
-      "https://picsum.photos/id/34/600/400",
-      "https://picsum.photos/id/35/600/400",
-      "https://picsum.photos/id/36/600/400"
+      "https://doma1.ru/upload/iblock/59b/pqn5ksij2sjt3yczvsjoodwtzmc55v7f/94d8d68cb435785e7b766aa308962886.jpeg",
+      "https://avatars.mds.yandex.net/get-ydo/2428621/2a00000175d2f95aa5c13e17d745338d8313/diploma",
+      "https://i.pinimg.com/originals/aa/b5/20/aab5204b6500a3c304f92224a42fbaec.jpg",
+      "https://masterremontamsk.ru/wp-content/uploads/2017/01/recwest-slide1.jpg",
+      "https://avatars.mds.yandex.net/get-altay/2039785/2a0000016fd2655ca43e48655984cc23567d/orig"
     ],
     "likes": 26,
-    "tagging": ["branding", "career", "it", "personal"],
-    "status": "inWishlist",
-    "mentorId": "user_8",
+    "userId": "user_9",
     "createdAt": "2024-01-22T15:10:00.000Z",
     "updatedAt": "2024-01-29T14:55:00.000Z"
   },
   {
-    "_id": "skill_009",
+    "_id": "skill_017",
+    "type": "learn",
+    "title": "Хочу научиться французкому языку",
+    "description": "Ищу репетитора по обучению францускому языку чтобы петь песни и пить шампанское в Париже после сдачи проектной работы",
+    "category": 3,
+    "subCategory": 2,
+    "images": [
+      "https://avatars.mds.yandex.net/i?id=656b4448f7f1ea792827f5942a08cb61_l-5233443-images-thumbs&n=13",
+      "https://www.syktsu.ru/news/2024/%D0%BC%D0%B0%D1%80%D1%82/04-03-2024/dgxer.jpg",
+      "https://cdn-user30887.skyeng.ru/uploads/6855518187843624129806.webp",
+      "https://img01.kupiprodai.ru/092025/1757922620201.jpg"
+    ],
+    "likes": 24,
+    "userId": "user_3",
+    "createdAt": "2024-02-02T09:10:00.000Z",
+    "updatedAt": "2024-02-02T09:10:00.000Z"
+  },
+  {
+    "_id": "skill_018",
+    "type": "teach",
     "title": "Фотография на смартфон",
     "description": "Научу делать профессиональные фотографии на телефон, работать со светом и композицией.",
-    "category": "Творчество и искусство",
-    "subCategory": "Фотография",
+    "category": 2,
+    "subCategory": 2,
     "images": [
-      "https://picsum.photos/id/37/600/400",
-      "https://picsum.photos/id/38/600/400",
-      "https://picsum.photos/id/39/600/400",
-      "https://picsum.photos/id/40/600/400"
+      "https://static.life.ru/ip/unsafe/rs:fit:1200:/q:98/sh:0.5/czM6Ly9saWZlLXN0YXRpYy9wdWJsaWNhdGlvbnMvMjAyNS8xMC8yMi8yMDA1MjA3NTcwNy43NTM2Ni53ZWJw.webp",
+      "https://resizer.mail.ru/p/7d407820-da09-5ca3-9f8f-d995f1eb3db0/AQAKzJd9aP0e2kfaVwdvW2GgfujEm7pvR9HM1EkfIQgEWpJhEHpgCOwSOa8uI3Y1KzMrzapitmOpj97dbRxTWcnt-Bc.jpg",
+      "https://img.freepik.com/free-photo/woman-taking-photo-rural-surroundings_23-2149125496.jpg",
+      "https://img.freepik.com/free-photo/close-up-hand-holding-smartphone_23-2149191773.jpg?semt=ais_hybrid&w=740&q=80"
     ],
     "likes": 39,
-    "tagging": ["photography", "smartphone", "photo", "mobile"],
-    "status": "completed",
-    "mentorId": "user_9",
+    "userId": "user_2",
     "createdAt": "2024-01-12T12:40:00.000Z",
     "updatedAt": "2024-01-27T17:30:00.000Z"
   },
   {
-    "_id": "skill_010",
+    "_id": "skill_019",
+    "type": "teach",
     "title": "Баланс работы и личной жизни",
     "description": "Поделюсь техниками и подходами для поддержания гармонии между профессиональными и личными обязанностями.",
-    "category": "Здоровье и лайфстайл",
-    "subCategory": "Баланс жизни и работы",
+    "category": 6,
+    "subCategory": 7,
     "images": [
-      "https://picsum.photos/id/41/600/400",
-      "https://picsum.photos/id/42/600/400",
-      "https://picsum.photos/id/43/600/400",
-      "https://picsum.photos/id/44/600/400"
+      "https://ic.pics.livejournal.com/seregalab/67990590/834954/834954_600.jpg",
+      "https://happy-job.ru/img/hr-blog/koleso-balansa.png",
+      "https://uralto.ru/upload/iblock/5bf/iup39p3wmfjbfgv34xcq2ed9occbk3sc/Frame-5-_1_.jpg",
+      "https://static.vecteezy.com/system/resources/previews/000/667/965/non_2x/concept-of-work-and-life-balance.jpg",
+      "https://shikari.do/images/blog/83cbb599-ee78-404e-a7e2-0959424c6352.png"
     ],
     "likes": 44,
-    "tagging": ["balance", "life", "work", "harmony"],
-    "status": "accepted",
-    "mentorId": "user_10",
+    "userId": "user_10",
     "createdAt": "2024-01-28T10:05:00.000Z",
     "updatedAt": "2024-02-04T13:50:00.000Z"
+  },
+  {
+    "_id": "skill_020",
+    "type": "learn",
+    "title": "Хочу научиться прподавать",
+    "description": "Ищу наставника для улучшения моих навыков преподавания. Хочу лучше разбираться в во всех тонкостях этой профессии.",
+    "category": 4,
+    "subCategory": 5,
+    "images": [
+      "https://www.hse.ru/pubs/share/folder/1b12cd03077d42/1111164318.jpeg",
+      "https://media.istockphoto.com/id/2186544061/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B0-%D1%83%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B8%D0%B2%D0%B0%D0%B5%D1%82-%D1%83%D1%87%D0%B5%D0%B1%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81-%D0%BD%D0%B0-%D1%88%D0%BA%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE%D0%BC-%D1%83%D1%80%D0%BE%D0%BA%D0%B5-%D0%B8-%D1%81%D0%BF%D1%80%D0%B0%D1%88%D0%B8%D0%B2%D0%B0%D0%B5%D1%82-%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%BA%D0%B0-%D1%81.jpg?s=612x612&w=0&k=20&c=TmX8OVFuO_zGafUJzuAbTsNgHMxz4QOzBHDnc34sW_I=",
+      "https://orel.ecoips.ru/wp-content/uploads/2022/04/fg2crlb8gxo.jpg",
+      "https://fsd.multiurok.ru/html/2023/04/03/s_642aa0b942995/phpfxr7X5_Netodicheskaya-programma-soc.-pedagoga-2021g_html_c6a99f417d3ace6a.jpg"
+    ],
+    "likes": 36,
+    "userId": "user_10",
+    "createdAt": "2024-02-03T13:50:00.000Z",
+    "updatedAt": "2024-02-03T13:50:00.000Z"
   }
 ]

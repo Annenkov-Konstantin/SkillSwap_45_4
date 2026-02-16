@@ -1,4 +1,4 @@
-import styles from './SkillsDropdown.module.css';
+import styles from './SkillsDropdown.module.scss';
 import { memo } from 'react';
 import type { FC } from 'react';
 import type { TModalProps } from './type';
