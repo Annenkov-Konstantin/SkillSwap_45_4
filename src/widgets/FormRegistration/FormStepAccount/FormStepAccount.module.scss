@@ -1,0 +1,105 @@
+@use '../../../app/styles/variables' as *;
+@use '../../../app/styles/mixins' as *;
+
+// Контейнер формы
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: none;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: $form-bg-color;
+}
+
+.formContainer > Button {
+  width: 100%;
+}
+
+.buttonSvg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+// Разделитель «или»
+.separator {
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: 8px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 45%;
+    height: 1px;
+    background-color: $color-disabled;
+    transform: translateY(-50%);
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  span {
+    padding: 0 8px;
+    background-color: $form-bg-color;
+  }
+}
+
+// Группа полей ввода
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-text;
+    margin-bottom: 4px;
+  }
+}
+
+// Контейнер для всех подсказок пароля
+.passwordHints {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+// Обычная подсказка (серым цветом)
+.hintNormal {
+  font-size: 12px;
+  color: $color-disabled-text;
+  margin: 0;
+  line-height: 1.4;
+}
+
+// Подсказка "Надёжный"
+.hintStrong {
+  font-size: 12px;
+  color: $color-disabled-text;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+
+// Подсказка с ошибкой (красным цветом)
+.hintError {
+  font-size: 12px;
+  color: $color-error;
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+}

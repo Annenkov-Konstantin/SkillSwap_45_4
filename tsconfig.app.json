@@ -36,7 +36,8 @@
       "@entities/*": ["src/entities/*"],
       "@assets/*": ["src/assets/*"],
       "@api/*": ["src/api/*"],
-      "@app/*": ["src/app/*"]
+      "@app/*": ["src/app/*"],
+      "@images/*": ["src/images/*"]
     }
   },
   "include": ["src"]

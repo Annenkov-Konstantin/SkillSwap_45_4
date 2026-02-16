@@ -232,9 +232,9 @@ export class Api {
       });
     })
     .catch(error => {
-      // Здесь можно дополнительно обработать ошибку
+      // Здесь можно дополнительно обработать ошибку(и так рабоатет я оставил)
       console.error('Registration error:', error);
-      return error; // или throw error, если хотите пробросить дальше
+      return error;
     });
   }
 
@@ -447,7 +447,7 @@ export class Api {
 
       const authData:TRefreshAuthResponse = await authResponse.json();
 
-      // Получаем данные пользователя из твоей таблицы по auth_user_id
+      // Получаем данные пользователя из таблицы по auth_user_id 
       const userResponse = await fetch(
         `${this.baseUrl}/rest/v1/rpc/get_user_by_auth_id`,
         {
