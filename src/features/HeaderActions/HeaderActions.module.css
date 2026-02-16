@@ -1,0 +1,27 @@
+.buttons_container {
+  display: flex;
+  gap: 8px;
+  max-width: 308px;
+}
+
+.profile_container {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile_buttons_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  min-width: 24px;
+  height: 24px;
+}

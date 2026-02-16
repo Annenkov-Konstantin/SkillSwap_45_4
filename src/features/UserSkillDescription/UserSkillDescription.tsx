@@ -1,5 +1,5 @@
 import styles from './UserSkillDescription.module.scss';
-import type { UserSkillDescriptionProps } from './types';
+import type { UserSkillDescriptionProps } from './type';
 import React from 'react';
 import { useSkill } from '@/shared/hooks/useSkillsCategoryMatcher';
 

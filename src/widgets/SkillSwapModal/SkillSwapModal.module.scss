@@ -1,0 +1,58 @@
+@use '@app/styles/_variables' as *;
+@use '@app/styles/_mixins' as *;
+@use 'sass:map';
+
+.modal {
+  @include border-radius;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-color: $color-card-input;
+  width: 1024px;
+  padding: 44px 60px 72px;
+  z-index: 9999;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-family: map.get($h2, 'font-family');
+  font-weight: map.get($h2, 'font-weight');
+  font-size: map.get($h2, 'font-size');
+  line-height: map.get($h2, 'line-height');
+}
+
+.description {
+  font-family: map.get($caption, 'font-family');
+  font-weight: map.get($caption, 'font-weight');
+  font-size: map.get($caption, 'font-size');
+  line-height: map.get($caption, 'line-height');
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+}
+
+.skill {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-icon {
+  @include icon-size;
+  margin-left: 8px;
+}
