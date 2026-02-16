@@ -6,16 +6,13 @@ export type THeaderUIProps = {
   userPhoto: string;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
-  handleTriggerClick: () => void;
-  isSkillsOpen: boolean;
   isLogin: boolean;
+  handleModalOpen:()=>void;
+  isModalOpen:boolean;
 };
 
 export type THeaderProps = Pick<THeaderUIProps,
   'userName'
   |'userPhoto'
   |'isLogin'
-  > & {
-    isSkillsOpen: boolean;
-    setIsSkillsOpen:(value:boolean)=>void;
-  }
+  >

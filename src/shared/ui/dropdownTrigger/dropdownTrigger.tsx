@@ -1,20 +1,31 @@
 import type { TDropdownTriggerProps } from './types';
 import styles from './dropdownTrigger.module.scss';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const DropdownTrigger: React.FC<TDropdownTriggerProps> = ({
   isOpen,
-  onClick
+  onClick,
+  invert = false
+
 }: TDropdownTriggerProps) => {
+
+
   return (
-    <button className={styles.trigger_button} onClick={(e) => {e.stopPropagation(); onClick();}}>
+    <button
+    className={styles.trigger_button}
+    onClick={(e) => {e.stopPropagation(); onClick()}}
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='24'
         height='24'
         fill='none'
-        className={clsx(styles.arrow, { [styles.arrow_open]: isOpen })}
+        className={clsx(styles.arrow, {
+          [styles.arrow_up]: invert ? !isOpen : isOpen
+        }
+
+        )}
       >
         <path
           fill='currentColor'

@@ -15,10 +15,14 @@
 .arrow {
   display: block;
   transition: transform 0.2s ease;
-  transform: rotate(0deg);
+  transform: scale(1, 1);
 }
 
 .arrow_open {
   display: block;
-  transform: rotate(180deg);
+  transform: scale(1, -1);
+}
+
+.arrow_up {
+  transform: scale(1, -1);
 }

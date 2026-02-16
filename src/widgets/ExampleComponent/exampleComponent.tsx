@@ -21,31 +21,4 @@
 //     </div>
 //   );
 // };
-import React from 'react';
-import  {useState} from 'react';
-import { Header } from '../Header/Header';
 
-export type TExample = {
-  isSkillsOpen:boolean;
-  setIsSkillsOpen:(value:boolean)=>void;
-}
-
-export const ExampleComponent: React.FC<TExample> = ({isSkillsOpen, setIsSkillsOpen}) => {
-  const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
-  const userName = 'Мария'; //данные из стора
-
-  const isLogin = true; //данные из стора - для теста поменять на false
-
-
-  return (
-    <div>
-      <Header
-        userPhoto={userPhoto}
-        userName={userName}
-        isLogin={isLogin}
-        isSkillsOpen={isSkillsOpen}
-        setIsSkillsOpen={setIsSkillsOpen}
-      />
-    </div>
-  );
-};

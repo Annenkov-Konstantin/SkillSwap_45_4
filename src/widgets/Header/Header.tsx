@@ -1,21 +1,19 @@
 import type { THeaderProps } from "./type";
-import { useState, type FC } from "react";
+import { useState, type FC, useContext } from "react";
 import { HeaderUI } from "./HeaderUI";
-
+import { SkillsModalContext } from "@/shared/context/SkillsModalContext"; // сюда контекст
 
 export const Header: FC<THeaderProps> = ({
         userPhoto,
         userName,
         isLogin,
-        isSkillsOpen,
-        setIsSkillsOpen
       }) => {
   const [ search, setSearch ]= useState('');
-  const [ isOpen, setIsOPen ]= useState(false);
+  // юзаем контекст состояния модалки
+  const [shouldModalRender, setShouldmodalRender] = useContext(SkillsModalContext);
 
-   // Создаем правильные обработчики
-  const handleTriggerClick = () => {
-    setIsSkillsOpen(!isSkillsOpen);  // toggle
+  const handleSkillsOpen = () => {
+    setShouldmodalRender(true);
   };
 
 
@@ -24,10 +22,10 @@ export const Header: FC<THeaderProps> = ({
   userName={userName}
   searchQuery={search}
   setSearchQuery={setSearch}
-  handleTriggerClick={handleTriggerClick}
   userPhoto={userPhoto}
   isLogin={isLogin}
-  isSkillsOpen={isSkillsOpen}
+  handleModalOpen = {handleSkillsOpen}
+  isModalOpen = {shouldModalRender}
   />
   )
 };

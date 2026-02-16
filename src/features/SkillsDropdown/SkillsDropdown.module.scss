@@ -8,7 +8,8 @@
   padding: 60px;
   border-radius: 12px;
   z-index: 101;
-  width: 1136px;
+  width: 100%;
+  max-width: 1136px;
   height: 1040px;
   border: 1px solid $color-caption;
   background-color: #fff;
@@ -36,6 +37,7 @@
   row-gap: 12px;
   line-height: 24px;
   letter-spacing: 0.3px;
+
 }
 
 .category_title {
@@ -89,14 +91,14 @@
 }
 
 .skills_container::-webkit-scrollbar-thumb {
-  background: #888;
+  background: $color-disabled;
   border-radius: 10px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
 
 .skills_container::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: $color-disabled-text;
   background-clip: content-box;
 }
 

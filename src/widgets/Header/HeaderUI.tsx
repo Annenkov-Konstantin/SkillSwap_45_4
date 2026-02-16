@@ -1,22 +1,22 @@
 import { Logo } from "@/shared/ui/logo";
 import type { THeaderUIProps } from "./type";
 import { DropdownTrigger, Input } from "@/shared/ui";
-import type { FC } from "react";
+import { useContext, type FC } from "react";
 import moon from '@assets/icons/moon.svg';
 import styles from './Header.module.scss';
 import { NavLink } from "react-router-dom";
 import { HeaderActions } from "@/features/HeaderActions/HeaderActions";
-import { SkillsDropdown } from "@/features";
 
 export const HeaderUI: FC<THeaderUIProps> = ({
   userName,
   searchQuery,
   setSearchQuery,
-  handleTriggerClick,
   userPhoto,
   isLogin,
-  isSkillsOpen
+  handleModalOpen,
+  isModalOpen
  }) => {
+
   return (
     <header className={styles.header}>
       <nav className={styles.menue}>
@@ -28,11 +28,15 @@ export const HeaderUI: FC<THeaderUIProps> = ({
                 <p>О проекте</p>
               </NavLink>
             </li>
-            <li className={styles.skills_container} onClick={handleTriggerClick}>
+            <li className={styles.skills_container} onClick={handleModalOpen}>
               <NavLink to='#' className={styles.link}>
                 <p>Все навыки</p>
               </NavLink>
-              <DropdownTrigger onClick={handleTriggerClick} isOpen={isSkillsOpen}/>
+              <DropdownTrigger
+                onClick={handleModalOpen}
+                isOpen={isModalOpen}
+                invert={true}
+                />
             </li>
           </ul>
         </div>
