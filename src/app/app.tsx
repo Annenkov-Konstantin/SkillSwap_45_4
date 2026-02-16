@@ -3,7 +3,7 @@ import './styles/global.scss';
 
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
-import { SkillsModalManager } from '@/features';
+import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 import { HomeCatalog } from '@/pages/HomeCatalog';
 import { Header } from '@/widgets/Header/Header';
