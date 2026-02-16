@@ -1,25 +1,20 @@
 import type { ReactNode } from 'react';
 
-// временная типопая заглушка
-interface Category {
-  id: number;
-  title: string;
-  skills: string[];
-}
+import type { TSkills } from '@/entities/skills';
 
 export type TModalProps = {
   onClose: () => void;
-  skills: Category[];
+  skills: TSkills
   isVisible?: boolean;
 };
 
 type CategoryIconType = Record<string, string>;
 
 export const categoryIcon: CategoryIconType = {
-  'Бизнес и карьера': 'busines_icon',
-  'Творчество и искусство': 'creativity_icon',
-  'Иностранные языки': 'languages_icon',
-  'Образование и развитие': 'education_icon',
-  'Дом и уют': 'home_icon',
-  'Здоровье и лайфстайл': 'health_icon'
+  1: 'busines_icon',
+  2: 'creativity_icon',
+  3: 'languages_icon',
+  4: 'education_icon',
+  5: 'home_icon',
+  6: 'health_icon'
 } as const;

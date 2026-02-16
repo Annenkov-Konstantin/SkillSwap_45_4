@@ -1,3 +1,4 @@
+@use '@/app/styles/reset.module';
 @use '@/app/styles/variables' as *;
 @use '@/app/styles/mixins' as *;
 
@@ -8,6 +9,7 @@
 html,
 body {
   @include apply-text-style($body-text);
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   background-color: $color-background;
@@ -15,10 +17,11 @@ body {
     background-color 0.8s ease,
     color 0.8s ease;
   color: $color-text;
+
 }
 
-body {
-  min-height: 100vh;
+body.modal-open {
+ overflow: hidden;
 }
 
 a {
@@ -31,15 +34,15 @@ h1 {
 }
 
 h2 {
-  @include apply-text-style($h1);
+  @include apply-text-style($h2);
 }
 
 h3 {
-  @include apply-text-style($h1);
+  @include apply-text-style($h3);
 }
 
 h4 {
-  @include apply-text-style($h1);
+  @include apply-text-style($h4);
 }
 
 caption {

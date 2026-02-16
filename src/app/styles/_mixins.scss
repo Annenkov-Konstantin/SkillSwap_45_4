@@ -28,8 +28,8 @@
   justify-content: center;
   cursor: pointer;
   color: $color-text;
-  font-family: $font-family-main;
-  font-weight: $font-weight-regular;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 @mixin button-transition {
@@ -102,3 +102,4 @@
   border: 0;
   clip-path: inset(50%);
 }
+
