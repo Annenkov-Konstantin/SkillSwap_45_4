@@ -7,4 +7,3 @@ export { UserSkillDescription } from './UserSkillDescription';
 export { CitySelect } from './CitySelect';
 export { UserCardSkillUI } from './UserCard/UserCardSkill';
 export { SkillsModalManager } from './SkillsModalManager';
-

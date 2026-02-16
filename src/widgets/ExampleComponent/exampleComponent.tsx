@@ -135,4 +135,4 @@ export const ExampleComponent: FC = () => {
       <div>{name}</div>
     </>
   );
-};
+}
