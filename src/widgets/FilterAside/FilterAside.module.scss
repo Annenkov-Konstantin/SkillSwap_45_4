@@ -1,0 +1,112 @@
+@use '@app/styles/_variables' as *;
+@use 'sass:map';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 51px;
+}
+
+.title {
+  font-family: map.get($h2, font-family);
+  font-weight: map.get($h2, font-weight);
+  font-size: map.get($h2, font-size);
+  line-height: map.get($h2, line-height);
+  letter-spacing: -0.03em;
+}
+
+.resetButton {
+  font-size: 15px;
+  letter-spacing: 0.07em;
+  background-color: transparent;
+  border-color: transparent;
+  color: $color-text-link;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.section {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  line-height: 24px;
+}
+
+.titleFilter {
+  font-family: map.get($h3, font-family);
+  font-weight: map.get($h3, font-weight);
+  font-size: map.get($h3, font-size);
+  line-height: map.get($h3, line-height);
+  margin-bottom: 5px;
+  letter-spacing: -0.03em;
+}
+
+.categoryHead {
+  display: flex;
+  margin-bottom: 16px;
+  width: 284px;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.categoryLabel input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  accent-color: $color-accent;
+  margin: 0;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkboxIcon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+}
+
+.categoryTrigger {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.category:hover .categoryTrigger,
+.category:focus-within .categoryTrigger,
+.categoryOpen .categoryTrigger {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.unfoldRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.buttonUnfold {
+  font-size: 15px;
+  letter-spacing: 0.07em;
+  background-color: transparent;
+  border-color: transparent;
+  color: $color-text-link;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  cursor: pointer;
+}
