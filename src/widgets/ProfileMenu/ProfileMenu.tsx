@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../../shared/ui/Icon';
+import { Icon } from '@/shared/ui/Icon';
 import { NavLink } from 'react-router-dom';
 import styles from './ProfileMenu.module.scss';
 import type { IPMItem } from './type';
@@ -8,10 +8,10 @@ const sidebarItems: IPMItem[] = [
   {
     to: '/',
     icon: 'request',
-    text: 'Заявки'
+    text: 'Заявки',
   },
   {
-    to: '/exchanges',
+    to: '/swaps',
     icon: 'message-text',
     text: 'Мои обмены'
   },
@@ -27,7 +27,7 @@ const sidebarItems: IPMItem[] = [
     strokeIcon: true
   },
   {
-    to: '/user',
+    to: '/profile',
     icon: 'user',
     text: 'Личные данные'
   }
