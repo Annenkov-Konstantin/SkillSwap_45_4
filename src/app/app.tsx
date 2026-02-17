@@ -1,5 +1,6 @@
 import './styles/index.module.scss';
 import './styles/global.scss';
+import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
@@ -9,6 +10,7 @@ import { HomeCatalog } from '@/pages/HomeCatalog';
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { useState } from 'react';
+import { ExampleComponent } from '@/widgets/ExampleComponent';
 
 // ----Моки хедера для теста
 const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
@@ -21,25 +23,28 @@ const App = () => {
 
   return (
    <SkillsModalProvider>
+    <IconSprite/>
+    <SkillsModalManager/>
     <Header
         userName={userName}
         isLogin={isLogin}
         userPhoto={userPhoto}
     />
-    <SkillsModalManager/>
     <div>
       <Routes location={location}>
         <Route path='/' element={<HomeCatalog />} />
-        {/* <Route path='/skill/:id' element={<Skill />} />
+        {/*
+        <Route path='/skill/:id' element={<Skill />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/login' element={<Login />} />
-        <Route path='*' element={<NotFound404 />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/register/account' element={<RegisterAccount />} />
         <Route path='/register/personal' element={<RegisterPersonal/>} />
         <Route path='/register/skill' element={<RegisterSkill/>} />
-        <Route path='/error' element={<ServerError500/>} /> */}
-        <Route path='/test' element={<HomeCatalog/>} />
+        <Route path='/error' element={<ServerError500/>} />
+        <Route path='*' element={<NotFound404 />} />
+        */}
+        <Route path='/test' element={<ExampleComponent/>} />
       </Routes>
       <Footer />
     </div>
