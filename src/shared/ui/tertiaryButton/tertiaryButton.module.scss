@@ -1,0 +1,58 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.button {
+  @include border-radius;
+  display: inline-flex;
+  padding: 12px 24px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  color: $color-text;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  border: none;
+  background-color: $color-card-input;
+  transition: color 0.2s, background-color 0.2s;
+
+  // при фокусе с клавиатуры (Tab)
+  &:focus-visible {
+    outline: 2px solid $color-text-link;
+    outline-offset: 2px;
+  }
+  
+  // при наведении
+  &:hover {
+    background-color: $color-button-hover;
+  }
+
+  // Общие стили для активного состояния (клик или Enter)
+  &:active,
+  &.keyPressed {
+    color: $color-text-link;
+    
+    .icon svg {
+      stroke: $color-text-link;
+      fill: $color-text-link;
+    }
+  }
+}
+
+.icon {
+  display: flex;
+  
+  svg {
+    transition: stroke 0.2s, fill 0.2s;
+  }
+}
+
+.label {
+  @include body-text;
+}
+
+.withoutIcons {
+  justify-content: center;
+}

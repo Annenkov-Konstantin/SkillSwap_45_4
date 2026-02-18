@@ -2,21 +2,23 @@ import { useState } from 'react';
 import type { FC } from 'react';
 
 import { FilterAsideUI } from '../FilterAside';
+
 import skills from '../../../public/db/skills/skills.json';
 import city from '../../../public/db/city/city.json';
 import type { Filters } from '../FilterAside/types';
+import {PREFERENCE_OPTIONS} from '@widgets/FilterAside/types';
+
+
+  const demoFilters: Filters = {
+    preferenceFilter: PREFERENCE_OPTIONS[1],
+    skillFilter: [skills[2].skills[0]],
+    genderFilter: 'any',
+    cityFilter: []
+  };
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
-
-
-const demoFilters: Filters = {
-  preferenceFilter: 'all',
-  skillFilter: [],
-  genderFilter: 'any',
-  cityFilter: []
-};
 
   // useEffect(() => {
   //   const testLike = async () => {
@@ -62,9 +64,7 @@ const demoFilters: Filters = {
 
   return (
     <>
-      <div>
-      {name}
-      </div>
+      <div>{name}</div>
       <FilterAsideUI
         filters={demoFilters}
         selectedCount={2}
@@ -86,4 +86,4 @@ const demoFilters: Filters = {
       />
     </>
   );
-}
+};
