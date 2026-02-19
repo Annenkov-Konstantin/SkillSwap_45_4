@@ -8,6 +8,7 @@ import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 import { HomeCatalog } from '@/pages/HomeCatalog';
 import { NotFound404 } from '@/pages/NotFound-404';
+import { ServerError500 } from '@/pages/ServerError-500';
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
@@ -41,8 +42,8 @@ const App = () => {
         <Route path='/register/account' element={<RegisterAccount />} />
         <Route path='/register/personal' element={<RegisterPersonal/>} />
         <Route path='/register/skill' element={<RegisterSkill/>} />
-        <Route path='/error' element={<ServerError500/>} />
         */}
+          <Route path='/error' element={<ServerError500 />} />
           <Route path='/test' element={<ExampleComponent/>} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
