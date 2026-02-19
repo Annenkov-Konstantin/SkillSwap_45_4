@@ -37,7 +37,14 @@
       "@assets/*": ["src/assets/*"],
       "@api/*": ["src/api/*"],
       "@app/*": ["src/app/*"],
-      "@images/*": ["src/images/*"]
+      "@images/*": ["src/images/*"],
+      "@constants": ["src/shared/lib/constants"],
+      "@types": ["src/shared/lib/types"],
+      "@slices": ["src/services/slices"],
+      "@slice/*": ["src/services/slices/*"],
+      "@selectors": ["src/services/selectors"],
+      "@store-hooks": ["src/services/hooks"],
+      "@thunks": ["src/services/thunk"]
     }
   },
   "include": ["src"]

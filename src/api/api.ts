@@ -1,6 +1,6 @@
 // import { ErrorMessages } from '@utils-types';
 import { setCookie, getCookie } from '@/shared/lib/utils/cookie';
-import { QUERY_ENDPOINTS } from '@/shared/lib/constants/apiQueryEndpoints';
+import { QUERY_ENDPOINTS } from '@constants';
 import type {
   TRefreshAuthResponse,
   TCityResponse,
@@ -447,7 +447,7 @@ export class Api {
 
       const authData:TRefreshAuthResponse = await authResponse.json();
 
-      // Получаем данные пользователя из таблицы по auth_user_id 
+      // Получаем данные пользователя из таблицы по auth_user_id
       const userResponse = await fetch(
         `${this.baseUrl}/rest/v1/rpc/get_user_by_auth_id`,
         {

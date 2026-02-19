@@ -48,7 +48,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             onClick={onReset}
           >
             <span>Сбросить</span>
-            <svg
+            {/* <svg
               width='11'
               height='11'
               viewBox='0 0 11 11'
@@ -63,7 +63,12 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                 d='M10.0763 10.0762C9.78636 10.3661 9.30553 10.3661 9.01561 10.0762L0.53033 1.59088C0.240416 1.30096 0.240416 0.820131 0.53033 0.530217C0.820244 0.240303 1.30108 0.240303 1.59099 0.530217L10.0763 9.0155C10.3662 9.30541 10.3662 9.78625 10.0763 10.0762Z'
                 fill='#508826'
               />
-            </svg>
+            </svg> */}
+            <Icon
+              name='icon-cross'
+              size={24}
+              fill='#508826'
+            />
           </button>
         )}
       </div>
