@@ -2,5 +2,6 @@ import type { TSkill } from '@entities/skills';
 
 export interface IResetSkillButtonProps {
   skill: TSkill;
-  onSkillToggle: (skillId: number) => void;
+  onSkillToggle: (skill:TSkill) => void;
+  actionType?: 'default' | 'filter';
 }

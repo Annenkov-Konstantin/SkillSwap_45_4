@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import { type ITertiaryButton } from './types';
 import styles from './tertiaryButton.module.scss';
 import clsx from 'clsx';
@@ -7,10 +7,13 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   firstIcon,
   label,
   onClickButton,
+  onIconClick,
   secondIcon,
+  actionType,
   ...rest
 }) => {
 const [isKeyPressed, setIsKeyPressed] = useState(false);
+
 
   if (!label || !onClickButton) return null;
 
@@ -29,9 +32,17 @@ const [isKeyPressed, setIsKeyPressed] = useState(false);
     }
   };
 
+  const handleIconClick = (e: React.MouseEvent) => {
+    console.log(onIconClick)
+    e.stopPropagation();
+    if (onIconClick) {
+      onIconClick();
+    }
+  };
+
   return (
     <button
-      onClick={onClickButton}
+      onClick={actionType==='default'? onClickButton: undefined }
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       onBlur={() => setIsKeyPressed(false)} // сброс при потере фокуса
@@ -45,9 +56,14 @@ const [isKeyPressed, setIsKeyPressed] = useState(false);
       )}
       {...rest}
     >
-      {firstIcon && <span className={styles.icon}>{firstIcon}</span>}
-      <span className={styles.label}>{label}</span>
-      {secondIcon && <span className={styles.icon}>{secondIcon}</span>}
+      {firstIcon && <span className={styles.icon}>{firstIcon}
+      </span>}
+      <span className={styles.label}>{label}
+      </span>
+      {secondIcon && <span
+      onClick={(e)=>handleIconClick(e)}
+      className={styles.icon}>{secondIcon}</span>}
     </button>
   );
+
 };

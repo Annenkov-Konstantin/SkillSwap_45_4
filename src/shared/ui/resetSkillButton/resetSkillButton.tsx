@@ -1,8 +1,8 @@
 import React from 'react';
-import { TertiaryButton } from '../tertiaryButton';
 import { Icon } from '../Icon';
 import { type IResetSkillButtonProps } from './types';
 import styles from './resetSkillButton.module.scss';
+import { TertiaryButton } from '../tertiaryButton';
 
 export const ResetSkillButton: React.FC<IResetSkillButtonProps> = ({
   skill,
@@ -12,8 +12,10 @@ export const ResetSkillButton: React.FC<IResetSkillButtonProps> = ({
     <div className={styles.resetSkillButton}>
       <TertiaryButton
         label={skill.title}
-        onClickButton={() => onSkillToggle(skill.id)}
+        onClickButton={() => onSkillToggle(skill)}//можно и вообще убрать клик на кнопку для фильтров
         secondIcon={<Icon name='icon-cross' size={24} />}
+        actionType='default'
+        onIconClick={() => onSkillToggle(skill)}
       />
     </div>
   );

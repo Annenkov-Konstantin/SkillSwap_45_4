@@ -89,6 +89,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                       key={skill.id}
                       skill={skill}
                       onSkillToggle={onSkillToggle}
+                      actionType='filter'
                     />
                   ))}
                 </>
@@ -170,7 +171,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                       )}
                       label={skill.title}
                       // Передаём id навыка, как требует onSkillToggle
-                      onChange={() => onSkillToggle(skill.id)}
+                      onChange={() => onSkillToggle(skill)}
                     />
                   ))}
                 </div>
