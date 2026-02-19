@@ -1,0 +1,68 @@
+@use '@app/styles/_variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: none;
+  border-radius: 8px;
+  padding: 40px 60px;
+  max-width: 556px;
+  margin: 0 auto;
+  background-color: $form-bg-color;
+  letter-spacing: 0.02em;
+}
+
+.profilePhotoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 9px;
+}
+
+.buttonAdd {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  position: absolute;
+  right: 44%;
+  bottom: 15%;
+  padding: 0;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nameInput {
+  min-height: 48px;
+}
+
+.personalDataContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.dateBirthContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.formContainer label {
+  @include body-text;
+  display: block;
+  margin-bottom: 4px;
+  color: $color-text;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 20px;
+  margin-top: 18px;
+}
