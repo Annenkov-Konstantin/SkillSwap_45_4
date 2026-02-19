@@ -7,9 +7,9 @@ import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
 import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 import { HomeCatalog } from '@/pages/HomeCatalog';
+import { NotFound404 } from '@/pages/NotFound-404';
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
-import { useState } from 'react';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
 
 // ----Моки хедера для теста
@@ -22,18 +22,18 @@ const App = () => {
   const location = useLocation();
 
   return (
-   <SkillsModalProvider>
-    <IconSprite/>
-    <SkillsModalManager/>
-    <Header
+    <SkillsModalProvider>
+      <IconSprite/>
+      <SkillsModalManager/>
+      <Header
         userName={userName}
         isLogin={isLogin}
         userPhoto={userPhoto}
-    />
-    <div>
-      <Routes location={location}>
-        <Route path='/' element={<HomeCatalog />} />
-        {/*
+      />
+      <div>
+        <Routes location={location}>
+          <Route path='/' element={<HomeCatalog />} />
+          {/*
         <Route path='/skill/:id' element={<Skill />} />
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/login' element={<Login />} />
@@ -42,13 +42,13 @@ const App = () => {
         <Route path='/register/personal' element={<RegisterPersonal/>} />
         <Route path='/register/skill' element={<RegisterSkill/>} />
         <Route path='/error' element={<ServerError500/>} />
-        <Route path='*' element={<NotFound404 />} />
         */}
-        <Route path='/test' element={<ExampleComponent/>} />
-      </Routes>
-      <Footer />
-    </div>
-  </SkillsModalProvider>
+          <Route path='/test' element={<ExampleComponent/>} />
+          <Route path='*' element={<NotFound404 />} />
+        </Routes>
+        <Footer />
+      </div>
+    </SkillsModalProvider>
   //  '/ingredients/:id'
   // '/feed/:number'
   );

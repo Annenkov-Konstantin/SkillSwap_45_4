@@ -1,0 +1,62 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.errorPage {
+  @include flex-center-column;
+  width: min(460px, 100%);
+  margin: 100px auto 84px;
+  padding: 0;
+  background-color: $color-background;
+  text-align: center;
+}
+
+.image {
+  width: 460px;
+  height: 304px;
+  margin-bottom: 40px;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 460px;
+  height: 80px;
+  margin-bottom: 32px;
+}
+
+.title {
+  @include apply-text-style($h2);
+  margin: 0;
+}
+
+.description {
+  @include apply-text-style($body-text);
+  margin: 0;
+  text-align: center;
+  color: $color-caption;
+}
+
+.actions {
+  display: flex;
+  gap: 24px;
+  width: 460px;
+  height: 48px;
+}
+
+.action {
+  flex: 0 0 218px;
+  width: 218px;
+  height: 48px;
+}
+
+.action > button {
+  gap: 8px;
+  height: 48px;
+  font-family: $font-family-main;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
