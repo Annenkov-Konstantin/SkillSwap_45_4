@@ -7,12 +7,14 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   firstIcon,
   label,
   onClickButton,
+  onIconClick,
   secondIcon,
   ...rest
 }) => {
   const [isKeyPressed, setIsKeyPressed] = useState(false);
 
-  if (!label || !onClickButton) return null;
+
+  if (!label ) return null;
 
   const hasIcons = Boolean(firstIcon || secondIcon);
 
@@ -26,6 +28,13 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   const handleKeyUp = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') {
       setIsKeyPressed(false);
+    }
+  };
+
+  const handleIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onIconClick) {
+      onIconClick();
     }
   };
 
@@ -65,4 +74,5 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
       )}
     </button>
   );
+
 };

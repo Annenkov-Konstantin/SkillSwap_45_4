@@ -33,7 +33,7 @@ export interface FilterAsideUIProps {
   onPreferenceChange: (value: Preference) => void; // изменить все/хочу научиться/ могу научить
   onGenderChange: (value: Gender) => void; // изменить пол автора
   onCityToggle: (city: string) => void; // выбрать/убрать выбор города
-  onSkillToggle: (skill: number) => void; // выбрать/убрать выбор навыка
+  onSkillToggle: (skill:TSkill) => void; // выбрать/убрать выбор навыка
   onCategoryToggle: (categoryId: number) => void; // раскрыть/ свернуть категорию до списка навыков
   onCategorySkillsToggle: (category: SkillCategory) => void; // выбрать/снять все навыки категории.
   onShowAllCategoriesToggle: () => void; // "все категории" развернуть/свернуть

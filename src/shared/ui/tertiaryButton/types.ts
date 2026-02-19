@@ -8,6 +8,7 @@ import {
 export interface ITertiaryButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   firstIcon?: React.ReactNode;
   label: string;
-  onClickButton: () => void;
+  onClickButton?: () => void;
+  onIconClick?: () => void;
   secondIcon?: React.ReactNode;
 }
