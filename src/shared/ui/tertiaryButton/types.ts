@@ -11,5 +11,4 @@ export interface ITertiaryButton extends React.ButtonHTMLAttributes<HTMLButtonEl
   onClickButton?: () => void;
   onIconClick?: () => void;
   secondIcon?: React.ReactNode;
-  actionType?: 'default' | 'filter';
 }

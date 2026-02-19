@@ -89,7 +89,6 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                       key={skill.id}
                       skill={skill}
                       onSkillToggle={onSkillToggle}
-                      actionType='filter'
                     />
                   ))}
                 </>

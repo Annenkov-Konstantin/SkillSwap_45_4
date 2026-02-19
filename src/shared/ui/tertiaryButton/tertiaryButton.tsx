@@ -9,20 +9,19 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   onClickButton,
   onIconClick,
   secondIcon,
-  actionType,
   ...rest
 }) => {
 const [isKeyPressed, setIsKeyPressed] = useState(false);
 
 
-  if (!label || !onClickButton) return null;
+  if (!label ) return null;
 
   const hasIcons = Boolean(firstIcon || secondIcon);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') {
       setIsKeyPressed(true);
-      onClickButton();
+      onClickButton?.();
     }
   };
 
@@ -33,7 +32,6 @@ const [isKeyPressed, setIsKeyPressed] = useState(false);
   };
 
   const handleIconClick = (e: React.MouseEvent) => {
-    console.log(onIconClick)
     e.stopPropagation();
     if (onIconClick) {
       onIconClick();
@@ -42,7 +40,7 @@ const [isKeyPressed, setIsKeyPressed] = useState(false);
 
   return (
     <button
-      onClick={actionType==='default'? onClickButton: undefined }
+      onClick={onClickButton}
       onKeyDown={handleKeyDown}
       onKeyUp={handleKeyUp}
       onBlur={() => setIsKeyPressed(false)} // сброс при потере фокуса
