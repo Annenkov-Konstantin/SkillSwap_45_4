@@ -1,0 +1,28 @@
+@use '@app/styles/_variables' as *;
+@use '@app/styles/_mixins' as *;
+
+.card {
+  @include border-radius;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: $color-card-input;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.like {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.buttonImg {
+  margin-right: 8px;
+}
