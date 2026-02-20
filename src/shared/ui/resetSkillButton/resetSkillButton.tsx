@@ -12,9 +12,8 @@ export const ResetSkillButton: React.FC<IResetSkillButtonProps> = ({
     <div className={styles.resetSkillButton}>
       <TertiaryButton
         label={skill.title}
-        // onClickButton={() => onSkillToggle(skill)}//можно и вообще убрать клик на кнопку для фильтров
+        onClickButton={() => onSkillToggle(skill)}
         secondIcon={<Icon name='icon-cross' size={24} />}
-        onIconClick={() => onSkillToggle(skill)}
       />
     </div>
   );
