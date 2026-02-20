@@ -198,7 +198,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
         {visibleCities.map((city) => (
           <Checkbox
             key={city._id}
-            checked={false} 
+            checked={false}
             label={city.name}
             onChange={() => onCityToggle(city.name)}
           />

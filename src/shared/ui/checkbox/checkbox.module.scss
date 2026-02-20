@@ -22,10 +22,10 @@
 .checkmark {
   position: relative;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #000;
-  border-radius: 8px;
+  border-radius: 6px;
   transition:
     background-color 0.25s ease,
     border-color 0.25s ease;
@@ -36,8 +36,8 @@
 }
 
 .container input:checked + .checkmark {
-  background-color: #9acd32;
-  border-color: #9acd32;
+  background-color: #abd27a;
+  border: #abd27a;
 }
 
 .container:has(input:disabled) {
