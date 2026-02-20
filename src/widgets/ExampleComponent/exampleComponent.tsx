@@ -1,22 +1,13 @@
 import { useState } from 'react';
 import type { FC } from 'react';
 
-import { FilterAsideUI } from '../FilterAside';
-import skills from '../../../public/db/skills/skills.json';
-import city from '../../../public/db/city/city.json';
-import type { Filters } from '../FilterAside/types';
+import { FilterAside } from '../FilterAside/FilterAside';
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
 
 
-const demoFilters: Filters = {
-  preferenceFilter: 'all',
-  skillFilter: [],
-  genderFilter: 'any',
-  cityFilter: []
-};
 
   // useEffect(() => {
   //   const testLike = async () => {
@@ -61,29 +52,6 @@ const demoFilters: Filters = {
   // }, []);
 
   return (
-    <>
-      <div>
-      {name}
-      </div>
-      <FilterAsideUI
-        filters={demoFilters}
-        selectedCount={2}
-        cityArray={city}
-        skillArray={skills}
-        openCategories={[1]}
-        showAllCategories={false}
-        showAllCities={true}
-        onReset={() => {}}
-        onPreferenceChange={() => {}}
-        onGenderChange={() => {}}
-        onCityToggle={() => {}}
-        onSkillToggle={() => {}}
-        onCategoryToggle={() => {}}
-        onCategorySkillsToggle={() => {}}
-        onShowAllCategoriesToggle={() => {}}
-        onShowAllCitiesToggle={() => {}}
-        getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
-      />
-    </>
-  );
+    <FilterAside/>
+  )
 }
