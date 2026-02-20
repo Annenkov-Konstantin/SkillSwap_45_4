@@ -19,7 +19,14 @@ export default defineConfig({
       '@entities': path.resolve(__dirname, './src/entities'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@api': path.resolve(__dirname, './src/api'),
-      '@images': path.resolve(__dirname, './src/images')
+      '@images': path.resolve(__dirname, './src/images'),
+      '@slices': path.resolve(__dirname, './src/services/slices'),
+      '@slice': path.resolve(__dirname, './src/services/slices/'),
+      '@selectors': path.resolve(__dirname, './src/services/selectors'),
+      '@store-hooks': path.resolve(__dirname, './src/services/hooks'),
+      '@thunks': path.resolve(__dirname, 'src/services/thunk'),
+      '@constants': path.resolve(__dirname, 'src/shared/lib/constants'),
+      '@types': path.resolve(__dirname, 'src/shared/lib/types')
     }
   },
   server: {

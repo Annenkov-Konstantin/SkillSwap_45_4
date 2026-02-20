@@ -4,6 +4,9 @@ import type { FilterAsideUIProps } from './types';
 import { PREFERENCE_OPTIONS, GENDER_OPTIONS } from './types';
 import React from 'react';
 import { Icon } from '@/shared/ui/Icon';
+import { ResetSkillButton } from '@/shared/ui/resetSkillButton/index';
+import { ResetPreferenceButton } from '@shared/ui/resetPreferenceButton/index';
+import { PreferenceAndSkillWrapper } from '@shared/ui/preferenceAndSkillWrapper/index';
 
 const INITIAL_VISIBLE_CATEGORIES = 5;
 const INITIAL_VISIBLE_CITIES = 5;
@@ -23,9 +26,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
   onSkillToggle,
   onCategoryToggle,
   onCategorySkillsToggle,
+  onCheckSkillExist,
   onShowAllCategoriesToggle,
   onShowAllCitiesToggle,
-  getCategoryCheckState
 }: FilterAsideUIProps) => {
   const visibleCategories = showAllCategories
     ? skillArray
@@ -48,26 +51,42 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             onClick={onReset}
           >
             <span>Сбросить</span>
-            <svg
-              width='11'
-              height='11'
-              viewBox='0 0 11 11'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M10.0763 1.59192L1.59099 10.0772C1.30108 10.3671 0.820244 10.3671 0.53033 10.0772C0.240416 9.78729 0.240416 9.30646 0.53033 9.01654L9.01561 0.531262C9.30553 0.241349 9.78636 0.241349 10.0763 0.531262C10.3662 0.821176 10.3662 1.30201 10.0763 1.59192Z'
-                fill='#508826'
-              />
-              <path
-                d='M10.0763 10.0762C9.78636 10.3661 9.30553 10.3661 9.01561 10.0762L0.53033 1.59088C0.240416 1.30096 0.240416 0.820131 0.53033 0.530217C0.820244 0.240303 1.30108 0.240303 1.59099 0.530217L10.0763 9.0155C10.3662 9.30541 10.3662 9.78625 10.0763 10.0762Z'
-                fill='#508826'
-              />
-            </svg>
+            <Icon
+              name='icon-cross'
+              size={24}
+              fill='#508826'
+            />
           </button>
         )}
+        {/*Пример отображения выбранных Предпочтений и Скиллов*/}
+        {(filters.preferenceFilter.value !== 'all' ||
+          filters.skillFilter.length > 0) && (
+          <PreferenceAndSkillWrapper
+            preferenceResetButton={
+              filters.preferenceFilter.value !== 'all' ? (
+                <ResetPreferenceButton
+                  preference={filters.preferenceFilter} // объект
+                  onPreferenceChange={onPreferenceChange}
+                />
+              ) : null
+            }
+            skillResetButton={
+              filters.skillFilter.length > 0 ? (
+                <>
+                  {filters.skillFilter.map((skill) => (
+                    <ResetSkillButton
+                      key={skill.id}
+                      skill={skill}
+                      onSkillToggle={onSkillToggle}
+                    />
+                  ))}
+                </>
+              ) : null
+            }
+          />
+        )}
       </div>
-
+        <div className={styles.filter_menu}>
       <section className={styles.section}>
         {PREFERENCE_OPTIONS.map((pref) => (
           <RadioButton
@@ -75,7 +94,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             name='preferences'
             label={pref.label}
             value={pref.value}
-            checked={filters.preferenceFilter === pref.value}
+            checked={filters.preferenceFilter.value === pref.value}
             onChange={(value) => onPreferenceChange(value as typeof pref.value)}
           />
         ))}
@@ -86,31 +105,29 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
 
         {visibleCategories.map((category) => {
           const isOpen = openCategories.includes(category.id);
-          const checkState = getCategoryCheckState(category);
+          // const categoryFromFilter = filters.skillFilter[category.id]
 
           return (
             <div
               key={category.id}
               className={`${styles.category} ${isOpen ? styles.categoryOpen : ''}`}
             >
-              <div className={styles.categoryHead}>
-                <label className={styles.categoryLabel}>
-                  <input
-                    type='checkbox'
-                    checked={checkState.checked}
-                    ref={(el) => {
-                      if (el) el.indeterminate = checkState.indeterminate;
-                    }}
-                    onChange={() => onCategorySkillsToggle(category)}
-                  />
-                  <span className={styles.checkboxIcon} aria-hidden='true'>
-                    {checkState.indeterminate &&
+              <div
+              className={styles.categoryHead}>
+                <label
+                  onClick={() => onCategoryToggle(category.id)}
+                  className={styles.categoryLabel}
+                >
+                  <span
+                  onClick={(e) => e.stopPropagation()}
+                  className={styles.checkboxIcon} aria-hidden='true'>
+                    {isOpen &&
                     <Icon
                       name='icon-checkbox-remove'
                       size={24}
                       fill='#abd27a'
                     />}
-                    {!checkState.indeterminate && checkState.checked && (
+                    {!isOpen && (
                     <Icon
                       name='icon-checkbox-done'
                       size={24}
@@ -134,9 +151,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                   {category.skills.map((skill) => (
                     <Checkbox
                       key={skill.id}
-                      checked={filters.skillFilter.includes(skill.title)}
+                      checked={onCheckSkillExist(category.id, skill.id)}
                       label={skill.title}
-                      onChange={() => onSkillToggle(skill.title)}
+                      onChange={()=>onSkillToggle(category.id, skill)}
                     />
                   ))}
                 </div>
@@ -171,7 +188,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             name='authorGender'
             label={gender.label}
             value={gender.value}
-            checked={filters.genderFilter === gender.value}
+            checked={filters.genderFilter.value === gender.value}
             onChange={(value) => onGenderChange(value as typeof gender.value)}
           />
         ))}
@@ -183,7 +200,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
         {visibleCities.map((city) => (
           <Checkbox
             key={city._id}
-            checked={filters.cityFilter.includes(city.name)}
+            checked={filters.cityFilter.some((c) => c.name === city.name)} // или c._id === city._id
             label={city.name}
             onChange={() => onCityToggle(city.name)}
           />
@@ -206,6 +223,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           </div>
         )}
       </section>
+      </div>
     </aside>
   );
 };

@@ -1,5 +1,6 @@
 import './styles/index.module.scss';
 import './styles/global.scss';
+import styles from './app.module.scss'
 import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
 import { Route, Routes, useLocation } from 'react-router-dom';

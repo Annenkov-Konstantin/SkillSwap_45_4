@@ -36,6 +36,11 @@
   line-height: 24px;
 }
 
+.filter_menu {
+  background-color: aquamarine;
+  max-width: 284px;
+}
+
 .titleFilter {
   font-family: map.get($h3, font-family);
   font-weight: map.get($h3, font-weight);
@@ -48,9 +53,9 @@
 .categoryHead {
   display: flex;
   margin-bottom: 16px;
-  width: 284px;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: baseline;
+  column-gap: 8px;
 }
 
 .categoryLabel {
