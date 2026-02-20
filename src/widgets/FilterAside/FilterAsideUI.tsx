@@ -26,9 +26,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
   onSkillToggle,
   onCategoryToggle,
   onCategorySkillsToggle,
+  onCheckSkillExist,
   onShowAllCategoriesToggle,
   onShowAllCitiesToggle,
-  getCategoryCheckState
 }: FilterAsideUIProps) => {
   const visibleCategories = showAllCategories
     ? skillArray
@@ -51,22 +51,11 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             onClick={onReset}
           >
             <span>Сбросить</span>
-            <svg
-              width='11'
-              height='11'
-              viewBox='0 0 11 11'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M10.0763 1.59192L1.59099 10.0772C1.30108 10.3671 0.820244 10.3671 0.53033 10.0772C0.240416 9.78729 0.240416 9.30646 0.53033 9.01654L9.01561 0.531262C9.30553 0.241349 9.78636 0.241349 10.0763 0.531262C10.3662 0.821176 10.3662 1.30201 10.0763 1.59192Z'
-                fill='#508826'
-              />
-              <path
-                d='M10.0763 10.0762C9.78636 10.3661 9.30553 10.3661 9.01561 10.0762L0.53033 1.59088C0.240416 1.30096 0.240416 0.820131 0.53033 0.530217C0.820244 0.240303 1.30108 0.240303 1.59099 0.530217L10.0763 9.0155C10.3662 9.30541 10.3662 9.78625 10.0763 10.0762Z'
-                fill='#508826'
-              />
-            </svg>
+            <Icon
+              name='icon-cross'
+              size={24}
+              fill='#508826'
+            />
           </button>
         )}
         {/*Пример отображения выбранных Предпочтений и Скиллов*/}
@@ -97,6 +86,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           />
         )}
       </div>
+        <div className={styles.filter_menu}>
       <section className={styles.section}>
         {PREFERENCE_OPTIONS.map((pref) => (
           <RadioButton
@@ -115,37 +105,34 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
 
         {visibleCategories.map((category) => {
           const isOpen = openCategories.includes(category.id);
-          const checkState = getCategoryCheckState(category);
+          // const categoryFromFilter = filters.skillFilter[category.id]
 
           return (
             <div
               key={category.id}
               className={`${styles.category} ${isOpen ? styles.categoryOpen : ''}`}
             >
-              <div className={styles.categoryHead}>
-                <label className={styles.categoryLabel}>
-                  <input
-                    type='checkbox'
-                    checked={checkState.checked}
-                    ref={(el) => {
-                      if (el) el.indeterminate = checkState.indeterminate;
-                    }}
-                    onChange={() => onCategorySkillsToggle(category)}
-                  />
-                  <span className={styles.checkboxIcon} aria-hidden='true'>
-                    {checkState.indeterminate && (
-                      <Icon
-                        name='icon-checkbox-remove'
-                        size={24}
-                        fill='#abd27a'
-                      />
-                    )}
-                    {!checkState.indeterminate && checkState.checked && (
-                      <Icon
-                        name='icon-checkbox-done'
-                        size={24}
-                        fill='#abd27a'
-                      />
+              <div
+              className={styles.categoryHead}>
+                <label
+                  onClick={() => onCategoryToggle(category.id)}
+                  className={styles.categoryLabel}
+                >
+                  <span
+                  onClick={(e) => e.stopPropagation()}
+                  className={styles.checkboxIcon} aria-hidden='true'>
+                    {isOpen &&
+                    <Icon
+                      name='icon-checkbox-remove'
+                      size={24}
+                      fill='#abd27a'
+                    />}
+                    {!isOpen && (
+                    <Icon
+                      name='icon-checkbox-done'
+                      size={24}
+                      fill='#abd27a'
+                    />
                     )}
                   </span>
 
@@ -164,13 +151,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                   {category.skills.map((skill) => (
                     <Checkbox
                       key={skill.id}
-                      // Проверяем, есть ли навык в массиве по id
-                      checked={filters.skillFilter.some(
-                        (s) => s.id === skill.id
-                      )}
+                      checked={onCheckSkillExist(category.id, skill.id)}
                       label={skill.title}
-                      // Передаём id навыка, как требует onSkillToggle
-                      onChange={() => onSkillToggle(skill)}
+                      onChange={()=>onSkillToggle(category.id, skill)}
                     />
                   ))}
                 </div>
@@ -240,6 +223,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           </div>
         )}
       </section>
+      </div>
     </aside>
   );
 };

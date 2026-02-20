@@ -1,0 +1,43 @@
+Как создать слайс:
+
+1. Заходим сюда сначала :
+  src\shared\lib\constants\constants.ts
+  ищем там " // Имена слайсов " и прописываем имя
+
+2. В этом файле типы описываем глобальные какие будут нужны в работе:
+ src\shared\lib\types.ts
+
+3. Здесь лежат слайсы
+  src\services\slices
+
+4. образец слайса (делать также !!!)
+src\services\slices\userList\userListSlice.ts
+
+5. образец реэкспорта (ДЕЛАТЬ ТАКЖЕ !!!)
+  Обрати внимание что санки (thunks) передаются как обычный экшен - удобно!
+  просто добавиь их путем спред оператора в обьект экшенов:
+  export const userListActions = {
+  ...userListSlice.actions, ----экшены
+  fetchGetAllUsers, ---- саночка (так через запятую их и передаем)
+};
+
+6. КАК ИСПОЛЬЗОВАТЬ
+  Импорты:
+  import { useDispatchedActions, useAppSelector } from '@store-hooks'; // обязательно всегда
+  import { userListActions, userListSelectors } from '@slice/userList';
+    - выборочно (можно только селекторы, можно экшены или все вместе)
+
+  Как взять экшен или санку
+  const { fetchGetAllUsers } = useDispatchedActions(userListActions);
+  - достаем нашу санку или ЛЮБОЙ другой экшен(перечислять можно через запятую)
+
+  Как взять селектор
+  const status = useAppSelector(userListSelectors.selectUserListStatus);
+  -здесь сразу берем готовую инфу из стейта (статус загрузки например)
+  БРАТЬ ПО 1 штуке, то есть на каждый селектор своя строка .
+
+  Вызываем экшен! Стильно, модно, молодежно !
+   useEffect(() => {
+    fetchGetAllUsers()   ----- без useDispanch, dispath и так далее. Просто как обычную функцияю
+  }, []);
+
