@@ -1,4 +1,5 @@
 import type React from 'react';
+import type { TCity } from '@/entities/city';
 
 export const optionsGender = [
   { label: 'Не имеет значения', value: 'any' },
@@ -6,17 +7,13 @@ export const optionsGender = [
   { label: 'Женский', value: 'female' }
 ];
 
-export interface City {
-  _id: string;
-  name: string;
-}
 
 export type FormStepPersonalUIProps = {
   nameValue: string;
   birthValue: string;
   skillArray: string[];
   categoryArray: string[];
-  cityArray: City[];
+  cityArray: TCity[];
   genderValue: string;
 
   profilePhotoAdd: () => void;
