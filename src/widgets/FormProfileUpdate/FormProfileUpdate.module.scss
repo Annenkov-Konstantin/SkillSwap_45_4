@@ -1,0 +1,104 @@
+@use '@/app/styles/variables' as *;
+
+.outer_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1020px;
+  padding: 60px;
+  border-radius: 24px;
+  background-color: rgb(255, 255, 255);
+}
+
+.form_inner_container {
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form_inner_container:last-child {
+  gap: 32px;
+}
+
+.form_input_outer_container {
+  display: flex;
+  gap: 24px;
+}
+
+.form_input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  font-family: 'Roboto-regular';
+  letter-spacing: 2%;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form_changePassword_button {
+  all: unset;
+  cursor: pointer;
+  color: $color-text-link;
+
+  margin-top: 12px;
+  font-family: 'Roboto-medium';
+  letter-spacing: 2%;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.profile_picture_inner_container {
+  position: relative;
+}
+
+.user_profile_picture_photo {
+  position: absolute;
+  border-radius: 50%;
+  width: 244px;
+  height: 244px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 0;
+  right: 0;
+  background-image: url('https://randomuser.me/api/portraits/men/1.jpg');
+}
+
+.user_profile_picture_change_container {
+  position: inherit;
+  cursor: pointer;
+  background-color: $color-button-hover;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  bottom: 0;
+  right: 0;
+}
+
+.user_profile_picture_change_button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button_container{
+  margin-top: 16px;
+}
+
+.form_input {
+  max-height: 48px;
+  min-width: 218px;
+}
+
+.form_input_label {
+  display: block;
+  margin-bottom: 4px;
+}

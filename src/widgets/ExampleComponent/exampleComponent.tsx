@@ -11,12 +11,12 @@ export const ExampleComponent: FC = () => {
   const [name, setName] = useState('');
 
 
-const demoFilters: Filters = {
-  preferenceFilter: 'all',
-  skillFilter: [],
-  genderFilter: 'any',
-  cityFilter: []
-};
+  const demoFilters: Filters = {
+    preferenceFilter: 'all',
+    skillFilter: [],
+    genderFilter: 'any',
+    cityFilter: []
+  };
 
   // useEffect(() => {
   //   const testLike = async () => {
@@ -63,7 +63,7 @@ const demoFilters: Filters = {
   return (
     <>
       <div>
-      {name}
+        {name}
       </div>
       <FilterAsideUI
         filters={demoFilters}
@@ -73,15 +73,15 @@ const demoFilters: Filters = {
         openCategories={[1]}
         showAllCategories={false}
         showAllCities={true}
-        onReset={() => {}}
-        onPreferenceChange={() => {}}
-        onGenderChange={() => {}}
-        onCityToggle={() => {}}
-        onSkillToggle={() => {}}
-        onCategoryToggle={() => {}}
-        onCategorySkillsToggle={() => {}}
-        onShowAllCategoriesToggle={() => {}}
-        onShowAllCitiesToggle={() => {}}
+        onReset={() => { }}
+        onPreferenceChange={() => { }}
+        onGenderChange={() => { }}
+        onCityToggle={() => { }}
+        onSkillToggle={() => { }}
+        onCategoryToggle={() => { }}
+        onCategorySkillsToggle={() => { }}
+        onShowAllCategoriesToggle={() => { }}
+        onShowAllCitiesToggle={() => { }}
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       />
     </>
