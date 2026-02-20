@@ -8,6 +8,7 @@ import { Preloader } from '@/shared/ui/preloader';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 import { shallowEqual } from 'react-redux';
 import { FilterAside } from '@/widgets/FilterAside/FilterAside';
+import { FormStepPersonalUI } from '@/widgets/FormRegistration/FormStepPersonal/FormStepPersonalUI';
 
 
 export const HomeCatalog: FC = () => {
@@ -30,6 +31,7 @@ export const HomeCatalog: FC = () => {
     {/* <Preloader
     /> */}
     {/* <FilterAside/> */}
+    
    </div>
   );
 };
