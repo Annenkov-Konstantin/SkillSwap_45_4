@@ -14,7 +14,10 @@ const CATEGORY_CLASS_MAP: Record<number, string> = {
   [6]: styles.skills_item_healthLifestyle
 };
 
-export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TUserCardSkillUIProps) => {
+export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({
+  title,
+  skills
+}: TUserCardSkillUIProps) => {
   const listRef = useRef<HTMLUListElement | null>(null);
   const counterRef = useRef<HTMLLIElement | null>(null);
   const [visibleCount, setVisibleCount] = useState(skills.length);
@@ -30,7 +33,7 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TU
     );
 
     if (!items.length) {
-      setVisibleCount(0);
+      setVisibleCount(skills.length);
       return;
     }
 
@@ -63,7 +66,7 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TU
     }
 
     setVisibleCount(maxVisible);
-  }, [skills]);
+  }, [skills, skills.length]);
 
   const visibleSkills = skills.slice(0, visibleCount);
   const hiddenCount = skills.length - visibleSkills.length;
@@ -81,7 +84,9 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({ title, skills }: TU
             data-skill-item='true'
             key={index}
           >
-            <span className={styles['skills_item_title']}>{skill.subCategory}</span>
+            <span className={styles['skills_item_title']}>
+              {skill.subCategory}
+            </span>
           </li>
         ))}
 
