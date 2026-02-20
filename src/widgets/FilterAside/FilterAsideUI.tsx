@@ -4,6 +4,9 @@ import type { FilterAsideUIProps } from './types';
 import { PREFERENCE_OPTIONS, GENDER_OPTIONS } from './types';
 import React from 'react';
 import { Icon } from '@/shared/ui/Icon';
+import { ResetSkillButton } from '@/shared/ui/resetSkillButton/index';
+import { ResetPreferenceButton } from '@shared/ui/resetPreferenceButton/index';
+import { PreferenceAndSkillWrapper } from '@shared/ui/preferenceAndSkillWrapper/index';
 
 const INITIAL_VISIBLE_CATEGORIES = 5;
 const INITIAL_VISIBLE_CITIES = 5;
@@ -55,6 +58,33 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             />
           </button>
         )}
+        {/*Пример отображения выбранных Предпочтений и Скиллов*/}
+        {(filters.preferenceFilter.value !== 'all' ||
+          filters.skillFilter.length > 0) && (
+          <PreferenceAndSkillWrapper
+            preferenceResetButton={
+              filters.preferenceFilter.value !== 'all' ? (
+                <ResetPreferenceButton
+                  preference={filters.preferenceFilter} // объект
+                  onPreferenceChange={onPreferenceChange}
+                />
+              ) : null
+            }
+            skillResetButton={
+              filters.skillFilter.length > 0 ? (
+                <>
+                  {filters.skillFilter.map((skill) => (
+                    <ResetSkillButton
+                      key={skill.id}
+                      skill={skill}
+                      onSkillToggle={onSkillToggle}
+                    />
+                  ))}
+                </>
+              ) : null
+            }
+          />
+        )}
       </div>
         <div className={styles.filter_menu}>
       <section className={styles.section}>
@@ -64,7 +94,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             name='preferences'
             label={pref.label}
             value={pref.value}
-            checked={filters.preferenceFilter === pref.value}
+            checked={filters.preferenceFilter.value === pref.value}
             onChange={(value) => onPreferenceChange(value as typeof pref.value)}
           />
         ))}
@@ -158,7 +188,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             name='authorGender'
             label={gender.label}
             value={gender.value}
-            checked={filters.genderFilter === gender.value}
+            checked={filters.genderFilter.value === gender.value}
             onChange={(value) => onGenderChange(value as typeof gender.value)}
           />
         ))}
@@ -170,7 +200,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
         {visibleCities.map((city) => (
           <Checkbox
             key={city._id}
-            checked={filters.cityFilter.includes(city.name)}
+            checked={filters.cityFilter.some((c) => c.name === city.name)} // или c._id === city._id
             label={city.name}
             onChange={() => onCityToggle(city.name)}
           />

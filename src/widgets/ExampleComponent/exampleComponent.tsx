@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { FC } from 'react';
 
 import { FilterAside } from '../FilterAside/FilterAside';
@@ -50,6 +50,11 @@ export const ExampleComponent: FC = () => {
   //   };
   //   testLike();
   // }, []);
+
+   const handleSkillToggle = useCallback((skill:TSkill) => {
+  console.log('✅✅✅ Skill toggled in parent:', skill);
+  // ваша логика
+}, []);
 
   return (
     <FilterAside/>

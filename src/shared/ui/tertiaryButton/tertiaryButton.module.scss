@@ -1,0 +1,82 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.button {
+  @include border-radius;
+  display: inline-flex;
+  padding: 12px 24px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  color: $color-text;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  border: none;
+  background-color: $color-card-input;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+
+  .icon {
+    display: flex;
+
+    svg {
+      transition:
+        stroke 0.2s,
+        fill 0.2s;
+    }
+  }
+
+  // Режим без иконок
+  &.withoutIcons {
+    justify-content: center;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+
+    &:active,
+    &.keyPressed {
+      color: $color-text-link;
+    }
+  }
+
+  // Режим с иконками
+  &.hasIcons {
+    pointer-events: none; // кнопка не реагирует на мышь
+    background-color: transparent; // убираем фон
+
+    .icon {
+      pointer-events: auto; // иконки реагируют на мышь
+      cursor: pointer;
+
+      &:hover svg {
+        color: $color-text-link;
+      }
+
+      &:active svg {
+        stroke: $color-text-link;
+        color: $color-text-link;
+      }
+    }
+
+    // Фокус с клавиатуры — выделяем иконку
+    &:focus-visible .icon {
+      outline: 2px solid $color-text-link;
+      outline-offset: 2px;
+    }
+
+    // Нажатие Enter — меняем цвет иконки
+    &.keyPressed .icon svg {
+      stroke: $color-text-link;
+      color: $color-text-link;
+    }
+  }
+}
+
+.label {
+  @include body-text;
+}

@@ -3,6 +3,9 @@ import type { TCategory, TSkill, TSkills } from "@/entities/skills";
 
 export type Gender = 'male' | 'female' | 'any';
 export type Preference = 'teach' | 'learn' | 'all';
+// Типы для опций (объекты)
+export type PreferenceOption = typeof PREFERENCE_OPTIONS[number];
+export type GenderOption = typeof GENDER_OPTIONS[number];
 
 export type TSkillFilter = {
    [categoryId: number]: TSkill[];
