@@ -1,5 +1,6 @@
 import './styles/index.module.scss';
 import './styles/global.scss';
+import '../../src/fonts/font.scss';
 import styles from './app.module.scss'
 import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
@@ -32,7 +33,7 @@ const App = () => {
         isLogin={isLogin}
         userPhoto={userPhoto}
       />
-      <div>
+      <div className={styles.container}>
         <Routes location={location}>
           <Route path='/' element={<HomeCatalog />} />
           {/*

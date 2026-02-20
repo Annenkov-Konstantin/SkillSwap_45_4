@@ -1,5 +1,7 @@
 .preferenceAndSkillWrapper {
-    display: flex;
-    justify-content: flex-start;
-    gap: 12px;
+  display: flex;
+  align-items: revert-layer;
+  gap: 12px;
+  margin-top: -8px;
+  flex-wrap: wrap;
 }

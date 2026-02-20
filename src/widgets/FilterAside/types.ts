@@ -1,27 +1,24 @@
 import type { TCity } from "@/entities/city";
 import type { TCategory, TSkill, TSkills } from "@/entities/skills";
 
-export type Gender = 'male' | 'female' | 'any';
-export type Preference = 'teach' | 'learn' | 'all';
+// export type Gender = 'male' | 'female' | 'any';
+// export type Preference = 'teach' | 'learn' | 'all';
 // Типы для опций (объекты)
 export type PreferenceOption = typeof PREFERENCE_OPTIONS[number];
 export type GenderOption = typeof GENDER_OPTIONS[number];
 
 export type TSkillFilter = {
-   [categoryId: number]: TSkill[];
+  categoryId: number;
+  skills: TSkill[];
 }
+
 
 
 export interface Filters {
-  preferenceFilter: Preference;
-  skillFilter: TSkillFilter;
-  genderFilter: Gender;
+  preferenceFilter: PreferenceOption;
+  skillFilter: TSkillFilter[];
+  genderFilter: GenderOption;
   cityFilter: string[];
-}
-
-export interface Skill {
-  id: number;
-  title: string;
 }
 
 export interface FilterAsideUIProps {
@@ -34,8 +31,8 @@ export interface FilterAsideUIProps {
   selectedCount: number; // число выбранных фильтров в заголовке
 
   onReset: () => void; // сбросить фильтры
-  onPreferenceChange: (value: Preference) => void; // изменить все/хочу научиться/ могу научить
-  onGenderChange: (value: Gender) => void; // изменить пол автора
+  onPreferenceChange: (value: PreferenceOption) => void; // изменить все/хочу научиться/ могу научить
+  onGenderChange: (value: GenderOption) => void; // изменить пол автора
   onCityToggle: (city: string) => void; // выбрать/убрать выбор города
   onSkillToggle: (category:number, skill: TSkill) => void; // выбрать/убрать выбор навыка
   onCategoryToggle: (categoryId: number) => void; // раскрыть/ свернуть категорию до списка навыков

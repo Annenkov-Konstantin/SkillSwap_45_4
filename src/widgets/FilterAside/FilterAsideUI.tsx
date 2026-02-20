@@ -39,8 +39,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
     : cityArray.slice(0, INITIAL_VISIBLE_CITIES);
 
   return (
-    <aside className={styles.aside}>
-      <div className={styles.header}>
+    <>
+      <div className={styles.filter_header}>
+        <div className={styles.left_side}>
         <h2 className={styles.title}>
           Фильтры {selectedCount > 0 ? `(${selectedCount})` : ''}
         </h2>
@@ -58,34 +59,37 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             />
           </button>
         )}
-        {/*Пример отображения выбранных Предпочтений и Скиллов
-           <PreferenceAndSkillWrapper
-          //   preferenceResetButton={
-          //     filters.preferenceFilter.value !== 'all' ? (
-          //       <ResetPreferenceButton
-          //         preference={filters.preferenceFilter} // объект
-          //         onPreferenceChange={onPreferenceChange}
-          //       />
-          //     ) : null
-          //   }
-          //   skillResetButton={
-          //     filters.skillFilter.length > 0 ? (
-          //       <>
-          //         {filters.skillFilter.map((skill) => (
-          //           <ResetSkillButton
-          //             key={skill.id}
-          //             skill={skill}
-          //             onSkillToggle={onSkillToggle}
-          //           />
-          //         ))}
-          //       </>
-          //     ) : null
-          //   }
-          // />
-        // )}*/}
+        </div>
+        {/* {/*Пример отображения выбранных Предпочтений и Скиллов */}
+          <PreferenceAndSkillWrapper
+            preferenceResetButton={
+              filters.preferenceFilter.value !== 'all' ? (
+                <ResetPreferenceButton
+                  preference={filters.preferenceFilter} // объект
+                  onPreferenceChange={onPreferenceChange}
+                />
+              ) : null
+            }
+            skillResetButton={
+              filters.skillFilter.length > 0 ? (
+                <>
+                  {filters.skillFilter.map((category) => (
+                    category.skills.map(skill => (
+                      <ResetSkillButton
+                      key={`${category.categoryId}-${skill.id}`}
+                      skill={skill}
+                      onSkillToggle={()=>console.log(`категория:${category.categoryId}-${skill}`)}
+                    />
+                    ))
+                  ))}
+                </>
+              ) : null
+            }
+          />
       </div>
+    <aside className={styles.aside}>
         <div className={styles.filter_menu}>
-      <section className={styles.section}>
+      <section className={styles.section_preference}>
         {PREFERENCE_OPTIONS.map((pref) => (
           <RadioButton
             key={pref.value}
@@ -93,12 +97,12 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             label={pref.label}
             value={pref.value}
             checked={false}
-            onChange={(value) => onPreferenceChange(value as typeof pref.value)}
+            onChange={() => {}}
           />
         ))}
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section_skills}>
         <h3 className={styles.titleFilter}>Навыки</h3>
 
         {visibleCategories.map((category) => {
@@ -108,7 +112,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           return (
             <div
               key={category.id}
-              className={`${styles.category} ${isOpen ? styles.categoryOpen : ''}`}
+              className={`${styles.category} ${isOpen ? styles.category_open : ''}`}
             >
               <div
               className={styles.categoryHead}>
@@ -127,7 +131,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
                     />}
                     {!isOpen && (
                     <Icon
-                      name='icon-checkbox-done'
+                      name='icon-checkbox-empty'
                       size={24}
                       fill='#abd27a'
                     />
@@ -178,7 +182,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
         )}
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section_gender}>
         <h3 className={styles.titleFilter}>Пол автора</h3>
         {GENDER_OPTIONS.map((gender) => (
           <RadioButton
@@ -187,12 +191,12 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             label={gender.label}
             value={gender.value}
             checked={false}
-            onChange={(value) => onGenderChange(value as typeof gender.value)}
+            onChange={(value) => onGenderChange}
           />
         ))}
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section_city}>
         <h3 className={styles.titleFilter}>Город</h3>
 
         {visibleCities.map((city) => (
@@ -201,6 +205,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
             checked={false}
             label={city.name}
             onChange={() => onCityToggle(city.name)}
+            className={styles.no_margin_checkbox}
           />
         ))}
 
@@ -223,5 +228,6 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
       </section>
       </div>
     </aside>
+  </>
   );
 };

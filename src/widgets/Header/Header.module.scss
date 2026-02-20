@@ -1,12 +1,15 @@
 @use '@app/styles/variables' as *;
 
+.header {
+  padding: 36px 36px 20px 36px;
+
+}
+
 .menue {
   display: flex;
   align-items: center;
   max-width: 1440px;
-  height: 104px;
   gap: 32px;
-  padding: 40px 36px 24px;
   margin: 0 auto;
   justify-content: space-between;
 }

@@ -12,7 +12,7 @@ export const ResetSkillButton: React.FC<IResetSkillButtonProps> = ({
     <div className={styles.resetSkillButton}>
       <TertiaryButton
         label={skill.title}
-        onClickButton={() => onSkillToggle(skill)}
+        onClickButton={onSkillToggle}
         secondIcon={<Icon name='icon-cross' size={24} />}
       />
     </div>
