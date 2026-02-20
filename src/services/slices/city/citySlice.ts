@@ -1,42 +1,42 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type{ TUser } from '@/entities/user';
+import type { TCity } from '@/entities/city';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { SLICE_NAMES, requestStatus } from '@constants';
 import type { TRequestStatus } from '@types';
 import {
-  fetchGetAllUsers,
+  fetchCity,
 } from '@thunks';
 
-export interface IUserListState {
-  userList: TUser[] | null;
+export interface ICity {
+  city: TCity[] | null;
   requestStatus: TRequestStatus;
   error: string | null;
 }
 
-export const initialState: IUserListState = {
-  userList: null,
+export const initialState: ICity = {
+  city: null,
   requestStatus: requestStatus.IDLE,
   error: null
 };
 
-export const userListSlice = createSlice({
-  name: SLICE_NAMES.USER_LIST,
+export const citySlice = createSlice({
+  name: SLICE_NAMES.CITY,
   initialState,
   reducers: {
     clearError: (state) => {
       state.error = null;
-    }
+    },
   },
   selectors: {
-    selectUserList: (state) => state.userList,
-    selectUserListStatus:(state)=> state.requestStatus
+    selectCity: (state) => state.city,
+    selectCityStatus:(state)=> state.requestStatus
   },
   extraReducers: (builder) => {
     builder
       // Общая обработка для всех pending thunk
       .addMatcher(
         isAnyOf(
-          fetchGetAllUsers.pending,
+          fetchCity.pending,
         ),
         (state) => {
           state.requestStatus = requestStatus.LOADING;
@@ -45,12 +45,12 @@ export const userListSlice = createSlice({
       )
       // Общая обработка для fulfilled
       .addMatcher(
-        isAnyOf(fetchGetAllUsers.fulfilled),
-        (state, action: PayloadAction<TUser[]>) => {
+        isAnyOf(fetchCity.fulfilled),
+        (state, action: PayloadAction<TCity[]>) => {
           state.requestStatus = requestStatus.SUCCESS;
-          const users = action.payload;
-          if (Array.isArray(users)){
-            state.userList = users
+          const city = action.payload;
+          if (Array.isArray(city)){
+            state.city = city
             state.error = null;
           } else {
             state.error = 'Неверный тип данных';
@@ -59,7 +59,7 @@ export const userListSlice = createSlice({
       )
       // Общая обработка для всех остальных rejected
       .addMatcher(
-        isAnyOf(fetchGetAllUsers.rejected),
+        isAnyOf(fetchCity.rejected),
         (state, action) => {
           state.requestStatus = requestStatus.ERROR;
           if (action.error.message) {
@@ -71,4 +71,4 @@ export const userListSlice = createSlice({
 
 });
 
-export default userListSlice;
+export default citySlice;

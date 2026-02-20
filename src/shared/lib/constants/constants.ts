@@ -21,6 +21,9 @@ export const QUERY_ENDPOINTS = {
 // Имена слайсов
 export const SLICE_NAMES = {
   USER_LIST: 'userList',
+  USER_SKILL_LIST: 'userSkillList',
+  SKILLS:'skills',
+  CITY:'city'
 } as const;
 
 

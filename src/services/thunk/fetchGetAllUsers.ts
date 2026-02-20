@@ -4,7 +4,7 @@ import type { TUser } from '@/entities/user';
 
 
 export const fetchGetAllUsers = createAppAsyncThunk<TUser[]>(
-  `${SLICE_NAMES.USER_LIST}/fetchGetUsers`,
+  `${SLICE_NAMES.USER_LIST}/fetchGetAllUsers`,
   async (_, { extra: api }) => {
     const data = await api.getAllUsersApi();
     return data;

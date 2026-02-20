@@ -1,26 +1,26 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type{ TUser } from '@/entities/user';
+import type { TUserSkill } from '@/entities/userSkill';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { SLICE_NAMES, requestStatus } from '@constants';
 import type { TRequestStatus } from '@types';
 import {
-  fetchGetAllUsers,
+  fetchUserListSkills,
 } from '@thunks';
 
-export interface IUserListState {
-  userList: TUser[] | null;
+export interface IUserSkillList {
+  userSkillList: TUserSkill[] | null;
   requestStatus: TRequestStatus;
   error: string | null;
 }
 
-export const initialState: IUserListState = {
-  userList: null,
+export const initialState: IUserSkillList = {
+  userSkillList: null,
   requestStatus: requestStatus.IDLE,
   error: null
 };
 
-export const userListSlice = createSlice({
-  name: SLICE_NAMES.USER_LIST,
+export const userSkillListSlice = createSlice({
+  name: SLICE_NAMES.USER_SKILL_LIST,
   initialState,
   reducers: {
     clearError: (state) => {
@@ -28,15 +28,15 @@ export const userListSlice = createSlice({
     }
   },
   selectors: {
-    selectUserList: (state) => state.userList,
-    selectUserListStatus:(state)=> state.requestStatus
+    selectSkillUserList: (state) => state.userSkillList,
+    selectUserSkillListStatus:(state)=> state.requestStatus
   },
   extraReducers: (builder) => {
     builder
       // Общая обработка для всех pending thunk
       .addMatcher(
         isAnyOf(
-          fetchGetAllUsers.pending,
+          fetchUserListSkills.pending,
         ),
         (state) => {
           state.requestStatus = requestStatus.LOADING;
@@ -45,21 +45,21 @@ export const userListSlice = createSlice({
       )
       // Общая обработка для fulfilled
       .addMatcher(
-        isAnyOf(fetchGetAllUsers.fulfilled),
-        (state, action: PayloadAction<TUser[]>) => {
+        isAnyOf(fetchUserListSkills.fulfilled),
+        (state, action: PayloadAction<TUserSkill[]>) => {
           state.requestStatus = requestStatus.SUCCESS;
-          const users = action.payload;
-          if (Array.isArray(users)){
-            state.userList = users
+          const userSkillList = action.payload;
+          if (Array.isArray(userSkillList)){
+            state.userSkillList = userSkillList
             state.error = null;
-          } else {
+          }else{
             state.error = 'Неверный тип данных';
           }
         }
       )
       // Общая обработка для всех остальных rejected
       .addMatcher(
-        isAnyOf(fetchGetAllUsers.rejected),
+        isAnyOf(fetchUserListSkills.rejected),
         (state, action) => {
           state.requestStatus = requestStatus.ERROR;
           if (action.error.message) {
@@ -71,4 +71,4 @@ export const userListSlice = createSlice({
 
 });
 
-export default userListSlice;
+export default userSkillListSlice;

@@ -21,6 +21,8 @@ import type {
 } from './types';
 import type { TUser } from '@/entities/user';
 import { transformKeysToLowercase } from '@/shared/lib/utils/transformApiKeysToLowercase';
+import type { TUserSkill } from '@/entities/userSkill';
+import type { TSkills } from '@/entities/skills';
 
 
 const URL = import.meta.env.VITE_SUPABASE_URL;
@@ -372,7 +374,7 @@ export class Api {
       });
 
   // Запрос всех скилов (список )
-  getDefaultSkillsApi = async (): Promise<TDefaultSkills> => {
+  getDefaultSkillsApi = async (): Promise<TSkills> => {
     try {
       const response = await fetch(
         `${this.baseUrl}/${QUERY_ENDPOINTS.getDefaultSkills}`,
@@ -385,7 +387,7 @@ export class Api {
       );
 
       const result = await response.json();
-      return result;
+      return result
 
     } catch (error) {
       console.error('Ошибка получения навыков пользователя:', error);
@@ -517,7 +519,7 @@ export class Api {
   };
 
   // Запрос на получение всех Предложений навыков
-  getUserSkillsApi = async (): Promise<TUserAllSkillsResponse> => {
+  getUserListSkillsApi = async (): Promise<TUserSkill[]> => {
     try {
       const response = await fetch(
         `${this.baseUrl}/${QUERY_ENDPOINTS.getAllUserSkills}`,
@@ -529,8 +531,13 @@ export class Api {
         }
       );
 
-      const result = await response.json();
-      return result;
+      const result:TUserAllSkillsResponse = await response.json();
+      // Проверяем наличие поля success и его значение
+    if (!result.success) {
+      return Promise.reject(new Error(result.message || 'Failed to fetch user skills'));
+    }
+
+    return result.data;
 
     } catch (error) {
       console.error('Ошибка получения навыков пользователя:', error);
