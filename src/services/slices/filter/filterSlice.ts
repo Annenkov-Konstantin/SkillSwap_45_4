@@ -17,6 +17,12 @@ export const filterSlice = createSlice({
   name: SLICE_NAMES.FILTER,
   initialState,
   reducers: {
+    clearFilter:(state) =>{
+      state.preferenceFilter= PREFERENCE_OPTIONS[0];
+      state.skillFilter= [];
+      state.genderFilter= GENDER_OPTIONS[0];
+      state.cityFilter= [];
+    },
     toggleSkill:(state, action: PayloadAction<{ categoryId: number; skill: TSkill }>) => {
       const { categoryId, skill } = action.payload;
       const categoryIndex = state.skillFilter.findIndex(

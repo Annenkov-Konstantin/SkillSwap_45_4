@@ -17,6 +17,8 @@ import { userListActions, userListSelectors } from '@slice/userList';
 import { userSkillListActions, userSkillListSelectors } from '@slice/userSkillList';
 import { skillsActions } from '@slice/skills';
 import { cityActions } from '@/services/slices/city';
+import { UserCard } from '@/widgets/UserCard';
+import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 
 
 export const HomeCatalog: FC = () => {
@@ -24,8 +26,8 @@ export const HomeCatalog: FC = () => {
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
   const { fetchSkills } = useDispatchedActions(skillsActions);
   const { fetchCity } = useDispatchedActions(cityActions);
-  // const cards = useAppSelector(selectSwapCards, shallowEqual);
   const userListRequestStatus  = useAppSelector(userListSelectors.selectUserListStatus);
+  const userList  = useAppSelector(userListSelectors.selectUserList);
   const userSkillListRequestStatus  = useAppSelector(userSkillListSelectors.selectUserSkillListStatus);
   const isLoading =
     userListRequestStatus === requestStatus.LOADING ||
@@ -33,14 +35,18 @@ export const HomeCatalog: FC = () => {
 
 
    useEffect(() => {
-    fetchSkills()
-    .then(()=>fetchGetAllUsers())
-    .then(()=>fetchUserListSkills())
-    .then(()=>fetchCity())
+   Promise.all([
+    fetchSkills(),
+    fetchGetAllUsers(),
+    fetchUserListSkills(),
+    fetchCity()
+  ]).catch(error => {
+    console.error('Один из запросов упал:', error);
+  });
   }, [])
 
-
-
+  const cards = useAppSelector(selectSwapCards, shallowEqual);
+  console.log(cards)
   return (
     <div className={styles.container}>
       <FilterAside/>
@@ -48,7 +54,15 @@ export const HomeCatalog: FC = () => {
         <div className={styles.filter_buttons}>
           <PreferenceAndSkillWrapper/>
         </div>
-      {isLoading? <Preloader  radius={70}/>: <div className={styles.main_content}>Здесь будет лютый контент</div>}
+      {isLoading? <Preloader  radius={70}/>: <div className={styles.main_content}>
+
+       { cards.map( card =>
+        (<UserCard
+          user={card.user}
+          swap={card.skill}
+        />
+      )) }
+      </div>}
    </div>
   );
 };
