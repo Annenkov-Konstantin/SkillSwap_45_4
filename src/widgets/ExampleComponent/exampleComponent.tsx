@@ -7,6 +7,8 @@ import { skillsActions, skillsSelectors } from '@slice/skills';
 
 import { FilterAside } from '../FilterAside/FilterAside';
 
+
+
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');

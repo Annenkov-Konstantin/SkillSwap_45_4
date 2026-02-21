@@ -1,31 +1,23 @@
 import type { TCity } from "@/entities/city";
 import type { TCategory, TSkill, TSkills } from "@/entities/skills";
 
-export type Gender = 'male' | 'female' | 'any';
-export type Preference = 'teach' | 'learn' | 'all';
-// Типы для опций (объекты)
 export type PreferenceOption = typeof PREFERENCE_OPTIONS[number];
 export type GenderOption = typeof GENDER_OPTIONS[number];
 
 export type TSkillFilter = {
-   [categoryId: number]: TSkill[];
+  categoryId: number;
+  skills: TSkill[];
 }
 
-
-export interface Filters {
-  preferenceFilter: Preference;
-  skillFilter: TSkillFilter;
-  genderFilter: Gender;
+export interface TFilters {
+  preferenceFilter: PreferenceOption;
+  skillFilter: TSkillFilter[];
+  genderFilter: GenderOption;
   cityFilter: string[];
 }
 
-export interface Skill {
-  id: number;
-  title: string;
-}
-
 export interface FilterAsideUIProps {
-  filters: Filters; // текущее состояние фильтров, выбранные фильтры
+  filters: TFilters; // текущее состояние фильтров, выбранные фильтры
   cityArray: TCity[]; // массив городов с сервера
   skillArray: TSkills; // массив навыков с сервера
   openCategories: number[]; // id раскрытых категорий (которые раскрываются по dropdown trigger)
@@ -34,10 +26,11 @@ export interface FilterAsideUIProps {
   selectedCount: number; // число выбранных фильтров в заголовке
 
   onReset: () => void; // сбросить фильтры
-  onPreferenceChange: (value: Preference) => void; // изменить все/хочу научиться/ могу научить
-  onGenderChange: (value: Gender) => void; // изменить пол автора
+  onPreferenceChange: (value: PreferenceOption) => void; // изменить все/хочу научиться/ могу научить
+  onGenderChange: (value: GenderOption) => void; // изменить пол автора
   onCityToggle: (city: string) => void; // выбрать/убрать выбор города
   onSkillToggle: (category:number, skill: TSkill) => void; // выбрать/убрать выбор навыка
+  // onDeleteSkillToggle:(category:number, skillId: number) => void; // удалить выбранный навык из фильтра
   onCategoryToggle: (categoryId: number) => void; // раскрыть/ свернуть категорию до списка навыков
   onCategorySkillsToggle: (category: TCategory) => void; // выбрать/снять все навыки категории.
   onShowAllCategoriesToggle: () => void; // "все категории" развернуть/свернуть

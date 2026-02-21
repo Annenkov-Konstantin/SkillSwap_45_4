@@ -23,7 +23,9 @@ export const SLICE_NAMES = {
   USER_LIST: 'userList',
   USER_SKILL_LIST: 'userSkillList',
   SKILLS:'skills',
-  CITY:'city'
+  CITY:'city',
+  USER: 'user',
+  FILTER: 'filter'
 } as const;
 
 
