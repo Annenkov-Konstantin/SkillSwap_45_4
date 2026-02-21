@@ -14,6 +14,7 @@ export const ResetPreferenceButton: React.FC<IResetPreferenceButtonProps> = ({
         label={preference.label}
         onClickButton={() => onPreferenceChange(preference)}
         secondIcon={<Icon name='icon-cross' size={24} />}
+        hasIcons={true}
       />
     </div>
   );

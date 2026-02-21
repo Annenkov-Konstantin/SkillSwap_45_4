@@ -4,7 +4,7 @@ import '../../src/fonts/font.scss';
 import styles from './app.module.scss'
 import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
 import { SkillsModalManager } from '@/features/SkillsModalManager';
 
@@ -15,6 +15,7 @@ import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
+import { FormLayout } from '@/widgets/FormLayout/FormLayout';
 
 // ----Моки хедера для теста
 const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
@@ -40,12 +41,21 @@ const App = () => {
           {/*
         <Route path='/skill/:id' element={<Skill />} />
         <Route path='/favorites' element={<Favorites />} />
-        <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/register/account' element={<RegisterAccount />} />
-        <Route path='/register/personal' element={<RegisterPersonal/>} />
-        <Route path='/register/skill' element={<RegisterSkill/>} />
         */}
+
+          {/* Эти роуты должны быть без шапки и футера, которые на всём сайте
+          <Route path='/login' element={<FormLayout />}>
+            <Route index element={<Login />} />
+          </Route>
+          <Route path='/register' element={<FormLayout />}> */}
+            {/* Редирект с /register на /register/account (чтобы не было пустой страницы) */}
+            {/* <Route index element={<Navigate to="account" replace />} />
+            <Route path='account' element={<RegisterAccount />} />
+            <Route path='personal' element={<RegisterPersonal />} />
+            <Route path='skill' element={<RegisterSkill/>} />
+          </Route> */}
+
           <Route path='/error' element={<ServerError500 />} />
           <Route path='/test' element={<ExampleComponent/>} />
           <Route path='*' element={<NotFound404 />} />

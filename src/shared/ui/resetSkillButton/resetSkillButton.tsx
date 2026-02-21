@@ -14,6 +14,7 @@ export const ResetSkillButton: React.FC<IResetSkillButtonProps> = ({
         label={skill.title}
         onClickButton={onSkillToggle}
         secondIcon={<Icon name='icon-cross' size={24} />}
+        hasIcons={true}
       />
     </div>
   );

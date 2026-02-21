@@ -1,15 +1,31 @@
 @use '@app/styles/mixins' as *;
+@use '@/app/styles/variables' as *;
 
 .icon {
   @include icon-button;
+
+  &:focus-visible {
+    outline: 2px solid $color-text-link;
+    outline-offset: 2px;
+  }
 }
 
 .heart {
   fill: transparent;
-  stroke: #253017;
+  stroke: $color-text;
+
+  &:hover {
+    @include button-transition;
+    fill: $color-button-hover;
+  }
+
+  &:active {
+    @include button-transition;
+    fill: $color-text-link;
+  }
 }
 
 .icon.is_liked .heart {
-  fill: #abd27a;
-  stroke: #abd27a;
+  fill: $color-accent;
+  stroke: $color-accent;
 }
