@@ -1,12 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import type { FC } from 'react';
 
 import { FilterAside } from '../FilterAside/FilterAside';
 
+
+
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
-
 
 
   // useEffect(() => {
@@ -51,7 +52,5 @@ export const ExampleComponent: FC = () => {
   //   testLike();
   // }, []);
 
-  return (
-    <FilterAside/>
-  )
-}
+  return <FilterAside />;
+};
