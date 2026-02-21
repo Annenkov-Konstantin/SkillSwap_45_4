@@ -2,7 +2,6 @@
 
 footer {
   display: flex;
-  align-items: center;
   background-color: $color-card-input;
   color: $color-text;
   padding: 36px 32px;
@@ -12,17 +11,24 @@ footer {
   line-height: 24px;
   letter-spacing: 0.02em;
   height: 232px;
-  justify-content: space-between;
-  gap: 12px;
+  column-gap: 218px;
 }
 
 .footerLogoWrapper {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 115px;
   font-family: $font-family-jost;
   font-size: 24px;
   max-height: 168px;
+}
+
+.link_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top:25px;
+    width: 100%;
+    align-items: center;
 }
 
 .footerLinksGroup {
@@ -31,11 +37,10 @@ footer {
   position: relative;
   list-style-type: disc;
   gap: 12px;
-  top: 8px;
-  right: 80px;
   margin: 0;
   padding: 0;
 }
+
 
 .footerLink {
   text-decoration: none;
