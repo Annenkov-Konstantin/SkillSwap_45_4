@@ -1,0 +1,21 @@
+@use '@app/styles/_variables' as *;
+@use '@app/styles/_mixins' as *;
+
+.like {
+  @include icon-button;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+
+    path {
+      fill: $color-text;
+    }
+  }
+
+  &_liked {
+    .icon path {
+      fill: $color-accent;
+    }
+  }
+}

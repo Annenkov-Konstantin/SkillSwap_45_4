@@ -1,4 +1,4 @@
-type TSkillCategory = {
+export type TSkillCategory = {
   category: number;
   subcategory: number[];
 };
@@ -18,5 +18,3 @@ export type TUser = {
   toLearn: TSkillCategory[];
   canTeach: TSkillCategory[];
 };
-
-
