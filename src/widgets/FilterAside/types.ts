@@ -13,7 +13,7 @@ export interface TFilters {
   preferenceFilter: PreferenceOption;
   skillFilter: TSkillFilter[];
   genderFilter: GenderOption;
-  cityFilter: string[];
+  cityFilter: TCity[];
 }
 
 export interface FilterAsideUIProps {
@@ -28,14 +28,16 @@ export interface FilterAsideUIProps {
   onReset: () => void; // сбросить фильтры
   onPreferenceChange: (value: PreferenceOption) => void; // изменить все/хочу научиться/ могу научить
   onGenderChange: (value: GenderOption) => void; // изменить пол автора
-  onCityToggle: (city: string) => void; // выбрать/убрать выбор города
+  onCityToggle: (city: TCity) => void; // выбрать/убрать выбор города
   onSkillToggle: (category:number, skill: TSkill) => void; // выбрать/убрать выбор навыка
-  // onDeleteSkillToggle:(category:number, skillId: number) => void; // удалить выбранный навык из фильтра
   onCategoryToggle: (categoryId: number) => void; // раскрыть/ свернуть категорию до списка навыков
   onCategorySkillsToggle: (category: TCategory) => void; // выбрать/снять все навыки категории.
   onShowAllCategoriesToggle: () => void; // "все категории" развернуть/свернуть
   onShowAllCitiesToggle: () => void; // "все города" развернуть/свернуть
   onCheckSkillExist:(category:number, skillId: number)=> boolean;// выставляет чекбоксы в (true/false)
+  onCheckPreferenceExist:(pref:PreferenceOption)=>boolean // выставляет радиокнопки preference в (true/false)
+  onCheckGenderExist:(gender:GenderOption)=>boolean //выставляет радиокнопки gender в (true/false)
+  onCheckCityExist:(city:TCity)=>boolean //выставляет радиокнопки  в (true/false)
   // getCategoryCheckState: (category: SkillCategory) => {
   //   checked: boolean; // выбраны все навыки категории (true, когда выбраны все навыки категории”)
   //   indeterminate: boolean; //  выбрана часть навыков в категории (состояние [-]).

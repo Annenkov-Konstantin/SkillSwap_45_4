@@ -26,7 +26,10 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
   onSkillToggle,
   onCategoryToggle,
   onCategorySkillsToggle,
+  onCheckPreferenceExist,
+  onCheckGenderExist,
   onCheckSkillExist,
+  onCheckCityExist,
   onShowAllCategoriesToggle,
   onShowAllCitiesToggle,
 }: FilterAsideUIProps) => {
@@ -71,8 +74,8 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
               name='preferences'
               label={pref.label}
               value={pref.value}
-              checked={false}
-              onChange={() => {}}
+              checked={onCheckPreferenceExist(pref)}
+              onChange={()=>onPreferenceChange(pref)}
             />
           ))}
         </section>
@@ -82,7 +85,6 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
 
           {visibleCategories.map((category) => {
             const isOpen = openCategories.includes(category.id);
-            // const categoryFromFilter = filters.skillFilter[category.id]
 
             return (
               <div
@@ -165,8 +167,8 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
               name='authorGender'
               label={gender.label}
               value={gender.value}
-              checked={false}
-              onChange={(value) => onGenderChange}
+              checked={onCheckGenderExist(gender)}
+              onChange={() => onGenderChange(gender)}
             />
           ))}
         </section>
@@ -177,9 +179,9 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           {visibleCities.map((city) => (
             <Checkbox
               key={city._id}
-              checked={false}
+              checked={onCheckCityExist(city)}
               label={city.name}
-              onChange={() => onCityToggle(city.name)}
+              onChange={() => onCityToggle(city)}
               className={styles.no_margin_checkbox}
             />
           ))}
