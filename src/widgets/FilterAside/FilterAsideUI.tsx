@@ -40,6 +40,8 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
 
   return (
     <>
+
+    <aside className={styles.aside}>
       <div className={styles.filter_header}>
         <div className={styles.left_side}>
         <h2 className={styles.title}>
@@ -60,172 +62,145 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
           </button>
         )}
         </div>
-        {/* {/*Пример отображения выбранных Предпочтений и Скиллов */}
-          <PreferenceAndSkillWrapper
-            preferenceResetButton={
-              filters.preferenceFilter.value !== 'all' ? (
-                <ResetPreferenceButton
-                  preference={filters.preferenceFilter} // объект
-                  onPreferenceChange={onPreferenceChange}
-                />
-              ) : null
-            }
-            skillResetButton={
-              filters.skillFilter.length > 0 ? (
-                <>
-                  {filters.skillFilter.map((category) => (
-                    category.skills.map(skill => (
-                      <ResetSkillButton
-                      key={`${category.categoryId}-${skill.id}`}
-                      skill={skill}
-                      onSkillToggle={()=>console.log(`категория:${category.categoryId}-${skill}`)}
-                    />
-                    ))
-                  ))}
-                </>
-              ) : null
-            }
-          />
       </div>
-    <aside className={styles.aside}>
-        <div className={styles.filter_menu}>
-      <section className={styles.section_preference}>
-        {PREFERENCE_OPTIONS.map((pref) => (
-          <RadioButton
-            key={pref.value}
-            name='preferences'
-            label={pref.label}
-            value={pref.value}
-            checked={false}
-            onChange={() => {}}
-          />
-        ))}
-      </section>
+      <div className={styles.filter_menu}>
+        <section className={styles.section_preference}>
+          {PREFERENCE_OPTIONS.map((pref) => (
+            <RadioButton
+              key={pref.value}
+              name='preferences'
+              label={pref.label}
+              value={pref.value}
+              checked={false}
+              onChange={() => {}}
+            />
+          ))}
+        </section>
 
-      <section className={styles.section_skills}>
-        <h3 className={styles.titleFilter}>Навыки</h3>
+        <section className={styles.section_skills}>
+          <h3 className={styles.titleFilter}>Навыки</h3>
 
-        {visibleCategories.map((category) => {
-          const isOpen = openCategories.includes(category.id);
-          // const categoryFromFilter = filters.skillFilter[category.id]
+          {visibleCategories.map((category) => {
+            const isOpen = openCategories.includes(category.id);
+            // const categoryFromFilter = filters.skillFilter[category.id]
 
-          return (
-            <div
-              key={category.id}
-              className={`${styles.category} ${isOpen ? styles.category_open : ''}`}
-            >
+            return (
               <div
-              className={styles.categoryHead}>
-                <label
-                  onClick={() => onCategoryToggle(category.id)}
-                  className={styles.categoryLabel}
-                >
-                  <span
-                  onClick={(e) => e.stopPropagation()}
-                  className={styles.checkboxIcon} aria-hidden='true'>
-                    {isOpen &&
-                    <Icon
-                      name='icon-checkbox-remove'
-                      size={24}
-                      fill='#abd27a'
-                    />}
-                    {!isOpen && (
-                    <Icon
-                      name='icon-checkbox-empty'
-                      size={24}
-                      fill='#abd27a'
-                    />
-                    )}
-                  </span>
-
-                  <span>{category.category}</span>
-                </label>
-                <div className={styles.categoryTrigger}>
-                  <DropdownTrigger
-                    isOpen={isOpen}
+                key={category.id}
+                className={`${styles.category} ${isOpen ? styles.category_open : ''}`}
+              >
+                <div
+                className={styles.categoryHead}>
+                  <label
                     onClick={() => onCategoryToggle(category.id)}
-                  />
-                </div>
-              </div>
+                    className={styles.categoryLabel}
+                  >
+                    <span
+                    onClick={(e) => e.stopPropagation()}
+                    className={styles.checkboxIcon} aria-hidden='true'>
+                      {isOpen &&
+                      <Icon
+                        name='icon-checkbox-remove'
+                        size={24}
+                        fill='#abd27a'
+                      />}
+                      {!isOpen && (
+                      <Icon
+                        name='icon-checkbox-empty'
+                        size={24}
+                        fill='#abd27a'
+                      />
+                      )}
+                    </span>
 
-              {isOpen && (
-                <div className={styles.categoryContent}>
-                  {category.skills.map((skill) => (
-                    <Checkbox
-                      key={skill.id}
-                      checked={onCheckSkillExist(category.id, skill.id)}
-                      label={skill.title}
-                      onChange={()=>onSkillToggle(category.id, skill)}
+                    <span>{category.category}</span>
+                  </label>
+                  <div className={styles.categoryTrigger}>
+                    <DropdownTrigger
+                      isOpen={isOpen}
+                      onClick={() => onCategoryToggle(category.id)}
                     />
-                  ))}
+                  </div>
                 </div>
-              )}
+
+                {isOpen && (
+                  <div className={styles.categoryContent}>
+                    {category.skills.map((skill) => (
+                      <Checkbox
+                        key={skill.id}
+                        checked={onCheckSkillExist(category.id, skill.id)}
+                        label={skill.title}
+                        onChange={()=>onSkillToggle(category.id, skill)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {skillArray.length > INITIAL_VISIBLE_CATEGORIES && (
+            <div className={styles.unfoldRow}>
+              <button
+                type='button'
+                className={styles.buttonUnfold}
+                onClick={onShowAllCategoriesToggle}
+              >
+                Все категории
+              </button>
+
+              <DropdownTrigger
+                isOpen={showAllCategories}
+                onClick={onShowAllCategoriesToggle}
+              />
             </div>
-          );
-        })}
+          )}
+        </section>
 
-        {skillArray.length > INITIAL_VISIBLE_CATEGORIES && (
-          <div className={styles.unfoldRow}>
-            <button
-              type='button'
-              className={styles.buttonUnfold}
-              onClick={onShowAllCategoriesToggle}
-            >
-              Все категории
-            </button>
-
-            <DropdownTrigger
-              isOpen={showAllCategories}
-              onClick={onShowAllCategoriesToggle}
+        <section className={styles.section_gender}>
+          <h3 className={styles.titleFilter}>Пол автора</h3>
+          {GENDER_OPTIONS.map((gender) => (
+            <RadioButton
+              key={gender.value}
+              name='authorGender'
+              label={gender.label}
+              value={gender.value}
+              checked={false}
+              onChange={(value) => onGenderChange}
             />
-          </div>
-        )}
-      </section>
+          ))}
+        </section>
 
-      <section className={styles.section_gender}>
-        <h3 className={styles.titleFilter}>Пол автора</h3>
-        {GENDER_OPTIONS.map((gender) => (
-          <RadioButton
-            key={gender.value}
-            name='authorGender'
-            label={gender.label}
-            value={gender.value}
-            checked={false}
-            onChange={(value) => onGenderChange}
-          />
-        ))}
-      </section>
+        <section className={styles.section_city}>
+          <h3 className={styles.titleFilter}>Город</h3>
 
-      <section className={styles.section_city}>
-        <h3 className={styles.titleFilter}>Город</h3>
-
-        {visibleCities.map((city) => (
-          <Checkbox
-            key={city._id}
-            checked={false}
-            label={city.name}
-            onChange={() => onCityToggle(city.name)}
-            className={styles.no_margin_checkbox}
-          />
-        ))}
-
-        {cityArray.length > INITIAL_VISIBLE_CITIES && (
-          <div className={styles.unfoldRow}>
-            <button
-              type='button'
-              className={styles.buttonUnfold}
-              onClick={onShowAllCitiesToggle}
-            >
-              Все города
-            </button>
-
-            <DropdownTrigger
-              isOpen={showAllCities}
-              onClick={onShowAllCitiesToggle}
+          {visibleCities.map((city) => (
+            <Checkbox
+              key={city._id}
+              checked={false}
+              label={city.name}
+              onChange={() => onCityToggle(city.name)}
+              className={styles.no_margin_checkbox}
             />
-          </div>
-        )}
-      </section>
+          ))}
+
+          {cityArray.length > INITIAL_VISIBLE_CITIES && (
+            <div className={styles.unfoldRow}>
+              <button
+                type='button'
+                className={styles.buttonUnfold}
+                onClick={onShowAllCitiesToggle}
+              >
+                Все города
+              </button>
+
+              <DropdownTrigger
+                isOpen={showAllCities}
+                onClick={onShowAllCitiesToggle}
+              />
+            </div>
+          )}
+        </section>
       </div>
     </aside>
   </>

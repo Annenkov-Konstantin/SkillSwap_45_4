@@ -52,6 +52,9 @@ export const ExampleComponent: FC = () => {
   // }, []);
 
   return (
-    <FilterAside/>
+    <>
+
+    
+    </>
   )
 }
