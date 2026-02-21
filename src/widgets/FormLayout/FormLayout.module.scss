@@ -1,0 +1,16 @@
+@use '@/app/styles/variables' as *;
+
+.layout__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 36px;
+}
+
+.layout__title {
+  text-align: center;
+}
+
+.layout__content {
+  margin: 32px 152px 0;
+}
