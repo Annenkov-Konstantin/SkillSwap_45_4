@@ -2,6 +2,7 @@
 @use '@app/styles/mixins' as *;
 
 .radioButton {
+  @include body-text;
   display: flex;
   align-items: center;
   cursor: pointer;

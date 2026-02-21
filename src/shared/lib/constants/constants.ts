@@ -25,6 +25,7 @@ export const SLICE_NAMES = {
   SKILLS:'skills',
   CITY:'city',
   USER: 'user',
+  FILTER: 'filter'
 } as const;
 
 

@@ -2,35 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { FilterAsideUI } from './FilterAsideUI';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 import { skillsSelectors, skillsActions } from '@slice/skills';
+import { filterSelectors, filterActions } from '@slice/filter';
 import { citySelectors, cityActions } from '@/services/slices/city';
 import { useCardFilters } from '@/shared/hooks/cardFilters';
 import { shallowEqual } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
-import type { Filters } from './types';
-
-const INITIAL_VISIBLE_CATEGORIES = 5;
-const INITIAL_VISIBLE_CITIES = 5;
+import type { TFilters, TSkillFilter } from './types';
+import type { GenderOption, PreferenceOption} from '@/widgets/FilterAside/types';
+import type { TSkill } from '@/entities/skills';
 
 
 export const FilterAside:React.FC = () => {
-  const { fetchSkills } = useDispatchedActions(skillsActions);
-  const { fetchCity } = useDispatchedActions(cityActions);
   const city = useAppSelector(citySelectors.selectCity);
   const skills = useAppSelector(skillsSelectors.selectskills);
-  const cards = useAppSelector(selectSwapCards, shallowEqual);
-
-  const {
-    handleSkillToggle,
-    checkSkillExist,
-    skillFilter
-  } = useCardFilters (cards)
+  const filter = useAppSelector(filterSelectors.selectFilter);
+  const { toggleSkill } = useDispatchedActions(filterActions);
 
   const [isCategoryOpen, setCategoryOpen] = useState<number[]>([]);
 
-  useEffect(() => {
-    fetchSkills()
-    fetchCity()
-  }, [fetchSkills, fetchCity])
+
+  const handleSkillToggle = (categoryId: number, skill: TSkill) => {
+    toggleSkill({ categoryId, skill })
+  }
+
+  const checkSkillExist = (categoryId: number, skillId: number):boolean=> {
+    const category = filter.skillFilter.find(item => item.categoryId === categoryId);
+    return category ? category.skills.some(s => s.id === skillId) : false;
+  }
 
 
   const handleCategoryToggle = (id:number)=>{
@@ -43,22 +41,14 @@ export const FilterAside:React.FC = () => {
     })
  }
 
- const demoFilters:Filters = {
-  preferenceFilter: 'all',
-  skillFilter:skillFilter,
-  genderFilter: 'any',
-  cityFilter: []
-};
-console.log (demoFilters.skillFilter)
-
   return (
       <FilterAsideUI
-        filters={demoFilters}
+        filters={filter}
         selectedCount={4}
         cityArray={city?city:[]}
         skillArray={skills?skills:[]}
         openCategories={isCategoryOpen}
-        showAllCategories={false}
+        showAllCategories={true}
         showAllCities={false}
         onReset={() => {}}
         onPreferenceChange={() => {}}

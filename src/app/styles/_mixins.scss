@@ -87,6 +87,11 @@
   padding: 0;
 }
 
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 @mixin icon-size($size: 24px) {
   width: $size;
   height: $size;
