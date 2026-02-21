@@ -1,6 +1,6 @@
 @use '@/app/styles/variables' as *;
 @use '@/app/styles/mixins' as *;
 
-.resetSkillButton {
-  @include resetFilterCheckboxButton
+.resetCityButton {
+   @include resetFilterCheckboxButton
 }

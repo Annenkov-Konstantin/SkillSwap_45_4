@@ -1,8 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 350px 1fr;
-  grid-template-rows: minmax(100px, auto) auto auto;
-  min-height: 100vh;
+  grid-template-rows: minmax(150px, auto) auto auto;
   margin-bottom: 60px;
   column-gap: 30px;
 }
@@ -10,12 +9,10 @@
 .filter_buttons {
   grid-column: 2/3;
   grid-row: 1/2;
-  align-self: center;
   margin-bottom: 10px;
 }
 
 .main_content {
   grid-column: 2;
   grid-row:2/3;
-  margin-top: 50px;
 }

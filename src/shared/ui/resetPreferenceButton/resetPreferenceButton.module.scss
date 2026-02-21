@@ -1,4 +1,6 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
 .resetPreferenceButton {
-  min-width: 201px;
-  min-height: 48px;
+  @include resetFilterRadioButton
 }
