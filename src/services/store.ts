@@ -4,6 +4,7 @@ import {
   userSkillListSlice,
   skillsSlice,
   citySlice,
+  userSlice,
   filterSlice
 } from '@slices';
 
@@ -14,6 +15,7 @@ export const rootReducer = combineSlices(
   userSkillListSlice,
   skillsSlice,
   citySlice,
+  userSlice,
   filterSlice
 );
 
