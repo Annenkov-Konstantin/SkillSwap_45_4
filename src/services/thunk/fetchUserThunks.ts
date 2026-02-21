@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from '@store-hooks';
 import { SLICE_NAMES } from '@constants';
 import type { TLoginCredentials, TRegisterData, TTokens } from '@api/types';
 import type { TUser } from '@/entities/user';
+import { setCookie } from '@/shared/lib/utils/cookie';
 
 /**
  * Логин пользователя
@@ -21,7 +22,7 @@ export const fetchLoginApi = createAppAsyncThunk<
  * Регистрация пользователя
  */
 export const fetchRegisterApi = createAppAsyncThunk<
-  { profile: TUser; access_token: string; refresh_token: string; message?: string },
+  TUser ,
   TRegisterData
 >(
   `${SLICE_NAMES.USER}/fetchRegisterApi`,
@@ -30,9 +31,14 @@ export const fetchRegisterApi = createAppAsyncThunk<
     if (!result.success) {
       throw new Error(result.message || 'Registration failed');
     }
-    return result; // успешный ответ с profile и токенами
+    setCookie(
+      'access_token',
+      result.access_token
+    )
+    return result.profile; // успешный ответ с profile и токенами
   }
 );
+
 
 /**
  * Получение профиля текущего пользователя

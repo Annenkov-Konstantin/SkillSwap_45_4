@@ -75,15 +75,10 @@ export const userSlice = createSlice({
         fetchRegisterApi.fulfilled,
         (
           state,
-          action: PayloadAction<{
-            profile: TUser;
-            access_token: string;
-            refresh_token: string;
-            message?: string;
-          }>
+          action: PayloadAction<TUser>
         ) => {
           state.requestStatus = requestStatus.SUCCESS;
-          state.user = action.payload.profile;
+          state.user = action.payload;
         }
       )
       // Успешное получение профиля

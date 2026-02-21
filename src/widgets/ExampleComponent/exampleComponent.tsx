@@ -1,30 +1,53 @@
 import { useCallback, useState, useEffect } from 'react';
 import type { FC } from 'react';
-import { UserCard } from '@widgets/UserCard';
+// import { UserCard } from '@widgets/UserCard';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
+
+
+// import { FilterAside } from '../FilterAside/FilterAside';
+
+
+
+
+// import { skillsActions, skillsSelectors } from '@slice/skills';
+
+
+
+import { userSkillListSelectors,userSkillListActions } from '@/services/slices/userSkillList';
 import { userListActions, userListSelectors } from '@slice/userList';
-import { skillsActions, skillsSelectors } from '@slice/skills';
-
-import { FilterAside } from '../FilterAside/FilterAside';
-
-
+import { useSelector } from 'react-redux';
+import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 
 export const ExampleComponent: FC = () => {
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
-  const { fetchSkills } = useDispatchedActions(skillsActions);
-  const usersList = useAppSelector(userListSelectors.selectUserList);
-  const skills = useAppSelector(skillsSelectors.selectskills);
-  let user = null;
+  const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
 
-  const demoFilters: Filters = {
-    preferenceFilter: 'all',
-    skillFilter: [],
-    genderFilter: 'any',
-    cityFilter: []
-  };
+
+  useEffect(() => {
+    fetchGetAllUsers()
+    fetchUserListSkills()
+  }, []);
+
+
+  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
+  console.log(swapCards)
+
+
+
+
+
+
+  // const { fetchSkills } = useDispatchedActions(skillsActions);
+  // const usersList = useAppSelector(userListSelectors.selectUserList);
+  // const skills = useAppSelector(skillsSelectors.selectskills);
+  // let user = null;
+
+  // const demoFilters: Filters = {
+  //   preferenceFilter: 'all',
+  //   skillFilter: [],
+  //   genderFilter: 'any',
+  //   cityFilter: []
+  // };
 
   // useEffect(() => {
   //   const testLike = async () => {
@@ -69,8 +92,8 @@ export const ExampleComponent: FC = () => {
   // }, []);
 
   return (
-    <>
-      <div>
+    <div>
+       {/* <div>
         {name}
       </div>
       <FilterAsideUI
@@ -91,7 +114,7 @@ export const ExampleComponent: FC = () => {
         onShowAllCategoriesToggle={() => { }}
         onShowAllCitiesToggle={() => { }}
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
-      />
-    </>
+      /> */}
+    </div>
   );
 };
