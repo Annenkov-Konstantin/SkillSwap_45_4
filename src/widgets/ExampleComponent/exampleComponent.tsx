@@ -19,19 +19,12 @@ export const ExampleComponent: FC = () => {
   const skills = useAppSelector(skillsSelectors.selectskills);
   let user = null;
 
-  if (usersList) {
-    user = usersList[0];
-  }
-
-  useEffect(() => {
-    fetchGetAllUsers();
-    fetchSkills();
-  }, []);
-
-  useEffect(() => {
-    console.log('userSkillList:', usersList);
-    console.log('skills', skills);
-  }, [usersList]);
+  const demoFilters: Filters = {
+    preferenceFilter: 'all',
+    skillFilter: [],
+    genderFilter: 'any',
+    cityFilter: []
+  };
 
   // useEffect(() => {
   //   const testLike = async () => {
@@ -77,23 +70,28 @@ export const ExampleComponent: FC = () => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 24
-        }}
-      >
-        {usersList?.map((user, index) => {
-          return (
-            <div key={index} style={{ width: 324 }}>
-              <UserCard user={user} />
-            </div>
-          );
-        })}
+      <div>
+        {name}
       </div>
-
-      <FilterAside />
+      <FilterAsideUI
+        filters={demoFilters}
+        selectedCount={2}
+        cityArray={city}
+        skillArray={skills}
+        openCategories={[1]}
+        showAllCategories={false}
+        showAllCities={true}
+        onReset={() => { }}
+        onPreferenceChange={() => { }}
+        onGenderChange={() => { }}
+        onCityToggle={() => { }}
+        onSkillToggle={() => { }}
+        onCategoryToggle={() => { }}
+        onCategorySkillsToggle={() => { }}
+        onShowAllCategoriesToggle={() => { }}
+        onShowAllCitiesToggle={() => { }}
+        getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
+      />
     </>
   );
 };

@@ -14,6 +14,7 @@ import { ServerError500 } from '@/pages/ServerError-500';
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
+import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 
 // ----Моки хедера для теста
 const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора

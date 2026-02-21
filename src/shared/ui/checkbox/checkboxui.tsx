@@ -29,7 +29,7 @@ export const CheckboxUi: React.FC<TCheckboxProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.checked);
   };
-  return (
+  return (  
     <label
       htmlFor={id}
       className={`${styles.container} ${className ?? ''}`.trim()}
