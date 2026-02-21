@@ -10,6 +10,7 @@ export const Footer: React.FC = () => {
         <Logo />
         <p className={styles.copyright}>SkillSwap — 2026</p>
       </div>
+      <div className={styles.link_wrapper}>
       <ul className={styles.footerLinksGroup}>
         <li>
           <NavLink to='#' className={styles.footerLink}>
@@ -46,6 +47,7 @@ export const Footer: React.FC = () => {
           </NavLink>
         </li>
       </ul>
+      </div>
     </footer>
   );
 };

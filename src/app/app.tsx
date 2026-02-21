@@ -1,5 +1,7 @@
 import './styles/index.module.scss';
 import './styles/global.scss';
+import '../../src/fonts/font.scss';
+import styles from './app.module.scss'
 import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -7,6 +9,8 @@ import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
 import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 import { HomeCatalog } from '@/pages/HomeCatalog';
+import { NotFound404 } from '@/pages/NotFound-404';
+import { ServerError500 } from '@/pages/ServerError-500';
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
@@ -23,14 +27,14 @@ const App = () => {
 
   return (
     <SkillsModalProvider>
-      <IconSprite />
-      <SkillsModalManager />
+      <IconSprite/>
+      <SkillsModalManager/>
       <Header
         userName={userName}
         isLogin={isLogin}
         userPhoto={userPhoto}
       />
-      <div>
+      <div className={styles.container}>
         <Routes location={location}>
           <Route path='/' element={<HomeCatalog />} />
           {/*
@@ -41,17 +45,16 @@ const App = () => {
         <Route path='/register/account' element={<RegisterAccount />} />
         <Route path='/register/personal' element={<RegisterPersonal/>} />
         <Route path='/register/skill' element={<RegisterSkill/>} />
-        <Route path='/error' element={<ServerError500/>} />
-        <Route path='*' element={<NotFound404 />} />
         */}
-          <Route path='/test' element={<ExampleComponent />} />
+          <Route path='/error' element={<ServerError500 />} />
+          <Route path='/test' element={<ExampleComponent/>} />
+          <Route path='*' element={<NotFound404 />} />
         </Routes>
         <Footer />
-        <FormProfileUpdate />
       </div>
     </SkillsModalProvider>
-    //  '/ingredients/:id'
-    // '/feed/:number'
+  //  '/ingredients/:id'
+  // '/feed/:number'
   );
 };
 

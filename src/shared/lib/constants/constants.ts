@@ -1,3 +1,4 @@
+// для Api запросов
 export const QUERY_ENDPOINTS = {
   getAllCities:'rest/v1/rpc/get_cities',
   getAllUsers:'rest/v1/rpc/get_users',
@@ -15,4 +16,22 @@ export const QUERY_ENDPOINTS = {
   getAllUserSkills:'rest/v1/rpc/get_user_skills',
   likeUserSkill:'rest/v1/rpc/update_skill_likes'
 
+} as const;
+
+// Имена слайсов
+export const SLICE_NAMES = {
+  USER_LIST: 'userList',
+  USER_SKILL_LIST: 'userSkillList',
+  SKILLS:'skills',
+  CITY:'city',
+  USER: 'user',
+  FILTER: 'filter'
+} as const;
+
+
+export const requestStatus = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error'
 } as const;

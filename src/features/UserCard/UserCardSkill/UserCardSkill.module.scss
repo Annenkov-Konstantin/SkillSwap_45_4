@@ -1,12 +1,16 @@
 @use '@app/styles/variables' as *;
 @use 'sass:map';
 
+.container {
+  min-height: 64px;
+}
+
 .container_title {
   font-family: map.get($h4, font-family);
   font-weight: map.get($h4, font-weight);
   font-size: map.get($h4, font-size);
   line-height: map.get($h4, line-height);
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
 .skills_list {

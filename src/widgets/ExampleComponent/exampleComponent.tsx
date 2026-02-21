@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import type { FC } from 'react';
+import { UserCard } from '@widgets/UserCard';
+import { useDispatchedActions, useAppSelector } from '@store-hooks';
+import { userListActions, userListSelectors } from '@slice/userList';
+import { skillsActions, skillsSelectors } from '@slice/skills';
 
-import { FilterAsideUI } from '../FilterAside';
-import skills from '../../../public/db/skills/skills.json';
-import city from '../../../public/db/city/city.json';
-import type { Filters } from '../FilterAside/types';
+import { FilterAside } from '../FilterAside/FilterAside';
+
+
 
 export const ExampleComponent: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
 
+  const { fetchGetAllUsers } = useDispatchedActions(userListActions);
+  const { fetchSkills } = useDispatchedActions(skillsActions);
+  const usersList = useAppSelector(userListSelectors.selectUserList);
+  const skills = useAppSelector(skillsSelectors.selectskills);
+  let user = null;
 
   const demoFilters: Filters = {
     preferenceFilter: 'all',
@@ -86,4 +94,4 @@ export const ExampleComponent: FC = () => {
       />
     </>
   );
-}
+};

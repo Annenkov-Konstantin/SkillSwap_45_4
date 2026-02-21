@@ -1,4 +1,4 @@
-import type {TCategory, TSkill as Skill} from "@entities/skills";
+import type { TCategory, TSkill as Skill } from '@entities/skills';
 
 export type TSkill = {
   categoryId: TCategory['id'];

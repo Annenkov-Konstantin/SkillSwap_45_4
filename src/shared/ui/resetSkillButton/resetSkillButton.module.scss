@@ -1,0 +1,13 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.resetSkillButton {
+  @include border-radius;
+  min-width: 173px;
+  min-height: 48px;
+  background-color: $color-card-input;
+  
+    &:hover {
+      background-color: $color-button-hover;
+    }
+}
