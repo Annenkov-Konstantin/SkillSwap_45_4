@@ -17,7 +17,8 @@ export const FilterAside:React.FC = () => {
     toggleSkill,
     preferenceChange,
     genderChange,
-    cityChange
+    cityChange,
+    clearFilter
   } = useDispatchedActions(filterActions);
 
   const [isCategoryOpen, setCategoryOpen] = useState<number[]>([]);
@@ -39,6 +40,10 @@ export const FilterAside:React.FC = () => {
     cityChange(city)
   }
 
+  const handleClearFilter = () => {
+    clearFilter()
+  }
+
 
   //True/false для чекбоксов и радиокнопок
   const checkSkillExist = (categoryId: number, skillId: number):boolean=> {
@@ -54,6 +59,8 @@ export const FilterAside:React.FC = () => {
   const checkCityExist = (city:TCity):boolean=> {
     return filter.cityFilter.some(item => item._id === city._id);
   }
+
+
 
   //Показать/скрыть категории
   const handleCategoryToggle = (id:number)=>{
@@ -82,7 +89,9 @@ export const FilterAside:React.FC = () => {
     if (filter.genderFilter.value !== 'any') {
       activeCount++;
     }
-    activeCount += filter.skillFilter.length;
+    filter.skillFilter.forEach(category=>
+      activeCount+= category.skills.length
+    )
     activeCount += filter.cityFilter.length;
     return activeCount;
   };
@@ -96,7 +105,7 @@ export const FilterAside:React.FC = () => {
         openCategories={isCategoryOpen}
         showAllCategories={isAllCategoriesOpen}
         showAllCities={isAllCitiesOpen}
-        onReset={() => {}}
+        onReset={handleClearFilter}
         onPreferenceChange={handlePreferenceChange}
         onGenderChange={handleGenderChange}
         onCityToggle={handleCityChange}
