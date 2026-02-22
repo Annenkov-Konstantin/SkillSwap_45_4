@@ -3,7 +3,8 @@ import {
   fetchLoginApi,
   fetchRegisterApi,
   fetchUserApi,
-  fetchUpdateUserApi
+  fetchUpdateUserApi,
+  fetchToggleFavoriteApi
 } from '@thunks';
 
 export const userActions = {
@@ -11,7 +12,8 @@ export const userActions = {
   fetchLoginApi,
   fetchRegisterApi,
   fetchUserApi,
-  fetchUpdateUserApi
+  fetchUpdateUserApi,
+  fetchToggleFavoriteApi
 };
 
 export const userSelectors = userSlice.selectors;

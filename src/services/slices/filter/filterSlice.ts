@@ -10,7 +10,8 @@ export const initialState: TFilters = {
   preferenceFilter: PREFERENCE_OPTIONS[0],
   skillFilter:[],
   genderFilter: GENDER_OPTIONS[0],
-  cityFilter:[]
+  cityFilter:[],
+  searchFilter:''
 };
 
 export const filterSlice = createSlice({
@@ -65,6 +66,10 @@ export const filterSlice = createSlice({
       } else {
         state.cityFilter.splice(index,1)
       }
+    },
+     searchChange: (state, action: PayloadAction<string>) => {
+      const value = action.payload;
+      state.searchFilter = value;
     },
     removeCity:(state, action: PayloadAction<TCity>)=>{
       const city = action.payload

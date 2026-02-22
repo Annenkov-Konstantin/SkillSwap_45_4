@@ -11,6 +11,7 @@ export type TUserCardUIProps = {
   handleMore: () => void;
   handleLike: () => void;
   type: 'learn' | 'teach';
+  likeCounter:number;
 };
 
 export type TUserCardProps = {

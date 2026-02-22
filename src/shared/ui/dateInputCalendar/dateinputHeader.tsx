@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { ru} from 'date-fns/locale';
 import clsx from 'clsx';
 import { Icon } from '../Icon';
 import styles from './DateInputCalendar.module.scss';

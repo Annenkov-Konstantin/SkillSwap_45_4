@@ -13,7 +13,8 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
   isFavorite = false,
   isSuggested = false,
   handleLike,
-  type
+  type,
+  likeCounter
 }: TUserCardUIProps) => {
   if (!user) return null;
 
@@ -22,6 +23,7 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
   return (
     <div className={styles.card}>
       <div className={styles.like}>
+        <span>{likeCounter}</span>
         <LikeButtonUI onClick={handleLike} isLiked={isFavorite} />
       </div>
       <UserCardAvatar

@@ -14,6 +14,7 @@ export interface TFilters {
   skillFilter: TSkillFilter[];
   genderFilter: GenderOption;
   cityFilter: TCity[];
+  searchFilter:string;
 }
 
 export interface FilterAsideUIProps {

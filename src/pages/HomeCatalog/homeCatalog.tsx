@@ -19,6 +19,7 @@ import { skillsActions } from '@slice/skills';
 import { cityActions } from '@/services/slices/city';
 import { UserCard } from '@/widgets/UserCard';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
+import { useCardFilters } from '@/shared/hooks/cardFilters';
 
 
 export const HomeCatalog: FC = () => {
@@ -27,7 +28,6 @@ export const HomeCatalog: FC = () => {
   const { fetchSkills } = useDispatchedActions(skillsActions);
   const { fetchCity } = useDispatchedActions(cityActions);
   const userListRequestStatus  = useAppSelector(userListSelectors.selectUserListStatus);
-  const userList  = useAppSelector(userListSelectors.selectUserList);
   const userSkillListRequestStatus  = useAppSelector(userSkillListSelectors.selectUserSkillListStatus);
   const isLoading =
     userListRequestStatus === requestStatus.LOADING ||
@@ -46,7 +46,12 @@ export const HomeCatalog: FC = () => {
   }, [])
 
   const cards = useAppSelector(selectSwapCards, shallowEqual);
-  console.log(cards)
+
+
+
+  const filteredCards  = useCardFilters(cards); // отфильтрованный массив
+  console.log(filteredCards)
+
   return (
     <div className={styles.container}>
       <FilterAside/>
@@ -56,8 +61,9 @@ export const HomeCatalog: FC = () => {
         </div>
       {isLoading? <Preloader  radius={70}/>: <div className={styles.main_content}>
 
-       { cards.map( card =>
+       { filteredCards.map((card, index) =>
         (<UserCard
+          key={index}
           user={card.user}
           swap={card.skill}
         />

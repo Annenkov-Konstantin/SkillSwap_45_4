@@ -3,13 +3,17 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import type { TUser } from '@/entities/user';
 import { SLICE_NAMES, requestStatus } from '@constants';
 import type { TRequestStatus } from '@types';
+import type { TFavoriteData } from '@/api/types';
 
 import {
   fetchLoginApi,
   fetchRegisterApi,
   fetchUserApi,
-  fetchUpdateUserApi
+  fetchUpdateUserApi,
+  fetchToggleFavoriteApi,
 } from '@thunks';
+
+
 
 export interface IUserState {
   user: TUser | null;
@@ -43,7 +47,17 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Общий pending для всех асинхронных операций с пользователем
+        // Toggle избранного
+      .addCase(fetchToggleFavoriteApi.fulfilled,
+        (state, action: PayloadAction<TFavoriteData>) => {
+          state.requestStatus = requestStatus.SUCCESS;
+          if (state.user) {
+            // Обновляем весь массив избранного (сервер вернул актуальный)
+            state.user.favoriteSkills = action.payload.favoriteSkills;
+          }
+        }
+      )
+        // Общий pending для всех асинхронных операций с пользователем
       .addMatcher(
         isAnyOf(
           fetchLoginApi.pending,

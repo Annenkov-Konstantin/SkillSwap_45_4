@@ -14,8 +14,6 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
 
   if (!label) return null;
 
-  // const hasIcons = Boolean(firstIcon || secondIcon);
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') {
       setIsKeyPressed(true);
