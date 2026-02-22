@@ -16,6 +16,7 @@ import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
+import { CalendarInput } from '@/shared/ui/dateInputCalendar';
 
 // ----Моки хедера для теста
 const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
@@ -36,6 +37,7 @@ const App = () => {
         userPhoto={userPhoto}
       />
       <div className={styles.container}>
+        <CalendarInput />
         <Routes location={location}>
           <Route path='/' element={<HomeCatalog />} />
           {/*
@@ -60,6 +62,7 @@ const App = () => {
           <Route path='/test' element={<ExampleComponent/>} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
+
         <Footer />
       </div>
     </SkillsModalProvider>

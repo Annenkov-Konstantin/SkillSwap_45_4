@@ -116,5 +116,6 @@ export const ExampleComponent: FC = () => {
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       /> */}
     </div>
+
   );
 };
