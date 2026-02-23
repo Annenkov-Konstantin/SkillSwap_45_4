@@ -24,25 +24,8 @@ export const ExampleComponent: FC = () => {
   //   fetchGetAllUsers()
   //   fetchUserListSkills()
   // }, []);
-
-<<<<<<< HEAD
   const swapCards = useSelector(selectSwapCards); // обьединенный массив карточкас юзером
   console.log(swapCards);
-=======
-  // useEffect(() => {
-  //   fetchGetAllUsers()
-  //   fetchUserListSkills()
-  // }, []);
-
-
-  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
-  console.log(swapCards);
-
-
-
-
-
->>>>>>> origin/development
 
   // const { fetchSkills } = useDispatchedActions(skillsActions);
   // const usersList = useAppSelector(userListSelectors.selectUserList);
