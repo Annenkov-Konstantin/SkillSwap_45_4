@@ -7,12 +7,12 @@ import { Icon } from '@/shared/ui/Icon';
 import { ResetSkillButton } from '@/shared/ui/resetSkillButton/index';
 import { ResetPreferenceButton } from '@shared/ui/resetPreferenceButton/index';
 import { PreferenceAndSkillWrapper } from '@shared/ui/preferenceAndSkillWrapper/index';
+import clsx from 'clsx';
 
 const INITIAL_VISIBLE_CATEGORIES = 5;
 const INITIAL_VISIBLE_CITIES = 5;
 
 export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
-  filters,
   selectedCount,
   cityArray,
   skillArray,
@@ -48,7 +48,7 @@ export const FilterAsideUI: React.FC<FilterAsideUIProps> = ({
       <div className={styles.filter_header}>
         <div className={styles.left_side}>
         <h2 className={styles.title}>
-          Фильтры {selectedCount > 0 ? `(${selectedCount})` : ''}
+          Фильтры {selectedCount >0 && <span className={styles.title_count}>({selectedCount})</span>}
         </h2>
         {selectedCount > 0 && (
           <button

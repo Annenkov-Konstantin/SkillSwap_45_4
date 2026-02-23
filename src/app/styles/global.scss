@@ -18,10 +18,16 @@ body {
     background-color 0.8s ease,
     color 0.8s ease;
   color: $color-text;
+
+  overflow-x: hidden;
+  height: 100%;
 }
 
 body.modal-open {
-  overflow: hidden;
+  height: 100vh;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 a {

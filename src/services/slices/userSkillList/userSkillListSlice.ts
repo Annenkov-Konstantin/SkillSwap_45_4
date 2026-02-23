@@ -4,8 +4,10 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { SLICE_NAMES, requestStatus } from '@constants';
 import type { TRequestStatus } from '@types';
 import {
+  fetchUpdateSkillLikeApi,
   fetchUserListSkills,
 } from '@thunks';
+import type { TlikeData } from '@/api/types';
 
 export interface IUserSkillList {
   userSkillList: TUserSkill[] | null;
@@ -33,6 +35,20 @@ export const userSkillListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(
+        fetchUpdateSkillLikeApi.fulfilled,
+        (state, action: PayloadAction<TlikeData>) => {
+          const { skillId, likes } = action.payload;
+          // Находим навык в массиве и обновляем его лайки
+          if (state.userSkillList){
+            const skillIndex = state.userSkillList.findIndex(s => s._id === skillId);
+            if (skillIndex !== -1) {
+              state.userSkillList[skillIndex].likes = likes;
+            } 
+          }
+        }
+      )
+
       // Общая обработка для всех pending thunk
       .addMatcher(
         isAnyOf(

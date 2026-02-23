@@ -1,0 +1,15 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.sort_button_container {
+  @include resetFilterCheckboxButton;
+  min-width: 210px;
+}
+
+.sort_button {
+  justify-content: start;
+}
+
+.revert {
+  transform: scaleY(-1);
+}

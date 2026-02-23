@@ -14,6 +14,7 @@ export const ResetCityButton: React.FC<IResetCityButtonProps> = ({
         label={city.name}
         onClickButton={onCityToggle}
         secondIcon={<Icon name='icon-cross' size={24} />}
+        hasIcons={true}
       />
     </div>
   );
