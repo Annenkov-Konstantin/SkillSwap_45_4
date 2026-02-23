@@ -16,4 +16,6 @@ export type TUserCardProps = {
     TUser,
     'name' | 'avatarPic' | 'location' | 'dateOfBirth' | 'toLearn' | 'canTeach'
   > | null;
+  skillsToLearn?: TSkill[]; // добавили
+  skillsCanTeach?: TSkill[]; // добавили
 };
