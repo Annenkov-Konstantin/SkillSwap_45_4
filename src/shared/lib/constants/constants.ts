@@ -14,7 +14,8 @@ export const QUERY_ENDPOINTS = {
   addNewUserSkill:'rest/v1/rpc/add_new_user_skill',
   getSkillById:'rest/v1/rpc/get_user_skill_by_id',
   getAllUserSkills:'rest/v1/rpc/get_user_skills',
-  likeUserSkill:'rest/v1/rpc/update_skill_likes'
+  likeUserSkill:'rest/v1/rpc/update_skill_likes',
+  toggleFavorite:'rest/v1/rpc/toggle_favorite_skill_array'
 
 } as const;
 

@@ -6,29 +6,41 @@
   // max-width: fit-content;
   // min-width: 300px;
   // margin-left: 40px;
-  grid-row: 1/4
+  grid-row: 1/4;
+  padding:20px;
+  @include border-radius;
+  background-color: #fff;
+  max-width: 324px;
 }
 
 .filter_header {
-  margin-left: 58px;
-  margin-top: 50px;
-  min-height: 100px;
+  margin-top: 30px;
+  min-height: 66px;
   align-content: start;
   column-gap: 26px;
+}
+.filter_header_active {
+  min-height: 100px;
 }
 
 .left_side {
   display: flex;
-  gap: 40px;
+  gap: 80px;
   align-items: start;
 }
 
 .title {
+  position: relative;
   font-family: map.get($h2, font-family);
   font-weight: map.get($h2, font-weight);
   font-size: map.get($h2, font-size);
   line-height: map.get($h2, line-height);
   letter-spacing: -0.03em;
+}
+.title_count {
+  position: absolute;
+  top:0;
+  left:110%;
 }
 
 .resetButton {
@@ -69,10 +81,7 @@
 }
 
 .filter_menu {
-  background-color: aquamarine;
-  max-width: 350px;
   margin-top: 4px;
-  padding-left: 40px;
 }
 
 .titleFilter {

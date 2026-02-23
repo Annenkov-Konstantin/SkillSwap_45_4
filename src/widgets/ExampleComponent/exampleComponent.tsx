@@ -14,6 +14,7 @@ import {
 import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
+import { ImageDropzone } from '@/features/ImageDropzone';
 
 export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
@@ -24,8 +25,24 @@ export const ExampleComponent: FC = () => {
   //   fetchUserListSkills()
   // }, []);
 
+<<<<<<< HEAD
   const swapCards = useSelector(selectSwapCards); // обьединенный массив карточкас юзером
   console.log(swapCards);
+=======
+  // useEffect(() => {
+  //   fetchGetAllUsers()
+  //   fetchUserListSkills()
+  // }, []);
+
+
+  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
+  console.log(swapCards);
+
+
+
+
+
+>>>>>>> origin/development
 
   // const { fetchSkills } = useDispatchedActions(skillsActions);
   // const usersList = useAppSelector(userListSelectors.selectUserList);

@@ -19,6 +19,9 @@ import { skillsActions } from '@slice/skills';
 import { cityActions } from '@/services/slices/city';
 import { UserCard } from '@/widgets/UserCard';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
+import { useCardFilters } from '@/shared/hooks/cardFilters';
+import { filterActions, filterSelectors } from '@/services/slices/filter';
+import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 
 
 export const HomeCatalog: FC = () => {
@@ -27,8 +30,8 @@ export const HomeCatalog: FC = () => {
   const { fetchSkills } = useDispatchedActions(skillsActions);
   const { fetchCity } = useDispatchedActions(cityActions);
   const userListRequestStatus  = useAppSelector(userListSelectors.selectUserListStatus);
-  const userList  = useAppSelector(userListSelectors.selectUserList);
   const userSkillListRequestStatus  = useAppSelector(userSkillListSelectors.selectUserSkillListStatus);
+  const isFilterActive = useAppSelector(filterSelectors.selectActiveFilter);
   const isLoading =
     userListRequestStatus === requestStatus.LOADING ||
     userSkillListRequestStatus === requestStatus.LOADING;
@@ -46,23 +49,40 @@ export const HomeCatalog: FC = () => {
   }, [])
 
   const cards = useAppSelector(selectSwapCards, shallowEqual);
-  console.log(cards)
-  return (
-    <div className={styles.container}>
-      <FilterAside/>
-      {/* {/*Пример отображения выбранных Предпочтений и Скиллов */}
-        <div className={styles.filter_buttons}>
-          <PreferenceAndSkillWrapper/>
-        </div>
-      {isLoading? <Preloader  radius={70}/>: <div className={styles.main_content}>
 
-       { cards.map( card =>
-        (<UserCard
-          user={card.user}
-          swap={card.skill}
-        />
-      )) }
-      </div>}
-   </div>
-  );
-};
+
+
+  const filteredCards  = useCardFilters(cards); // отфильтрованный массив
+  // console.log(filteredCards)
+
+  return (
+  <div className={styles.container}>
+    <FilterAside />
+
+    {isFilterActive && (
+      <>
+        <div className={styles.filter_buttons}>
+          <PreferenceAndSkillWrapper />
+        </div>
+        {isLoading ? (
+          <Preloader radius={70} />
+        ) : (
+          <div className={styles.main_content}>
+             <div className={styles.main_heading}>
+              <h1>Подходящие предложения: <span className={styles.heading_counter}>{filteredCards.length}</span></h1>
+              <SortButtonButton/>
+              </div>
+            {filteredCards.map((card, index) => (
+              <UserCard
+                key={index}
+                user={card.user}
+                swap={card.skill}
+              />
+            ))}
+          </div>
+        )}
+      </>
+    )}
+  </div>
+);
+}

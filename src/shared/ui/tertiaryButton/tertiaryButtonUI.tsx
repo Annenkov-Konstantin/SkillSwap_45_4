@@ -11,6 +11,7 @@ export const TertiaryButtonUI: React.FC<TertiaryButtonUIProps> = ({
   secondIcon,
   hasIcons,
   isKeyPressed,
+  isSort,
   onButtonClick,
   onIconClick,
   onKeyDown,
@@ -30,7 +31,8 @@ export const TertiaryButtonUI: React.FC<TertiaryButtonUIProps> = ({
         {
           [styles.withoutIcons]: !hasIcons,
           [styles.hasIcons]: hasIcons,
-          [styles.keyPressed]: isKeyPressed
+          [styles.keyPressed]: isKeyPressed,
+          [styles.sort]: isSort
         }
       )}
       {...rest}
