@@ -9,14 +9,28 @@ import {
 
 import styles from './FormStepAccount.module.scss';
 
+const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormData';
+
 export const FormStepAccountRegistr = () => {
-  const [emailValue, setEmailValue] = useState<string>('');
-  const [passValue, setPassValue] = useState<string>('');
+  const storedData = JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || '{}'
+  );
+  const [emailValue, setEmailValue] = useState<string>(storedData.email || '');
+  const [passValue, setPassValue] = useState<string>(storedData.password || '');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [passwordStatus, setPasswordStatus] = useState<
     'empty' | 'short' | 'strong'
   >('empty');
+
+  // Сохраняем данные в localStorage при их изменении
+  useEffect(() => {
+    const dataToSave = {
+      email: emailValue,
+      password: passValue
+    };
+    localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, JSON.stringify(dataToSave));
+  }, [emailValue, passValue]);
 
   const handleEmailChange = (newValue: string) => {
     setEmailValue(newValue);
@@ -51,9 +65,12 @@ export const FormStepAccountRegistr = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Здесь будет логика отправки регистрации
+  const handleSubmit = () => {
+    // При отправке регистрации очищаем localStorage (пользователь завершил процесс)
+    localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+    console.log('submit');
+    // Здесь будет логика отправки регистрации что-то типо этого из userSlice
+    // await registerUser({ email: emailValue, password: passValue });
   };
 
   return (
@@ -72,7 +89,7 @@ export const FormStepAccountRegistr = () => {
         passwordChange={handlePasswordChange}
       />
       <div className={styles.formButton}>
-        <Button status='primary' children='Далее' />
+        <Button status='primary' children='Далее' onClick={handleSubmit} />
       </div>
     </>
   );
