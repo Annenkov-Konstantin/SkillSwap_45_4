@@ -12,7 +12,9 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
   skillsCanTeach,
   isFavorite = false,
   isSuggested = false,
-  handleLike
+  handleLike,
+  type,
+  likeCounter
 }: TUserCardUIProps) => {
   if (!user) return null;
 
@@ -21,6 +23,7 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
   return (
     <div className={styles.card}>
       <div className={styles.like}>
+        <span>{likeCounter}</span>
         <LikeButtonUI onClick={handleLike} isLiked={isFavorite} />
       </div>
       <UserCardAvatar
@@ -30,8 +33,18 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
         dateOfBirth={dateOfBirth}
       />
       <div className={styles.skills}>
-        <UserCardSkillUI title='Может научить' skills={skillsCanTeach} />
-        <UserCardSkillUI title='Хочет научиться' skills={skillsToLearn} />
+        {type === 'learn' && (
+        <>
+          <UserCardSkillUI title='Хочет научиться' skills={skillsToLearn} />
+          <UserCardSkillUI title='Может научить' skills={skillsCanTeach} />
+        </>
+        )}
+        {type === 'teach' && (
+        <>
+          <UserCardSkillUI title='Может научить' skills={skillsCanTeach} />
+          <UserCardSkillUI title='Хочет научиться' skills={skillsToLearn} />
+        </>
+        )}
       </div>
       {isSuggested ? (
         <Button status='secondary' onClick={handleMore}>

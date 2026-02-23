@@ -1,0 +1,402 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+@use 'sass:map';
+
+:global(.react-datepicker__aria-live) {
+  display: none !important;
+}
+
+:global(.react-datepicker) {
+  border: none !important;
+  font-family: map.get($body-text, font-family);
+}
+
+:global(.react-datepicker__month-container) {
+  width: 100%;
+}
+
+:global(.react-datepicker__header) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+:global(.react-datepicker__day-names) {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 8px;
+}
+
+:global(.react-datepicker__day-name) {
+  width: 40px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 0 !important;
+  color: $color-text-link !important;
+  margin: 0 !important;
+  position: relative;
+
+  &:first-child::after {
+    content: 'Пн' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(2)::after {
+    content: 'Вт' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(3)::after {
+    content: 'Ср' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(4)::after {
+    content: 'Чт' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(5)::after {
+    content: 'Пт' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(6)::after {
+    content: 'Сб' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+  &:nth-child(7)::after,
+  &:last-child::after {
+    content: 'Вс' !important;
+    font-size: 14px !important;
+    display: block !important;
+  }
+}
+
+:global(.react-datepicker__month) {
+  margin: 0 !important;
+}
+
+:global(.react-datepicker__week) {
+  display: flex !important;
+  justify-content: space-between;
+}
+
+:global(.react-datepicker__day) {
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  cursor: pointer;
+  margin: 0 !important;
+  font-size: 12px !important;
+  color: $color-text !important;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: rgb($color-accent, 0.25) !important;
+  }
+}
+
+:global(.react-datepicker__day--selected),
+:global(.react-datepicker__day--keyboard-selected) {
+  background: $color-accent !important;
+  color: $color-text !important;
+}
+
+:global(.react-datepicker__day--outside-month) {
+  color: $color-disabled-text !important;
+}
+
+.input {
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  border: 1px solid $color-caption;
+  @include border-radius;
+  background-color: $color-card-input;
+  @include input-transition;
+  font-family: map.get($body-text, font-family);
+  font-weight: map.get($body-text, font-weight);
+  font-size: map.get($body-text, font-size);
+  line-height: map.get($body-text, line-height);
+  color: $color-text;
+
+  &:focus {
+    @include input-focus;
+  }
+
+  &::placeholder {
+    color: $color-caption;
+  }
+
+  &:disabled {
+    background: $color-disabled;
+    color: $color-disabled-text;
+    cursor: not-allowed;
+  }
+
+  &[type='password']::-ms-reveal,
+  &[type='password']::-ms-clear {
+    display: none;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $color-error;
+    box-shadow: none;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.withTrailingContent .input {
+  padding-right: 48px;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.calendarField {
+  position: relative;
+  width: 208px;
+}
+
+.calendarInput {
+  width: 208px;
+  padding: 12px 44px 12px 16px;
+  border: 1px solid $color-caption;
+  @include border-radius;
+  background-color: $color-card-input;
+  font-family: map.get($body-text, font-family);
+  font-weight: map.get($body-text, font-weight);
+  font-size: map.get($body-text, font-size);
+  line-height: map.get($body-text, line-height);
+  color: $color-text;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: $color-caption;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $color-error;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    background: $color-disabled;
+    color: $color-disabled-text;
+  }
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-card-input;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-caption;
+    border-radius: 3px;
+  }
+}
+
+.calendarFieldOpen .calendarInput {
+  border-color: $color-disabled;
+  box-shadow: none;
+}
+
+.calendarFieldDisabled .calendarInput {
+  background: $color-disabled;
+  color: $color-disabled-text;
+  cursor: not-allowed;
+}
+
+.calendarTrigger {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: $calendar-trigger-size;
+  height: $calendar-trigger-size;
+  border: none;
+  background: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.calendarPopover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  max-width: 280px;
+  background: $color-card-input;
+  border-radius: 16px;
+  box-shadow: 0 34px 90px rgb(15 23 42 / 18%);
+  padding: 16px 28px;
+  z-index: 30;
+  border: 1px solid $color-caption;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendarNavButton {
+  display: none !important;
+}
+
+.calendarSelectors {
+  display: flex;
+  align-items: center;
+  gap: $calendar-gap;
+  padding: 4px;
+}
+
+.calendarSelectWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.calendarSelect {
+  border: 1px solid transparent;
+  @include border-radius;
+  background: $color-card-input;
+  padding: 8px 36px 8px 16px;
+  font-family: map.get($body-text, font-family);
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: $color-text;
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  min-width: 100px;
+
+  &:hover {
+    border-color: transparent;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+  }
+}
+
+.calendarSelectIcon {
+  position: absolute;
+  right: 12px;
+  transition: transform 0.2s ease;
+}
+
+.calendarSelectWrapper[data-open='true'] {
+  .calendarSelect {
+    border-color: $color-accent;
+  }
+
+  .calendarSelectWrapper[data-open='true'] .calendarSelectDropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .calendarSelectIcon {
+    transform: rotate(180deg);
+  }
+}
+
+.calendarSelectDropdown {
+  position: fixed;
+  z-index: 1000;
+  background: $color-card-input;
+  border: 1px solid $color-caption;
+  @include border-radius;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  overflow-y: auto;
+  max-height: 300px;
+  padding: 4px;
+}
+
+.calendarSelectOption {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: map.get($body-text, font-family);
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: $color-text;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: rgb($color-accent, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    background: rgb($color-accent, 0.1);
+  }
+}
+
+.calendarSelectOptionSelected {
+  background: rgb($color-accent, 0.2);
+  font-weight: 500;
+
+  &:hover {
+    background: rgb($color-accent, 0.25);
+  }
+}
+
+.calendarActions {
+  display: flex;
+  justify-content: center;
+  gap: $calendar-gap;
+  margin-top: 10px;
+}
+
+.calendarIcon {
+  width: 24px;
+  height: 24px;
+  color: $color-text;
+}
+
+.calendarTrigger:hover .calendarIcon {
+  color: $color-accent;
+}

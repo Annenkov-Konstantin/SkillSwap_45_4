@@ -17,20 +17,21 @@ import { userSkillListSelectors,userSkillListActions } from '@/services/slices/u
 import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
+import { ImageDropzone } from '@/features/ImageDropzone';
 
 export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
 
 
-  useEffect(() => {
-    fetchGetAllUsers()
-    fetchUserListSkills()
-  }, []);
+  // useEffect(() => {
+  //   fetchGetAllUsers()
+  //   fetchUserListSkills()
+  // }, []);
 
 
   const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
-  console.log(swapCards)
+  console.log(swapCards);
 
 
 
@@ -116,5 +117,6 @@ export const ExampleComponent: FC = () => {
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       /> */}
     </div>
+
   );
 };

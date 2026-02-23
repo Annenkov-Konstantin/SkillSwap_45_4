@@ -16,7 +16,9 @@ import type {
   TSkillData,
   TUserAllSkillsResponse,
   TLikeResponse,
-  TDefaultSkills
+  TDefaultSkills,
+  Tdelta,
+  TFavoriteResponse
 } from './types';
 import type { TUser } from '@/entities/user';
 import { transformKeysToLowercase } from '@/shared/lib/utils/transformApiKeysToLowercase';
@@ -584,7 +586,7 @@ export class Api {
   // Ставим лайк только авторизованный пользователь
   updateSkillLikesApi = async (
     skillId: string,
-    delta: 1 | -1
+    delta: Tdelta
   ): Promise<TLikeResponse> => {
     try {
       const response = await fetch(
@@ -610,6 +612,39 @@ export class Api {
       return Promise.reject(error);
     }
   };
+
+  // Изменение на сервере списка Избранного у юзера
+  toggleFavoriteApi = async (
+    skillId: string
+  ): Promise<TFavoriteResponse> => {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${QUERY_ENDPOINTS.toggleFavorite}`, // нужно создать эндпоинт
+        {
+          method: 'POST',
+          headers: {
+            apikey: this.apiKey,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getCookie('access_token')}`
+          },
+          body: JSON.stringify({
+            skill_id: skillId
+            // user_id берется из токена на сервере через auth.uid()
+          })
+        }
+      );
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Ошибка переключения избранного:', error);
+      return Promise.reject(error);
+    }
+  };
+
+
 }
+
+
 
 export const api = new Api(URL, APIKEY);

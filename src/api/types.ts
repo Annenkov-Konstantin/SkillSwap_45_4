@@ -92,11 +92,34 @@ export type TRefreshAuthResponse = {
   }
 }
 
+export type TlikeData =
+  {
+    likes: number;
+    skillId: string;
+  }
+
+export type Tdelta = 1 | -1
+
+
 export type TLikeResponse = {
   success: boolean;
   message: string;
-  data?: {
-    likes: number;
-    skillId: string;
-  };
+  data: TlikeData;
+};
+
+// Типы для апи по лайкам
+export type TFavoriteData = {
+  skillId: string;
+  isFavorite: boolean;
+  favoriteSkills: string[]; // полный массив избранного
+};
+
+export type TFavoriteResponse = {
+  success: boolean;
+  message: string;
+  data: TFavoriteData;
+};
+
+export type TToggleFavoriteParams = {
+  skillId: string;
 };

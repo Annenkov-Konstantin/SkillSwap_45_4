@@ -22,7 +22,7 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({
   const counterRef = useRef<HTMLLIElement | null>(null);
   const [visibleCount, setVisibleCount] = useState(skills.length);
 
-  useLayoutEffect(() => {
+  const calculateVisible = () => {
     const list = listRef.current;
     const counter = counterRef.current;
     if (!list || !counter || !skills.length) return;
@@ -66,6 +66,20 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({
     }
 
     setVisibleCount(maxVisible);
+  }
+
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    const observer = new ResizeObserver(() => {
+      calculateVisible();
+    });
+
+    observer.observe(list);
+    calculateVisible(); // начальный расчёт
+
+    return () => observer.disconnect();
   }, [skills, skills.length]);
 
   const visibleSkills = skills.slice(0, visibleCount);

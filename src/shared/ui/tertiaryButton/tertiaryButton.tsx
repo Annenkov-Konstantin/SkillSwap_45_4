@@ -7,13 +7,13 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   label,
   onClickButton,
   secondIcon,
+  hasIcons,
+  isSort,
   ...rest
 }) => {
   const [isKeyPressed, setIsKeyPressed] = useState(false);
 
   if (!label) return null;
-
-  const hasIcons = Boolean(firstIcon || secondIcon);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') {
@@ -41,6 +41,7 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
       label={label}
       secondIcon={secondIcon}
       hasIcons={hasIcons}
+      isSort={isSort}
       isKeyPressed={isKeyPressed}
       onButtonClick={onClickButton}
       onIconClick={handleIconClick}

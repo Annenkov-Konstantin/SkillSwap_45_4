@@ -4,7 +4,9 @@ export interface ITertiaryButton extends ButtonHTMLAttributes<HTMLButtonElement>
   firstIcon?: ReactNode;
   label: string;
   onClickButton?: () => void;
+  hasIcons: boolean;
   secondIcon?: ReactNode;
+  isSort?:boolean;
 }
 
 export interface TertiaryButtonUIProps {
@@ -13,6 +15,7 @@ export interface TertiaryButtonUIProps {
   secondIcon?: React.ReactNode;
   hasIcons: boolean;
   isKeyPressed: boolean;
+  isSort?:boolean;
   onButtonClick?: () => void;
   onIconClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;

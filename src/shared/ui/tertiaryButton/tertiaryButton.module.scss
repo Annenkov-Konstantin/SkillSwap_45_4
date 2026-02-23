@@ -80,3 +80,7 @@
 .label {
   @include body-text;
 }
+
+.button.sort {
+    justify-content: start;
+  }

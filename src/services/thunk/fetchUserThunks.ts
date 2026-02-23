@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@store-hooks';
 import { SLICE_NAMES } from '@constants';
-import type { TLoginCredentials, TRegisterData, TTokens } from '@api/types';
+import type { Tdelta, TFavoriteData, TlikeData, TLoginCredentials, TRegisterData, TToggleFavoriteParams, TTokens } from '@api/types';
 import type { TUser } from '@/entities/user';
 import { setCookie } from '@/shared/lib/utils/cookie';
 
@@ -68,5 +68,23 @@ export const fetchUpdateUserApi = createAppAsyncThunk<
       throw new Error(result.message || 'Ошибка обновления профиля');
     }
     return result.data; // TUser
+  }
+);
+
+/**
+ * Ставим лайк или убираем
+ */
+export const fetchToggleFavoriteApi = createAppAsyncThunk<
+  TFavoriteData,
+  TToggleFavoriteParams
+>(
+  `${SLICE_NAMES.USER}/fetchToggleFavoriteApi`,
+  async (params, { extra: api }) => {
+    const result = await api.toggleFavoriteApi(params.skillId);
+
+    if (!result.success) {
+      throw new Error(result.message || 'Ошибка переключения избранного');
+    }
+    return result.data;
   }
 );

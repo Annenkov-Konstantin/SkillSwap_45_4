@@ -1,12 +1,12 @@
 import type { TSkillCategory } from '@entities/user';
-import type { TSkill } from '@features/UserCard/UserCardSkill/type';
+import type { TSkillAdapter } from '@features/UserCard/UserCardSkill/type';
 import type { TSkills } from '@entities/skills';
 
 export const skillsListAdapter = (
   skills: TSkillCategory[] | null,
   skillsStore: TSkills | null
-): TSkill[] => {
-  const result: TSkill[] = [];
+): TSkillAdapter[] => {
+  const result: TSkillAdapter[] = [];
   if (!skills || !skillsStore) return result;
 
   for (let i = 0; i < skills.length; i++) {
