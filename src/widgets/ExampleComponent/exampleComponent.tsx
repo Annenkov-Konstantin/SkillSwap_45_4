@@ -4,33 +4,44 @@ import type { FC } from 'react';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 import { skillsActions, skillsSelectors } from '@slice/skills';
 //-----------------------------------------
-
+import {skillsListAdapter} from '@shared/lib/utils/skillsListAdapter';
 // import { FilterAside } from '../FilterAside/FilterAside';
 
 // import { skillsActions, skillsSelectors } from '@slice/skills';
 
 import { userSkillListActions} from '@/services/slices/userSkillList';
-import { userListActions } from '@slice/userList';
 
-import {PaginatedCardList} from '@widgets/PaginatedCardList';
+import {PopularSwapList} from '@widgets/PopularSwapList';
 
+import { userListActions, userListSelectors } from '@slice/userList';
+import { useSelector } from 'react-redux';
+import { selectSwapCards } from '@/services/selectors/swapCardSelector';
+import { ImageDropzone } from '@/features/ImageDropzone';
 
 export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
   const { fetchSkills } = useDispatchedActions(skillsActions);
 
-  useEffect(() => {
+    useEffect(() => {
+    fetchGetAllUsers()
+    fetchUserListSkills()
     fetchGetAllUsers();
     fetchUserListSkills();
     fetchSkills(); // общие навыки
   }, []);
 
+  // useEffect(() => {
+  //   fetchGetAllUsers()
+  //   fetchUserListSkills()
+  // }, []);
+
   //const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
 
-  
+  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
+  console.log(swapCards);
 
-  /* const usersList = useAppSelector(userListSelectors.selectUserList);
+
 
 
   const allSkills = useAppSelector(skillsSelectors.selectskills);
@@ -47,7 +58,7 @@ export const ExampleComponent: FC = () => {
       return skillsListAdapter(userSkillCategories, allSkills);
     },
     [swapCards, allSkills]
-  ); */
+  ); 
 
   // const { fetchSkills } = useDispatchedActions(skillsActions);
   // const usersList = useAppSelector(userListSelectors.selectUserList);
@@ -106,7 +117,7 @@ export const ExampleComponent: FC = () => {
   return (
     <div>
 
-        <PaginatedCardList title='Популярное' showViewAllButton={true}/>
+        <PopularSwapList />
       {/* <div>
         {name}
       </div>
@@ -130,5 +141,6 @@ export const ExampleComponent: FC = () => {
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       /> */}
     </div>
+
   );
 };

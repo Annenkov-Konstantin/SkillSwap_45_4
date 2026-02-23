@@ -6,7 +6,7 @@ import styles from './seeMoreButton.module.scss';
 import clsx from 'clsx';
 
 export const SeeMoreButton: React.FC<ISeeMoreButtonProps> = ({ showMore, expanded = false }) => {
-  const label = expanded ? 'Свернуть' : 'Смотреть все';
+  const label = expanded ? 'Свернуть список' : 'Смотреть все';
   const iconClassName = clsx(expanded && styles.rotated);
   return (
     <div className={styles.seeMoreButton}>
@@ -14,6 +14,7 @@ export const SeeMoreButton: React.FC<ISeeMoreButtonProps> = ({ showMore, expande
         label={label}
         onClickButton={showMore}
         secondIcon={<Icon name="icon-chevron-right" size={24} className={iconClassName} />}
+        hasIcons={true}
       />
     </div>
   );

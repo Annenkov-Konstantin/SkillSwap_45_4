@@ -1,63 +1,49 @@
 // UserCard.tsx
-import React from 'react';
+import React, {useMemo} from 'react';
 import { UserCardUI } from './UserCardUI';
 import type { TUserCardProps } from './type';
-import { skillsListAdapter } from '@shared/lib/utils/skillsListAdapter';
+import { skillsListAdapter } from '@/shared/lib/utils/skillsListAdapter';
 import { useAppSelector } from '@store-hooks';
 import { skillsSelectors } from '@slice/skills';
 
 export const UserCard: React.FC<TUserCardProps> = ({
   user,
-  skillsToLearn: propSkillsToLearn,
-  skillsCanTeach: propSkillsCanTeach,
+  swap
 }) => {
-  if (!user) return null;
-  const skills = useAppSelector(skillsSelectors.selectskills);
+  const allSkills = useAppSelector(skillsSelectors.selectskills);
 
-  // Если пропсы переданы — используем их, иначе вычисляем из user.toLearn / user.canTeach
-  const skillsToLearn = propSkillsToLearn ?? skillsListAdapter(user.toLearn, skills);
-  const skillsCanTeach = propSkillsCanTeach ?? skillsListAdapter(user.canTeach, skills);
+  // Преобразуем toLearn пользователя в массив TSkillAdapter[]
+  const skillsToLearn = useMemo(() => {
+    const categories = user.toLearn.map((item) => ({
+      category: item.category,
+      subcategory: item.subcategory,
+    }));
+    return skillsListAdapter(categories, allSkills);
+  }, [user.toLearn, allSkills]);
+
+  // Преобразуем предлагаемый навык в массив TSkillAdapter[] (один элемент)
+  const skillsCanTeach = useMemo(() => {
+    const categories = [{
+      category: swap.category,
+      subcategory: [swap.subCategory],
+    }];
+    return skillsListAdapter(categories, allSkills);
+  }, [swap, allSkills]);
+
+  if (!user) return null;
+
 
   return (
     <UserCardUI
       user={user}
-      handleMore={() => {}}
       skillsToLearn={skillsToLearn}
       skillsCanTeach={skillsCanTeach}
+      handleMore={() => {}}
       isFavorite={false}
       isSuggested={false}
       handleLike={() => {}}
+      likesCount={swap.likes}
     />
   );
 };
-
-/* import React from 'react';
-import { UserCardUI } from './UserCardUI';
-import type { TUserCardProps } from './type';
-import { skillsListAdapter } from '@shared/lib/utils/skillsListAdapter';
-import { useAppSelector } from '@store-hooks';
-import { skillsSelectors } from '@slice/skills';
-
-export const UserCard: React.FC<TUserCardProps> = ({
-  user
-}: TUserCardProps) => {
-  if (!user) return null;
-  const skills = useAppSelector(skillsSelectors.selectskills);
-
-  const { toLearn, canTeach } = user;
-
-  const skillsToLearn = skillsListAdapter(toLearn, skills);
-  const skillsCanTeach = skillsListAdapter(canTeach, skills);
-
-  return (
-    <UserCardUI
-      user={user}
-      handleMore={() => {}}
-      skillsToLearn={skillsToLearn}
-      skillsCanTeach={skillsCanTeach}
-      isFavorite={false}
-      isSuggested={false}
-      handleLike={() => {}}
-    />
-  );
-}; */
+ 

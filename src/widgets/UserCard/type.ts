@@ -1,21 +1,20 @@
+import type { TSkillAdapter } from '@/features/UserCard/UserCardSkill/type';
+import type { TUserSkill } from '@/entities/userSkill';
 import type { TUser } from '@entities/user';
-import type { TSkill } from '@features/UserCard/UserCardSkill/type';
 
 export type TUserCardUIProps = {
-  user: Pick<TUser, 'name' | 'avatarPic' | 'location' | 'dateOfBirth'> | null;
-  handleMore: () => void;
-  skillsToLearn: TSkill[];
-  skillsCanTeach: TSkill[];
+  user:TUser;
+  skillsToLearn: TSkillAdapter[];
+  skillsCanTeach: TSkillAdapter[];
   isFavorite: boolean;
   isSuggested: boolean;
+  handleMore: () => void;
   handleLike: () => void;
+  likesCount?: number; 
+  //type: 'learn' | 'teach';
 };
 
 export type TUserCardProps = {
-  user: Pick<
-    TUser,
-    'name' | 'avatarPic' | 'location' | 'dateOfBirth' | 'toLearn' | 'canTeach'
-  > | null;
-  skillsToLearn?: TSkill[]; // добавили
-  skillsCanTeach?: TSkill[]; // добавили
+  user:TUser;
+  swap:TUserSkill;
 };

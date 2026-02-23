@@ -115,3 +115,25 @@
   border: 0;
   clip-path: inset(50%);
 }
+
+@mixin resetFilterRadioButton {
+  @include border-radius;
+  min-width: 201px;
+  min-height: 48px;
+  background-color: $color-card-input;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+}
+
+@mixin resetFilterCheckboxButton {
+  @include border-radius;
+  min-width: 173px;
+  min-height: 48px;
+  background-color: $color-card-input;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+}

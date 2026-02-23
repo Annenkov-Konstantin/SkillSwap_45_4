@@ -4,6 +4,7 @@ export interface ITertiaryButton extends ButtonHTMLAttributes<HTMLButtonElement>
   firstIcon?: ReactNode;
   label: string;
   onClickButton?: () => void;
+  hasIcons: boolean;
   secondIcon?: ReactNode;
 }
 
