@@ -3,17 +3,14 @@ import type { FC } from 'react';
 // import { UserCard } from '@widgets/UserCard';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 
-
 // import { FilterAside } from '../FilterAside/FilterAside';
-
-
-
 
 // import { skillsActions, skillsSelectors } from '@slice/skills';
 
-
-
-import { userSkillListSelectors,userSkillListActions } from '@/services/slices/userSkillList';
+import {
+  userSkillListSelectors,
+  userSkillListActions
+} from '@/services/slices/userSkillList';
 import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
@@ -22,20 +19,13 @@ export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
 
+  // useEffect(() => {
+  //   fetchGetAllUsers()
+  //   fetchUserListSkills()
+  // }, []);
 
-  useEffect(() => {
-    fetchGetAllUsers()
-    fetchUserListSkills()
-  }, []);
-
-
-  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
-  console.log(swapCards)
-
-
-
-
-
+  const swapCards = useSelector(selectSwapCards); // обьединенный массив карточкас юзером
+  console.log(swapCards);
 
   // const { fetchSkills } = useDispatchedActions(skillsActions);
   // const usersList = useAppSelector(userListSelectors.selectUserList);
@@ -93,7 +83,7 @@ export const ExampleComponent: FC = () => {
 
   return (
     <div>
-       {/* <div>
+      {/* <div>
         {name}
       </div>
       <FilterAsideUI
@@ -116,6 +106,5 @@ export const ExampleComponent: FC = () => {
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       /> */}
     </div>
-
   );
 };
