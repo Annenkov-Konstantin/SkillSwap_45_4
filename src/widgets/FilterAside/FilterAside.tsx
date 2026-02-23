@@ -98,7 +98,6 @@ export const FilterAside:React.FC = () => {
 
   return (
       <FilterAsideUI
-        filters={filter}
         selectedCount={countActiveFilters()}
         cityArray={city?city:[]}
         skillArray={skills?skills:[]}

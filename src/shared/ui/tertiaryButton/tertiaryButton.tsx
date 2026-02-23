@@ -8,6 +8,7 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
   onClickButton,
   secondIcon,
   hasIcons,
+  isSort,
   ...rest
 }) => {
   const [isKeyPressed, setIsKeyPressed] = useState(false);
@@ -40,6 +41,7 @@ export const TertiaryButton: React.FC<ITertiaryButton> = ({
       label={label}
       secondIcon={secondIcon}
       hasIcons={hasIcons}
+      isSort={isSort}
       isKeyPressed={isKeyPressed}
       onButtonClick={onClickButton}
       onIconClick={handleIconClick}

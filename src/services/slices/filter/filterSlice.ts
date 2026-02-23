@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { GenderOption, PreferenceOption, TFilters, TSkillFilter } from '@/widgets/FilterAside/types';
-import { GENDER_OPTIONS, PREFERENCE_OPTIONS} from '@/widgets/FilterAside/types';
+import type { GenderOption, PreferenceOption, SortOption, TFilters, TSkillFilter } from '@/widgets/FilterAside/types';
+import { GENDER_OPTIONS, PREFERENCE_OPTIONS, SORT_OPTIONS} from '@/widgets/FilterAside/types';
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { SLICE_NAMES } from '@constants';
 import type { TSkill } from '@/entities/skills';
@@ -11,7 +11,8 @@ export const initialState: TFilters = {
   skillFilter:[],
   genderFilter: GENDER_OPTIONS[0],
   cityFilter:[],
-  searchFilter:''
+  searchFilter:'',
+  sortFilter:SORT_OPTIONS[0]
 };
 
 export const filterSlice = createSlice({
@@ -67,7 +68,12 @@ export const filterSlice = createSlice({
         state.cityFilter.splice(index,1)
       }
     },
-     searchChange: (state, action: PayloadAction<string>) => {
+    sortChange:(state, action: PayloadAction<SortOption>) => {
+      const value = action.payload;
+      state.sortFilter = value;
+    },
+
+    searchChange: (state, action: PayloadAction<string>) => {
       const value = action.payload;
       state.searchFilter = value;
     },
@@ -109,6 +115,16 @@ export const filterSlice = createSlice({
   },
   selectors: {
     selectFilter: (state) => state,
+    selectActiveFilter:(state)=> {
+      if (
+          state.preferenceFilter !== PREFERENCE_OPTIONS[0] ||
+          state.genderFilter !== GENDER_OPTIONS[0] ||
+          state.skillFilter.length > 0 ||
+          state.cityFilter.length > 0 ||
+          state.searchFilter !== ''
+      ) return true
+    },
+    selectSortFilter:(state) => state.sortFilter
   }
 });
 

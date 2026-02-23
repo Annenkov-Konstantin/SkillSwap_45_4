@@ -5,7 +5,7 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer>
+    <footer className={styles.footer}>
       <div className={styles.footerLogoWrapper}>
         <Logo />
         <p className={styles.copyright}>SkillSwap — 2026</p>

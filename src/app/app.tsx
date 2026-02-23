@@ -16,7 +16,6 @@ import { Footer } from '@/widgets/Footer';
 import { ExampleComponent } from '@/widgets/ExampleComponent';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
-import { CalendarInput } from '@/shared/ui/dateInputCalendar';
 import { ProtectedRoute } from '@features/index';
 
 // ----Моки хедера для теста

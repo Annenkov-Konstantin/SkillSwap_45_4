@@ -3,6 +3,7 @@ import type { TCategory, TSkill, TSkills } from "@/entities/skills";
 
 export type PreferenceOption = typeof PREFERENCE_OPTIONS[number];
 export type GenderOption = typeof GENDER_OPTIONS[number];
+export type SortOption = typeof SORT_OPTIONS[number];
 
 export type TSkillFilter = {
   categoryId: number;
@@ -15,10 +16,12 @@ export interface TFilters {
   genderFilter: GenderOption;
   cityFilter: TCity[];
   searchFilter:string;
+  sortFilter:SortOption;
 }
 
+
+
 export interface FilterAsideUIProps {
-  filters: TFilters; // текущее состояние фильтров, выбранные фильтры
   cityArray: TCity[]; // массив городов с сервера
   skillArray: TSkills; // массив навыков с сервера
   openCategories: number[]; // id раскрытых категорий (которые раскрываются по dropdown trigger)
@@ -55,4 +58,10 @@ export const GENDER_OPTIONS = [
   { label: 'Не имеет значения', value: 'any' as const },
   { label: 'Мужской', value: 'male' as const },
   { label: 'Женский', value: 'female' as const }
+] as const;
+
+export const SORT_OPTIONS = [
+  { label: 'По умолчанию', value: 'default' as const },
+  { label: 'Сначала новые', value: 'new' as const },
+  { label: 'Сначала давние', value: 'old' as const }
 ] as const;

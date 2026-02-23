@@ -2,7 +2,7 @@ import { useMemo, useState, type FC } from 'react';
 import type { SkillCard } from '../lib/types';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 import { filterActions, filterSelectors } from '@/services/slices/filter';
-import { GENDER_OPTIONS, PREFERENCE_OPTIONS } from '@/widgets/FilterAside/types';
+import { GENDER_OPTIONS, PREFERENCE_OPTIONS, SORT_OPTIONS } from '@/widgets/FilterAside/types';
 import { skillsListAdapter } from '../lib/utils/skillsListAdapter';
 import { skillsSelectors } from '@/services/slices/skills';
 
@@ -18,7 +18,7 @@ export const useCardFilters =(skillSwapList:SkillCard[]) => {
 
  // Мемоизированная фильтрация карточек по текущим фильтрам из стора
   const filteredCards = useMemo(() => {
-    return skillSwapList.filter(card => {
+   const readyFilter=  skillSwapList.filter(card => {
       // 1. Фильтр по полу
       if (filters.genderFilter.value !== GENDER_OPTIONS[0].value &&
         card.user.gender !== GENDER_MAP[filters.genderFilter.value])
@@ -57,32 +57,42 @@ export const useCardFilters =(skillSwapList:SkillCard[]) => {
         let matchesCategoryOrSkill = false;
         if (skillsStore){
         const categoryInfo = skillsStore.find(item => item.id === card.skill.category);
-        if( categoryInfo ){
-          const userSkillsToLearn = skillsListAdapter(
-            [{
-              category:card.user.toLearn[0].category,
-              subcategory: card.user.toLearn[0].subcategory
-            }],
-             skillsStore);
-          const userSkillsCanTeach = skillsListAdapter(
-            [{
-              category:card.user.canTeach[0].category,
-              subcategory: card.user.canTeach[0].subcategory
-            }],
-             skillsStore);
+          if( categoryInfo ){
+            const userSkillsToLearn = skillsListAdapter(
+              [{
+                category:card.user.toLearn[0].category,
+                subcategory: card.user.toLearn[0].subcategory
+              }],
+              skillsStore);
+            const userSkillsCanTeach = skillsListAdapter(
+              [{
+                category:card.user.canTeach[0].category,
+                subcategory: card.user.canTeach[0].subcategory
+              }],
+              skillsStore);
 
-          matchesCategoryOrSkill =
-            categoryInfo.category.includes(searchTarget) ||
-            userSkillsToLearn.some(item=> item.subCategory.includes(searchTarget))||
-            userSkillsCanTeach.some(item=> item.subCategory.includes(searchTarget))
+            matchesCategoryOrSkill =
+              categoryInfo.category.includes(searchTarget) ||
+              userSkillsToLearn.some(item=> item.subCategory.includes(searchTarget))||
+              userSkillsCanTeach.some(item=> item.subCategory.includes(searchTarget))
+            }
+          }
+          if (!hasMatchBaseFields && !matchesCategoryOrSkill) {
+            return false;
           }
         }
-        if (!hasMatchBaseFields && !matchesCategoryOrSkill) {
-        return false;
-  }
-      }
         return true
       });
+      //Сортировка
+      let sorted = [...readyFilter];
+
+      if(filters.sortFilter.value ===SORT_OPTIONS[1].value){
+        sorted =  readyFilter.sort((a, b) => new Date(b.skill.createdAt).getTime() - new Date(a.skill.createdAt).getTime());
+      }
+      else if(filters.sortFilter.value === SORT_OPTIONS[2].value){
+        sorted = readyFilter.sort((a, b) => new Date(a.skill.createdAt).getTime() - new Date(b.skill.createdAt).getTime());
+      }
+      return sorted;
     }, [skillSwapList, filters, skillsStore]);
 
     // Возвращаем только отфильтрованный массив
