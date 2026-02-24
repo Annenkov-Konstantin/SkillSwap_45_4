@@ -1,0 +1,24 @@
+.header {
+  margin-bottom: 32px;
+}
+
+.section {
+  max-width: 1020px;
+  margin: 0 auto;    /* центрирование по горизонтали */
+  width: 100%;       /* на узких экранах контейнер сжимается */
+  margin-top: 30px;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;         /* расстояние между карточками */
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.loadMoreTrigger {
+  height: 20px;
+  margin: 20px 0;
+}

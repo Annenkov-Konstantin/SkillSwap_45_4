@@ -14,15 +14,19 @@ import { requestStatus } from '@/shared/lib/constants';
 
 // Сторы и селекторы
 import { userListActions, userListSelectors } from '@slice/userList';
-import { userSkillListActions, userSkillListSelectors } from '@slice/userSkillList';
+import {
+  userSkillListActions,
+  userSkillListSelectors
+} from '@slice/userSkillList';
 import { skillsActions } from '@slice/skills';
 import { cityActions } from '@/services/slices/city';
 import { UserCard } from '@/widgets/UserCard';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 import { useCardFilters } from '@/shared/hooks/cardFilters';
-import { filterActions, filterSelectors } from '@/services/slices/filter';
+import { filterSelectors } from '@/services/slices/filter';
 import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 
+import { SortSwapList } from '@/widgets/SortSwapList';
 
 export const HomeCatalog: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
@@ -36,17 +40,16 @@ export const HomeCatalog: FC = () => {
     userListRequestStatus === requestStatus.LOADING ||
     userSkillListRequestStatus === requestStatus.LOADING;
 
-
-   useEffect(() => {
-   Promise.all([
-    fetchSkills(),
-    fetchGetAllUsers(),
-    fetchUserListSkills(),
-    fetchCity()
-  ]).catch(error => {
-    console.error('Один из запросов упал:', error);
-  });
-  }, [])
+  useEffect(() => {
+    Promise.all([
+      fetchSkills(),
+      fetchGetAllUsers(),
+      fetchUserListSkills(),
+      fetchCity()
+    ]).catch((error) => {
+      console.error('Один из запросов упал:', error);
+    });
+  }, []);
 
   const cards = useAppSelector(selectSwapCards, shallowEqual);
 
@@ -58,7 +61,16 @@ export const HomeCatalog: FC = () => {
   return (
   <div className={styles.container}>
     <FilterAside />
-
+    {!isFilterActive && (
+      <>
+      <SortSwapList
+      type='popular'
+      />
+      <SortSwapList
+      type='new'
+      />
+      </>
+    )}
     {isFilterActive && (
       <>
         <div className={styles.filter_buttons}>

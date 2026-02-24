@@ -106,7 +106,7 @@ export const UserCardSkillUI: FC<TUserCardSkillUIProps> = ({
 
         {hiddenCount > 0 && (
           <li>
-            <UserCardSkillCounter counter={hiddenCount} />
+            <UserCardSkillCounter counter={hiddenCount} skills={skills} visibleSkills={visibleSkills}/>
           </li>
         )}
 
