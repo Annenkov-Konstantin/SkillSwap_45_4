@@ -4,17 +4,35 @@ import type { Tdelta, TFavoriteData, TlikeData, TLoginCredentials, TRegisterData
 import type { TUser } from '@/entities/user';
 import { setCookie } from '@/shared/lib/utils/cookie';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Логин пользователя
  */
 export const fetchLoginApi = createAppAsyncThunk<
-  { user: TUser; tokens: TTokens },
+  TUser,
   TLoginCredentials
 >(
   `${SLICE_NAMES.USER}/fetchLoginApi`,
   async (credentials, { extra: api }) => {
     const result = await api.loginApi(credentials);
-    return result; // { user, tokens }
+    localStorage.setItem('refresh_token', result.tokens.refresh_token);
+    setCookie('access_token', result.tokens.access_token, {
+      expires: 7 * 24 * 60 * 60 // на неделю
+    });
+    return result.user;
   }
 );
 
@@ -48,9 +66,10 @@ export const fetchUserApi = createAppAsyncThunk<TUser>(
   async (_, { extra: api }) => {
     const result = await api.getUserApi();
     if (!result) {
-      throw new Error('Сессия истекла');
+      throw Error('Сессия истекла');
     }
-    return result; // TUser
+    const { success, ...userData } = result;
+    return userData;
   }
 );
 

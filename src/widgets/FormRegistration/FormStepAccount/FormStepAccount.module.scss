@@ -103,3 +103,30 @@
   margin: 4px 0 0 0;
   line-height: 1.4;
 }
+
+//Кнопка регистрации
+.formButton {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+.registerButton {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  color: #4caf50; /* Зелёный, гармонирующий с кнопкой «Войти» */
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 10px; /* Отступ от кнопки «Войти» */
+}
+
+.formBackground {
+  background-color: $form-bg-color;
+  padding: 85px 60px;
+}

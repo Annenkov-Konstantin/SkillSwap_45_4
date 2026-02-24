@@ -1,28 +1,26 @@
-import { useState, type FC } from "react";
-import type { THeaderActionsProps } from "./type";
+import type { FC } from "react";
 import { Button } from "@/shared/ui";
 import { NotificationModal } from '@/features/NotificationModal';
 import styles from './HeaderActions.module.css';
 import { UserAvatar } from "../UserAvatar";
 import bell from '@assets/icons/notification.svg';
 import heart from '@assets/icons/like.svg';
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/services/hooks";
+import { userSelectors } from "@/services/slices/user";
 
-// добавить навигацию на роуты, когда появятся
-export const HeaderActions: FC<THeaderActionsProps> = ({
-  isLogin,
-  userName,
-  userPhoto
-}) => {
-  const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
+export const HeaderActions: React.FC = () => {
+  const user = useAppSelector(userSelectors.selectUser);
 
-  const handleLoginClick = () => {};
+  const navigate = useNavigate();
+  // добавить навигацию на роуты, когда появятся
 
-  const handleRegisterClick = () => {};
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
 
-  const handleFavouritesClick = () => {};
-
-  const handleNotificationOpen = () => {
-    setNotificationModalOpen(true);
+  const handleRegisterClick = () => {
+    navigate('/register'); // или любой другой путь
   };
 
   const handleNotificationClose = () => {
@@ -31,7 +29,7 @@ export const HeaderActions: FC<THeaderActionsProps> = ({
 
   return (
     <>
-      {isLogin ? (
+      {user ? (
         <div className={styles.profile_container}>
           <div className={styles.profile_buttons_container}>
             <button
@@ -49,7 +47,7 @@ export const HeaderActions: FC<THeaderActionsProps> = ({
               <img src={bell} alt="Иконка колокольчика" />
             </button>
           </div>
-          <UserAvatar userName={userName} userPhoto={userPhoto} />
+          <UserAvatar userName={user.name} userPhoto={user.avatarPic}/>
         </div>
       ) : (
         <div className={styles.buttons_container}>
