@@ -1,0 +1,16 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.container {
+    width: 1020px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerForPaginatedCardList {
+      @include heading-paginated-card-list($h1);
+  
+
+}

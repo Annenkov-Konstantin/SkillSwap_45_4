@@ -1,0 +1,19 @@
+@use '@/app/styles/variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.seeMoreButton {
+  @include border-radius;
+  min-width: 187px;
+  min-height: 48px;
+  display: inline-block;
+  background-color: $color-card-input;
+}
+
+.seeMoreButton:hover {
+  background-color: $color-button-hover;
+}
+
+.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
