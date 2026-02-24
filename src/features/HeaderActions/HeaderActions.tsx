@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { Button } from "@/shared/ui";
+import { NotificationModal } from '@/features/NotificationModal';
 import styles from './HeaderActions.module.css';
 import { UserAvatar } from "../UserAvatar";
 import bell from '@assets/icons/notification.svg';
@@ -22,8 +23,8 @@ export const HeaderActions: React.FC = () => {
     navigate('/register'); // или любой другой путь
   };
 
-  const handleFavouritesClick = () => {
-
+  const handleNotificationClose = () => {
+    setNotificationModalOpen(false);
   };
 
   return (
@@ -31,10 +32,18 @@ export const HeaderActions: React.FC = () => {
       {user ? (
         <div className={styles.profile_container}>
           <div className={styles.profile_buttons_container}>
-            <button type="button" className={styles.profile_button} onClick={handleFavouritesClick}>
+            <button
+              type="button"
+              className={styles.profile_button}
+              onClick={handleFavouritesClick}
+            >
               <img src={heart} alt="Иконка сердечка" />
             </button>
-            <button type="button" className={styles.profile_button}>
+            <button
+              type="button"
+              className={styles.profile_button}
+              onClick={handleNotificationOpen}
+            >
               <img src={bell} alt="Иконка колокольчика" />
             </button>
           </div>
@@ -49,6 +58,12 @@ export const HeaderActions: React.FC = () => {
             Зарегистрироваться
           </Button>
         </div>
+      )}
+      {isNotificationModalOpen && (
+        <NotificationModal
+          onClose={handleNotificationClose}
+          isVisible={isNotificationModalOpen}
+        />
       )}
     </>
   );
