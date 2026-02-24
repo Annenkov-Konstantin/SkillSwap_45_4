@@ -9,6 +9,7 @@
 }
 
 .button_wrapper{
+  padding: 12px 20px;
   border: 1px solid $color-caption;
   border-radius: 12px;
   cursor: pointer;
@@ -32,7 +33,7 @@ li {
   color: $color-caption;
   background-color: $color-card-input;
   border: none;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
 .dropdown_content {
@@ -41,7 +42,7 @@ li {
   &_open {
     width: 100%;
     position: absolute;
-    flex: 0 0 auto;  
+    flex: 0 0 auto;
     z-index: 10;
     top: 100%;
     left: 0;
