@@ -38,12 +38,18 @@ export const FormStepAccountLogin = () => {
     setPasswordError(status === 'empty');
   };
 
-  const handleSubmit = () => {
-    // Здесь будет логика отправки логина
+  const handleSubmit = async () => {
+    // Здесь будет логика отправки логина. код отправки данных на сервер. надо взять из userSlice? что-то типо
+    //await loginUser({ email: emailValue, password: passValue });
+    // Формируем объект с данными для отправки
+    const loginData = {
+      email: emailValue,
+      password: passValue
+    };
+    console.log(loginData);
     try {
-      // код отправки данных на сервер. надо взять из userSlice? что-то типо
-      //await loginUser({ email: emailValue, password: passValue });
-
+      // Отправляем объект в API (пример с userSlice)
+      //await loginUser(loginData);
       // После успешного логина — очищаем email из localStorage
       localStorage.removeItem(LOCAL_STORAGE_EMAIL_KEY);
       console.log('Успешный логин, очищаем localStorage');
@@ -57,7 +63,7 @@ export const FormStepAccountLogin = () => {
   };
 
   return (
-    <>
+    <div className={styles.formBackground}>
       <FormStepAccountUI
         passPlaceholder='Введите пароль'
         emailErrorText='Неверный формат email'
@@ -73,13 +79,6 @@ export const FormStepAccountLogin = () => {
       />
       <div className={styles.formButton}>
         <Button status='primary' children='Войти' onClick={handleSubmit} />
-        {/*
-        <Button
-          status='secondary'
-          children='Зарегистрироваться'
-          onClick={handleRegisterClick}
-        />
-        */}
         <button
           type='button'
           className={styles.registerButton}
@@ -88,6 +87,6 @@ export const FormStepAccountLogin = () => {
           Зарегистрироваться
         </button>
       </div>
-    </>
+    </div>
   );
 };

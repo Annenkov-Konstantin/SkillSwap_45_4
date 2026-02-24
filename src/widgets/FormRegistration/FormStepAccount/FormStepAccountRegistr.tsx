@@ -9,14 +9,14 @@ import {
 
 import styles from './FormStepAccount.module.scss';
 
-const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormData';
+const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormEmail';
 
 export const FormStepAccountRegistr = () => {
-  const storedData = JSON.parse(
-    localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || '{}'
+  const [emailValue, setEmailValue] = useState<string>(
+    localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || ''
   );
-  const [emailValue, setEmailValue] = useState<string>(storedData.email || '');
-  const [passValue, setPassValue] = useState<string>(storedData.password || '');
+
+  const [passValue, setPassValue] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [passwordStatus, setPasswordStatus] = useState<
@@ -25,12 +25,13 @@ export const FormStepAccountRegistr = () => {
 
   // Сохраняем данные в localStorage при их изменении
   useEffect(() => {
-    const dataToSave = {
-      email: emailValue,
-      password: passValue
-    };
-    localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, JSON.stringify(dataToSave));
-  }, [emailValue, passValue]);
+    if (emailValue) {
+      localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
+    } else {
+      // Если email пустой, удаляем из localStorage
+      localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+    }
+  }, [emailValue]);
 
   const handleEmailChange = (newValue: string) => {
     setEmailValue(newValue);
@@ -66,15 +67,28 @@ export const FormStepAccountRegistr = () => {
   };
 
   const handleSubmit = () => {
-    // При отправке регистрации очищаем localStorage (пользователь завершил процесс)
-    localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
-    console.log('submit');
     // Здесь будет логика отправки регистрации что-то типо этого из userSlice
     // await registerUser({ email: emailValue, password: passValue });
+    // Формируем объект с данными для отправки
+    const registrationData = {
+      email: emailValue,
+      password: passValue
+    };
+    console.log(registrationData);
+    try {
+      // Отправляем объект в API
+      //await registerUser(registrationData);
+
+      // Очищаем localStorage после успешной регистрации
+      localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+      console.log('Пользователь зарегистрирован');
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+    }
   };
 
   return (
-    <>
+    <div className={styles.formBackground}>
       <FormStepAccountUI
         passPlaceholder='Придумайте пароль'
         emailErrorText='Неверный формат email'
@@ -91,6 +105,6 @@ export const FormStepAccountRegistr = () => {
       <div className={styles.formButton}>
         <Button status='primary' children='Далее' onClick={handleSubmit} />
       </div>
-    </>
+    </div>
   );
 };
