@@ -8,10 +8,5 @@ export type TNotificationItem = {
 
 export type TNotificationModalProps = {
   onClose: () => void;
-  newNotifications: TNotificationItem[];
-  viewedNotifications: TNotificationItem[];
   isVisible?: boolean;
-  onReadAll?: () => void;
-  onClearViewed?: () => void;
-  onNotificationAction?: (notificationId: string) => void;
 };

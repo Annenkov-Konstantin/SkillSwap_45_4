@@ -1,25 +1,32 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import type { THeaderActionsProps } from "./type";
 import { Button } from "@/shared/ui";
+import { NotificationModal } from '@/features/NotificationModal';
 import styles from './HeaderActions.module.css';
 import { UserAvatar } from "../UserAvatar";
 import bell from '@assets/icons/notification.svg';
 import heart from '@assets/icons/like.svg';
 
-export const HeaderActions: FC<THeaderActionsProps> = ({ isLogin, userName, userPhoto }) => {
+// добавить навигацию на роуты, когда появятся
+export const HeaderActions: FC<THeaderActionsProps> = ({
+  isLogin,
+  userName,
+  userPhoto
+}) => {
+  const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
 
-  // добавить навигацию на роуты, когда появятся
+  const handleLoginClick = () => {};
 
-  const handleLoginClick = () => {
+  const handleRegisterClick = () => {};
 
+  const handleFavouritesClick = () => {};
+
+  const handleNotificationOpen = () => {
+    setNotificationModalOpen(true);
   };
 
-  const handleRegisterClick = () => {
-
-  };
-
-  const handleFavouritesClick = () => {
-
+  const handleNotificationClose = () => {
+    setNotificationModalOpen(false);
   };
 
   return (
@@ -27,14 +34,22 @@ export const HeaderActions: FC<THeaderActionsProps> = ({ isLogin, userName, user
       {isLogin ? (
         <div className={styles.profile_container}>
           <div className={styles.profile_buttons_container}>
-            <button type="button" className={styles.profile_button} onClick={handleFavouritesClick}>
+            <button
+              type="button"
+              className={styles.profile_button}
+              onClick={handleFavouritesClick}
+            >
               <img src={heart} alt="Иконка сердечка" />
             </button>
-            <button type="button" className={styles.profile_button}>
+            <button
+              type="button"
+              className={styles.profile_button}
+              onClick={handleNotificationOpen}
+            >
               <img src={bell} alt="Иконка колокольчика" />
             </button>
           </div>
-          <UserAvatar userName={userName} userPhoto={userPhoto}/>
+          <UserAvatar userName={userName} userPhoto={userPhoto} />
         </div>
       ) : (
         <div className={styles.buttons_container}>
@@ -45,6 +60,12 @@ export const HeaderActions: FC<THeaderActionsProps> = ({ isLogin, userName, user
             Зарегистрироваться
           </Button>
         </div>
+      )}
+      {isNotificationModalOpen && (
+        <NotificationModal
+          onClose={handleNotificationClose}
+          isVisible={isNotificationModalOpen}
+        />
       )}
     </>
   );
