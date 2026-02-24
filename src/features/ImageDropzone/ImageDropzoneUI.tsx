@@ -17,6 +17,12 @@ export const ImageDropzone: FC<TImageDropzoneProps> = ({ handleDelete }) => {
     }
   });
 
+  const handleRemoveFile = (targetFile: File & { preview: string }) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file !== targetFile));
+    URL.revokeObjectURL(targetFile.preview);
+    handleDelete?.(targetFile);
+  };
+
   const thumbs = files.map(file => (
     <div className={styles.thumb} key={file.name} onClick={(e) => e.stopPropagation()}>
       <div className={styles.thumbInner}>
@@ -25,7 +31,14 @@ export const ImageDropzone: FC<TImageDropzoneProps> = ({ handleDelete }) => {
           className={styles.img}
           onLoad={() => { URL.revokeObjectURL(file.preview); }}
         />
-        <button onClick={handleDelete} className={styles.delete_button}>
+        <button
+          type='button'
+          onClick={(event) => {
+            event.stopPropagation();
+            handleRemoveFile(file);
+          }}
+          className={styles.delete_button}
+        >
           <svg className={styles.delete_button_icon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#253017" d="M14.791 2C19.841 2 22 4.158 22 9.209v5.582C22 19.841 19.842 22 14.791 22H9.209C4.159 22 2 19.842 2 14.791V9.209C2 4.159 4.158 2 9.209 2h5.582ZM8 11.25c-.41 0-.75.34-.75.75s.34.75.75.75h8c.41 0 .75-.34.75-.75s-.34-.75-.75-.75H8Z"/>
           </svg>
