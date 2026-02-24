@@ -80,7 +80,7 @@ export const FormStepAccountRegistr = () => {
       //await registerUser(registrationData);
 
       // Очищаем localStorage после успешной регистрации
-      localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+      //localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
       console.log('Пользователь зарегистрирован');
     } catch (error) {
       console.error('Ошибка регистрации:', error);
