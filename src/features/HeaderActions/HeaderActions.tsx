@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import { Button } from "@/shared/ui";
 import { NotificationModal } from '@/features/NotificationModal';
 import styles from './HeaderActions.module.css';
@@ -10,6 +10,7 @@ import { useAppSelector } from "@/services/hooks";
 import { userSelectors } from "@/services/slices/user";
 
 export const HeaderActions: React.FC = () => {
+  const [isNotificationModalOpen ,setNotificationModalOpen]=useState<boolean>(false);
   const user = useAppSelector(userSelectors.selectUser);
 
   const navigate = useNavigate();
@@ -20,12 +21,24 @@ export const HeaderActions: React.FC = () => {
   };
 
   const handleRegisterClick = () => {
-    navigate('/register'); // или любой другой путь
+    navigate('/register');
+  };
+
+  const handleFavouritesClick = ()=> {
+    navigate('/profile/favorites');
+  };
+
+  const handleAvatarClick = ()=> {
+    navigate('/profile');
   };
 
   const handleNotificationClose = () => {
     setNotificationModalOpen(false);
   };
+
+  const handleNotificationOpen = () => {
+    setNotificationModalOpen(true);
+  }
 
   return (
     <>
@@ -47,7 +60,10 @@ export const HeaderActions: React.FC = () => {
               <img src={bell} alt="Иконка колокольчика" />
             </button>
           </div>
-          <UserAvatar userName={user.name} userPhoto={user.avatarPic}/>
+          <UserAvatar
+            onClick={handleAvatarClick}
+            userName={user.name}
+            userPhoto={user.avatarPic}/>
         </div>
       ) : (
         <div className={styles.buttons_container}>

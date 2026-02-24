@@ -1,4 +1,5 @@
 export type TUserAvatarProps = {
   userName: string;
-  userPhoto: string
+  userPhoto: string;
+  onClick:()=>void;
 }
