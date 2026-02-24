@@ -19,10 +19,8 @@ import { ServerError500 } from '@/pages/ServerError-500';
 // Виджеты
 import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
-import { ExampleComponent } from '@/widgets/ExampleComponent';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
-import { CalendarInput } from '@/shared/ui/dateInputCalendar';
 
 import { FormStepAccountLogin } from '@/widgets/FormRegistration/FormStepAccount/FormStepAccountLogin';
 import { FormStepAccountRegistr } from '@/widgets/FormRegistration/FormStepAccount/FormStepAccountRegistr';
@@ -31,24 +29,22 @@ import { FormStepAccountRegistr } from '@/widgets/FormRegistration/FormStepAccou
 import { ProtectedRoute } from '@features/index';
 // Хуки
 import { useEffect } from 'react';
-import { useDispatchedActions } from '@/services/hooks';
+import { useAppSelector, useDispatchedActions } from '@/services/hooks';
 // Сторы
 import { userListActions } from '@/services/slices/userList';
 import { userSkillListActions } from '@/services/slices/userSkillList';
 import { skillsActions } from '@/services/slices/skills';
 import { cityActions } from '@/services/slices/city';
+import { userActions, userSelectors } from '@/services/slices/user';
 
-// ----Моки хедера для теста
-const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
-const userName = 'Мария'; // данные из стора
-const isLogin = true; // данные из стора — для теста поменять на false
-// ---- Моки конец
 
 const App = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
   const { fetchSkills } = useDispatchedActions(skillsActions);
   const { fetchCity } = useDispatchedActions(cityActions);
+  const { fetchUserApi, authUser } = useDispatchedActions(userActions);
+  const isAuthUser = useAppSelector(userSelectors.selectUserAuth)
   const location = useLocation();
 
   // Массив путей, на которых не должны отображаться Header и Footer
@@ -67,15 +63,16 @@ const App = () => {
       fetchSkills(),
       fetchGetAllUsers(),
       fetchUserListSkills(),
-      fetchCity()
+      fetchCity(),
+      fetchUserApi()
     ]).catch((error) => {
       console.error('Один из запросов упал:', error);
-    });
+    }).finally(()=>authUser())
   }, []);
 
   const LayoutWithShell = () => (
     <>
-      <Header userName={userName} userPhoto={userPhoto} isLogin={isLogin} />
+      <Header/>
       <IconSprite />
       <SkillsModalManager />
       <main className={styles.container}>
@@ -85,67 +82,50 @@ const App = () => {
     </>
   );
 
-  return (
-    <SkillsModalProvider>
-      <IconSprite />
-      <SkillsModalManager />
+return (
+  <SkillsModalProvider>
+    <IconSprite />
+    <SkillsModalManager />
 
-      {/* Показываем Header только на страницах, где нет FormLayout */}
-      {showHeaderFooter && (
-        <Header userName={userName} isLogin={isLogin} userPhoto={userPhoto} />
-      )}
+    {/* Показываем Header только на страницах, где нет FormLayout */}
+    {showHeaderFooter && <Header />}
 
-      <div className={styles.container}>
-        <CalendarInput />
+    <div className={styles.container}>
+      <Routes location={location}>
+        {/* Главная страница - доступна всем */}
+        <Route path='/' element={<HomeCatalog />} />
 
-        <Routes location={location}>
-          {/* Главная страница */}
-          <Route path='/' element={<HomeCatalog />} />
-
-          {/* Страница логина — внутри FormLayout */}
+        {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
+        <Route element={<ProtectedRoute onlyUnAuth={isAuthUser} />}>
           <Route path='/login' element={<FormLayout />}>
             <Route index element={<FormStepAccountLogin />} />
           </Route>
 
-          {/* Страница регистрации шаг 1 — внутри FormLayout */}
           <Route path='/register' element={<FormLayout />}>
-            <Route index element={<FormStepAccountRegistr />} />
-          </Route>
-
-          {/* Страница регистрации — внутри FormLayout с редиректом 
-          <Route path="/register" element={<FormLayout />}>
-            {/* Редирект с /register на /register/account 
             <Route index element={<Navigate to="account" replace />} />
-
-            {/* Шаг 1: учётная запись
-            <Route
-              path="account"
-              element={
-                <FormStepAccountRegistr
-                  passPlaceholder="Придумайте пароль"
-                  emailErrorText="Неверный формат email"
-                  isFormRegistr={true}
-                  registrInfo="Регистрация нового пользователя"
-                />
-              }
-            />
-
-            {/* Заглушки для следующих шагов регистрации 
+            <Route path="account" element={<FormStepAccountRegistr />} />
             <Route path="personal" element={<div>Личные данные (заглушка)</div>} />
             <Route path="skill" element={<div>Навыки (заглушка)</div>} />
           </Route>
-*/}
-          {/* Другие страницы */}
-          <Route path='/error' element={<ServerError500 />} />
-          <Route path='/test' element={<ExampleComponent />} />
-          <Route path='*' element={<NotFound404 />} />
-        </Routes>
+        </Route>
 
-        {/* Показываем Footer только на страницах, где нет FormLayout */}
-        {showHeaderFooter && <Footer />}
-      </div>
-    </SkillsModalProvider>
-  );
+        {/* Профиль - ТОЛЬКО для авторизованных */}
+        <Route element={<ProtectedRoute />}>
+          {/* Здесь будут защищенные маршруты, например: */}
+          <Route path='/profile' element={<div>Профиль пользователя</div>} />
+          <Route path='/settings' element={<div>Настройки</div>} />
+        </Route>
+
+        {/* Другие страницы - доступны всем */}
+        <Route path='/error' element={<ServerError500 />} />
+        <Route path='*' element={<NotFound404 />} />
+      </Routes>
+
+      {/* Показываем Footer только на страницах, где нет FormLayout */}
+      {showHeaderFooter && <Footer />}
+    </div>
+  </SkillsModalProvider>
+);
 };
 
 export default App;

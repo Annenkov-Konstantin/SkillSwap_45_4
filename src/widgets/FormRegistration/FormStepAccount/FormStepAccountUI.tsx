@@ -18,8 +18,8 @@ export const FormStepAccountUI: FC<TAuthForm> = ({
   emailError,
   passwordError,
   isFormRegistr,
-  registrInfo,
-  getPasswordHint
+  errorInfo,
+  getPasswordHint,
 }) => {
   return (
     <form className={styles.formContainer}>
@@ -85,11 +85,12 @@ export const FormStepAccountUI: FC<TAuthForm> = ({
           {/* Подсказка для режима входа при ошибке */}
           {!isFormRegistr && (passwordError || emailError) && (
             <p className={styles.hintError}>
-              Email или пароль введён неверно. Пожалуйста проверьте правильность
-              введённых данных
+             Email или пароль введён неверно. Пожалуйста проверьте правильность введённых данных
             </p>
           )}
+          {errorInfo === 'Invalid login credentials' && <p className={styles.hintError}>Неверный логин или пароль</p>}
         </div>
+
       </div>
     </form>
   );

@@ -11,7 +11,7 @@ import styles from './FormStepAccount.module.scss';
 
 const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormEmail';
 
-export const FormStepAccountRegistr = () => {
+export const FormStepAccountRegistr:React.FC = () => {
   const [emailValue, setEmailValue] = useState<string>(
     localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || ''
   );
@@ -99,7 +99,6 @@ export const FormStepAccountRegistr = () => {
         emailError={emailError}
         passwordError={passwordError}
         isFormRegistr={true}
-        registrInfo='Регистрация нового пользователя'
         getPasswordHint={getPasswordHint}
         emailChange={handleEmailChange}
         passwordChange={handlePasswordChange}

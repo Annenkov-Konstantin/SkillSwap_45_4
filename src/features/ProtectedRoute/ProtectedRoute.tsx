@@ -1,9 +1,9 @@
 import React from "react";
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import type { ProtectedRouteProps } from "./type";
 import { useAppSelector } from '@store-hooks'
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({onlyUnAuth, children}) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({onlyUnAuth}) => {
   const { user } = useAppSelector((state) => state.user);
   const location = useLocation();
 
@@ -16,5 +16,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({onlyUnAuth, child
     return <Navigate replace to={from} />;
   }
 
-  return children;
+  return <Outlet/>;
+
 }

@@ -57,7 +57,8 @@ export class Api {
       })
     })
       .then((res) => {
-        return this.checkResponse<TRefreshAuthResponse>(res);
+        const result =  this.checkResponse<TRefreshAuthResponse>(res);
+        return result;
       })
       .then((refreshData) => {
         // Сохраняем токены!
@@ -79,6 +80,11 @@ export class Api {
           apikey: this.apiKey
         }
       });
+      // -------
+      if (res.ok) {
+      return await this.checkResponse<TUserResponse>(res);
+      }
+      //-----
 
       if (res.status === 401 || res.status === 403) {
         const refreshToken = localStorage.getItem('refresh_token');
@@ -101,7 +107,9 @@ export class Api {
               }
             }
           );
-          return await this.checkResponse<TUserResponse>(retryRes);
+          const result = await this.checkResponse<TUserResponse>(retryRes);
+          console.log(result)
+          return result
         } catch (error) {
           return Promise.reject(
             new Error('Session expired. Please login again.')
@@ -119,38 +127,42 @@ export class Api {
     }
   };
 
+// ------------------------------
   private createUserProfile = (
     data: Omit<TRegisterData, 'password'>,
     accessToken: string
-  ): Promise<{ profile: TUser; message: string }> => {
-    const { email, ...dataWithoutEmail } = data;
-    const toLowerCaseData = transformKeysToLowercase(dataWithoutEmail);
+    ): Promise<{ profile: TUser; message: string }> => {
+      const { email, ...dataWithoutEmail } = data;
+      const toLowerCaseData = transformKeysToLowercase(dataWithoutEmail);
 
-    return fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.registerUser}`, {
-      method: 'POST',
-      headers: {
-        apikey: this.apiKey,
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(toLowerCaseData)
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.success && response.data) {
-          return {
-            profile: response.data,
-            message: response.message
-          };
-        }
-        throw new Error(response.message || 'Failed to create profile');
-      });
-  };
+      return fetch(`${this.baseUrl}/${QUERY_ENDPOINTS.registerUser}`, {
+        method: 'POST',
+        headers: {
+          apikey: this.apiKey,
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(toLowerCaseData)
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.success && response.data) {
+            return {
+              profile: response.data,
+              message: response.message
+            };
+          }
+          throw new Error(response.message || 'Failed to create profile');
+        });
+    };
+// ------------------------------
+
 
   // Запрос на получение пользователя из auth
   getUserApi = async (): Promise<TServerResponse<TUser> | null> => {
     try {
       const authData = await this.fetchAuthUser();
+      console.log(authData)//пусто
       const userId = authData.id;
       const response = await fetch(
         `${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`,
@@ -168,6 +180,7 @@ export class Api {
       );
 
       const result = await response.json();
+      console.log(result)//пусто
 
       //  Проверяем структуру ответа
       if (!result.success) {
