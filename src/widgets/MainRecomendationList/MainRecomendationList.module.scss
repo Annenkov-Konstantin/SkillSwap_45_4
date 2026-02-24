@@ -1,0 +1,7 @@
+@use '@app/styles/_variables' as *;
+@use '@app/styles/_mixins' as *;
+
+.text {
+  @include body-text;
+  color: $color-text;
+}
