@@ -170,7 +170,7 @@
     "canTeach": [
       {
         "category": 5,
-        "subcategory": [1, 3, 6, 7, 8]
+        "subcategory": [1, 3, 6]
       }
     ]
   },

@@ -1,16 +1,16 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import type { FC } from 'react';
 // import { UserCard } from '@widgets/UserCard';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
-
+import { skillsActions, skillsSelectors } from '@slice/skills';
+//-----------------------------------------
+import { skillsListAdapter } from '@shared/lib/utils/skillsListAdapter';
 // import { FilterAside } from '../FilterAside/FilterAside';
 
 // import { skillsActions, skillsSelectors } from '@slice/skills';
 
-import {
-  userSkillListSelectors,
-  userSkillListActions
-} from '@/services/slices/userSkillList';
+import { userSkillListActions } from '@/services/slices/userSkillList';
+
 import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
@@ -19,13 +19,41 @@ import { ImageDropzone } from '@/features/ImageDropzone';
 export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
+  const { fetchSkills } = useDispatchedActions(skillsActions);
+
+  useEffect(() => {
+    fetchGetAllUsers();
+    fetchUserListSkills();
+    fetchGetAllUsers();
+    fetchUserListSkills();
+    fetchSkills(); // общие навыки
+  }, []);
 
   // useEffect(() => {
   //   fetchGetAllUsers()
   //   fetchUserListSkills()
   // }, []);
+
+  //const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
+
   const swapCards = useSelector(selectSwapCards); // обьединенный массив карточкас юзером
   console.log(swapCards);
+
+  const allSkills = useAppSelector(skillsSelectors.selectskills);
+
+  const getUserSkills = useCallback(
+    (userId: string, type: 'teach' | 'learn') => {
+      // Выбираем из swapCards все навыки пользователя с нужным type
+      const userSkillCategories = swapCards
+        .filter((item) => item.user._id === userId && item.skill.type === type)
+        .map((item) => ({
+          category: item.skill.category,
+          subcategory: [item.skill.subCategory] // адаптер ожидает массив подкатегорий
+        }));
+      return skillsListAdapter(userSkillCategories, allSkills);
+    },
+    [swapCards, allSkills]
+  );
 
   // const { fetchSkills } = useDispatchedActions(skillsActions);
   // const usersList = useAppSelector(userListSelectors.selectUserList);

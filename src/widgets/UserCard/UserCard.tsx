@@ -1,4 +1,5 @@
-import React from 'react';
+// UserCard.tsx
+import React, {useMemo, useRef} from 'react';
 import { UserCardUI } from './UserCardUI';
 import type { TUserCardProps } from './type';
 import { skillsListAdapter } from '@/shared/lib/utils/skillsListAdapter';
@@ -11,6 +12,7 @@ export const UserCard: React.FC<TUserCardProps> = ({
   user,
   swap
 }) => {
+
   if (!user) return null;
   const {fetchUpdateSkillLikeApi}  = useDispatchedActions(userSkillListActions)
   const {fetchToggleFavoriteApi} = useDispatchedActions(userActions)
@@ -38,9 +40,9 @@ export const UserCard: React.FC<TUserCardProps> = ({
   return (
     <UserCardUI
       user={user}
-      handleMore={() => {}}
       skillsToLearn={skillsToLearn}
       skillsCanTeach={skillsCanTeach}
+      handleMore={() => {}}
       isFavorite={false}
       isSuggested={false}
       handleLike={handleLike}

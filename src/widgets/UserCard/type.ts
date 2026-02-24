@@ -1,3 +1,4 @@
+import React from 'react';
 import type { TSkillAdapter } from '@/features/UserCard/UserCardSkill/type';
 import type { TUserSkill } from '@/entities/userSkill';
 import type { TUser } from '@entities/user';
