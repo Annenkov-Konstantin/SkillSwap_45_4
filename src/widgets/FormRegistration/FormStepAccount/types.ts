@@ -8,5 +8,6 @@ export type TAuthForm = {
   emailError?: boolean;
   passwordError?: boolean;
   isFormRegistr: boolean;
-  registrInfo: string;
+  errorInfo?: string | null;
+  getPasswordHint?: () => React.ReactNode;
 };

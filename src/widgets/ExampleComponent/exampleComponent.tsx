@@ -4,27 +4,27 @@ import type { FC } from 'react';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 import { skillsActions, skillsSelectors } from '@slice/skills';
 //-----------------------------------------
-import {skillsListAdapter} from '@shared/lib/utils/skillsListAdapter';
+import { skillsListAdapter } from '@shared/lib/utils/skillsListAdapter';
 // import { FilterAside } from '../FilterAside/FilterAside';
 
 // import { skillsActions, skillsSelectors } from '@slice/skills';
 
-import { userSkillListActions} from '@/services/slices/userSkillList';
-
+import { userSkillListActions } from '@/services/slices/userSkillList';
 
 import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 import { ImageDropzone } from '@/features/ImageDropzone';
 
+
 export const ExampleComponent: FC = () => {
   const { fetchGetAllUsers } = useDispatchedActions(userListActions);
   const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
   const { fetchSkills } = useDispatchedActions(skillsActions);
 
-    useEffect(() => {
-    fetchGetAllUsers()
-    fetchUserListSkills()
+  useEffect(() => {
+    fetchGetAllUsers();
+    fetchUserListSkills();
     fetchGetAllUsers();
     fetchUserListSkills();
     fetchSkills(); // общие навыки
@@ -37,11 +37,8 @@ export const ExampleComponent: FC = () => {
 
   //const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
 
-  const swapCards = useSelector(selectSwapCards);// обьединенный массив карточкас юзером
+  const swapCards = useSelector(selectSwapCards); // обьединенный массив карточкас юзером
   console.log(swapCards);
-
-
-
 
   const allSkills = useAppSelector(skillsSelectors.selectskills);
 
@@ -52,7 +49,7 @@ export const ExampleComponent: FC = () => {
         .filter((item) => item.user._id === userId && item.skill.type === type)
         .map((item) => ({
           category: item.skill.category,
-          subcategory: [item.skill.subCategory], // адаптер ожидает массив подкатегорий
+          subcategory: [item.skill.subCategory] // адаптер ожидает массив подкатегорий
         }));
       return skillsListAdapter(userSkillCategories, allSkills);
     },
@@ -115,8 +112,6 @@ export const ExampleComponent: FC = () => {
 
   return (
     <div>
-
-    
       {/* <div>
         {name}
       </div>
@@ -140,6 +135,5 @@ export const ExampleComponent: FC = () => {
         getCategoryCheckState={() => ({ checked: false, indeterminate: true })}
       /> */}
     </div>
-
   );
 };

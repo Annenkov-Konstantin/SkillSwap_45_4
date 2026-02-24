@@ -19,12 +19,14 @@ export interface IUserState {
   user: TUser | null;
   requestStatus: TRequestStatus;
   error: string | null;
+  isAuth:boolean;
 }
 
 export const initialState: IUserState = {
   user: null,
   requestStatus: requestStatus.IDLE,
-  error: null
+  error: null,
+  isAuth:false
 };
 
 export const userSlice = createSlice({
@@ -33,6 +35,9 @@ export const userSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    authUser:(state)=> {
+      state.isAuth=true;
     },
     // Синхронный выход (без thunk)
     logout: (state) => {
@@ -43,7 +48,9 @@ export const userSlice = createSlice({
   },
   selectors: {
     selectUser: (state) => state.user,
-    selectUserStatus: (state) => state.requestStatus
+    selectUserStatus: (state) => state.requestStatus,
+    selectUserError:(state)=>state.error,
+    selectUserAuth:(state)=>state.isAuth
   },
   extraReducers: (builder) => {
     builder
@@ -57,6 +64,7 @@ export const userSlice = createSlice({
           }
         }
       )
+
         // Общий pending для всех асинхронных операций с пользователем
       .addMatcher(
         isAnyOf(
@@ -68,6 +76,19 @@ export const userSlice = createSlice({
         (state) => {
           state.requestStatus = requestStatus.LOADING;
           state.error = null;
+        }
+      )
+      // Успешное получение профиля (getuser?, login)
+      .addMatcher(
+        isAnyOf(
+          fetchUserApi.fulfilled,
+          fetchLoginApi.fulfilled
+        ),
+        (state, action: PayloadAction<TUser>) => {
+          state.requestStatus = requestStatus.SUCCESS;
+          state.user = action.payload;
+          state.error = null;
+          state.isAuth=true;
         }
       )
       /*       // Успешный вход (login)
@@ -91,14 +112,6 @@ export const userSlice = createSlice({
           state,
           action: PayloadAction<TUser>
         ) => {
-          state.requestStatus = requestStatus.SUCCESS;
-          state.user = action.payload;
-        }
-      )
-      // Успешное получение профиля
-      .addMatcher(
-        fetchUserApi.fulfilled,
-        (state, action: PayloadAction<TUser>) => {
           state.requestStatus = requestStatus.SUCCESS;
           state.user = action.payload;
         }
