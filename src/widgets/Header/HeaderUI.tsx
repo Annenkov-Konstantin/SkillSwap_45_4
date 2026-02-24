@@ -1,18 +1,15 @@
 import { Logo } from "@/shared/ui/logo";
-import type { THeaderUIProps } from "./type";
 import { DropdownTrigger, Input } from "@/shared/ui";
 import { useContext, type FC } from "react";
 import moon from '@assets/icons/moon.svg';
 import styles from './Header.module.scss';
 import { NavLink } from "react-router-dom";
 import { HeaderActions } from "@/features/HeaderActions/HeaderActions";
+import type { THeaderUIProps } from "./type";
 
 export const HeaderUI: FC<THeaderUIProps> = ({
-  userName,
   searchQuery,
   setSearchQuery,
-  userPhoto,
-  isLogin,
   handleModalOpen,
   isModalOpen
  }) => {
@@ -53,10 +50,7 @@ export const HeaderUI: FC<THeaderUIProps> = ({
           <img src={moon} alt="Иконка месяца" />
         </button>
         <div className={styles.menue_part_right}>
-          <HeaderActions
-            isLogin={isLogin}
-            userName={userName}
-            userPhoto={userPhoto}/>
+          <HeaderActions/>
         </div>
       </nav>
     </header>
