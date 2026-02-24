@@ -23,15 +23,16 @@ export const FormStepAccountRegistr = () => {
     'empty' | 'short' | 'strong'
   >('empty');
 
+  // Убрала useEffect — сохранение будет только при submit
   // Сохраняем данные в localStorage при их изменении
-  useEffect(() => {
-    if (emailValue) {
-      localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
-    } else {
-      // Если email пустой, удаляем из localStorage
-      localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
-    }
-  }, [emailValue]);
+  //useEffect(() => {
+  // if (emailValue) {
+  //   localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
+  // } else {
+  // Если email пустой, удаляем из localStorage
+  //   localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+  //  }
+  // }, [emailValue]);
 
   const handleEmailChange = (newValue: string) => {
     setEmailValue(newValue);
@@ -79,8 +80,9 @@ export const FormStepAccountRegistr = () => {
       // Отправляем объект в API
       //await registerUser(registrationData);
 
-      // Очищаем localStorage после успешной регистрации
-      //localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
+      if (emailValue) {
+        localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
+      }
       console.log('Пользователь зарегистрирован');
     } catch (error) {
       console.error('Ошибка регистрации:', error);
