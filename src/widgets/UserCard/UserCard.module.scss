@@ -18,14 +18,22 @@
   gap: 12px;
 }
 
+.buttonImg {
+  margin-right: 8px;
+}
+
 .like {
   display: flex;
   column-gap: 10px;
   position: absolute;
   right: 20px;
   top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px; /* расстояние между числом и сердечком */
 }
 
-.buttonImg {
-  margin-right: 8px;
+.likesCount {
+  @include body-text;
+  color: $color-text; 
 }

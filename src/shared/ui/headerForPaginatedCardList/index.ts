@@ -1,0 +1,1 @@
+export {HeaderForPaginatedCardList} from './headerForPaginatedCardList';
