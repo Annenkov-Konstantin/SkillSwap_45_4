@@ -50,6 +50,10 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  &:hover {
+    border-color: #ABD27A;
+  }
 }
 
 li {
