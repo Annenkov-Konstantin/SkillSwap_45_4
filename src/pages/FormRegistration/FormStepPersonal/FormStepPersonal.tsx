@@ -19,6 +19,41 @@ export const FormStepPersonal: FC = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]); // массив
   const [valuedLengthStatus, setValueLengthStatus] = useState<'empty' | 'short' | 'strong'>('empty');
   const [showNameError, setShowNameError] = useState(false);
+
+  //PhotoAvatar
+   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string>('');
+
+  // обработка фото
+  const profilePhotoAdd = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+
+      if (file) {
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Файл слишком большой. Максимальный размер 5MB');
+          return;
+        }
+
+        setAvatarFile(file);
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setAvatarPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    input.click();
+  };
+
+
   const navigate = useNavigate();
 
   const cityArray: TCity[] | null = useAppSelector(citySelectors.selectCity);
@@ -34,6 +69,11 @@ export const FormStepPersonal: FC = () => {
         setBirthValue(parsedData.dateOfBirth || '');
         setGenderValue(parsedData.gender || '');
         setCityValue(parsedData.location || null);
+
+         // Загружаем фото аватара
+        if (parsedData.avatarPic) {
+        setAvatarPreview(parsedData.avatarPic);
+        }
 
         // Загружаем массив навыков
         if (parsedData.toLearn && Array.isArray(parsedData.toLearn)) {
@@ -105,9 +145,7 @@ export const FormStepPersonal: FC = () => {
     setSelectedSkills(skills);
   };
 
-  const profilePhotoAdd = () => {
-    // TODO: реализовать добавление фото
-  }
+
 
   const onNameChange = (name: string) => {
     setNameValue(name);
@@ -145,11 +183,11 @@ export const FormStepPersonal: FC = () => {
   //сбор данных
   const collectFormData = () => {
     const formData = {
+      avatarPic: avatarPreview || '',
       name: nameValue,
       location: cityValue || '',
       dateOfBirth: birthValue || '',
       gender: genderValue || '',
-      avatarPic: '', //TODO: доделать подгрузку фото
       toLearn: selectedSkills, // Теперь это массив
     };
 
@@ -220,6 +258,7 @@ export const FormStepPersonal: FC = () => {
 
   return (
     <FormStepPersonalUI
+      avatarPreview={avatarPreview}
       nameValue={nameValue}
       birthValue={birthValue}
       skillArray={skillArray}
