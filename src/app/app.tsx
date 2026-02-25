@@ -14,6 +14,7 @@ import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 // Страницы
 import { HomeCatalog } from '@/pages/HomeCatalog';
+import { Skill } from '@/pages/Skill';
 import { NotFound404 } from '@/pages/NotFound-404';
 import { ServerError500 } from '@/pages/ServerError-500';
 // Виджеты
@@ -94,13 +95,12 @@ return (
       <Routes location={location}>
         {/* Главная страница - доступна всем */}
         <Route path='/' element={<HomeCatalog />} />
-
         {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
         <Route element={<ProtectedRoute onlyUnAuth={isAuthUser} />}>
-          <Route path='/login' element={<FormLayout />}>
+          {/* <Route path='/login' element={<FormLayout />}>
             <Route index element={<FormStepAccountLogin />} />
-          </Route>
-
+          </Route> */}
+          <Route path='/login' element={<Skill />}></Route>
           <Route path='/register' element={<FormLayout />}>
             <Route index element={<Navigate to="account" replace />} />
             <Route path="account" element={<FormStepAccountRegistr />} />
