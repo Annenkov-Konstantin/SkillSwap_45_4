@@ -17,6 +17,7 @@ import { ExampleComponent } from '@/widgets/ExampleComponent';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
 import { ProtectedRoute } from '@features/index';
+import { RegisterPersonal } from '@/pages/RegisterAccountPages/RegisterPersonal/registerPersonal';
 
 // ----Моки хедера для теста
 const userPhoto = './../../../src/images/userPhotoTest.jpg'; // данные из стора
@@ -78,16 +79,16 @@ const App = () => {
           />
         </Route> */}
 
-        {/* <Route path='/register' element={<FormLayout />}>
+        <Route path='/register' element={<FormLayout />}>
           <Route index element={<Navigate to='account' replace />} />
-          <Route
+          {/* <Route
             path='account'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <RegisterAccount />
               </ProtectedRoute>
             }
-          />
+          /> */}
           <Route
             path='personal'
             element={
@@ -96,15 +97,15 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path='skill'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <RegisterSkill />
               </ProtectedRoute>
             }
-          />
-        </Route> */}
+          /> */}
+        </Route>
       </Routes>
     </SkillsModalProvider>
   );
