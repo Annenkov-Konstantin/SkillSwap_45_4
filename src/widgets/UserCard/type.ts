@@ -10,9 +10,11 @@ export type TUserCardUIProps = {
   isFavorite: boolean;
   isSuggested: boolean;
   handleMore: () => void;
-  handleLike: () => void;
+  handleLike: (value:React.MouseEvent) => void;
   type: 'learn' | 'teach';
   likeCounter:number;
+  likeRef?: React.Ref<HTMLButtonElement>;
+  isLikeMessage?:boolean;
 };
 
 export type TUserCardProps = {

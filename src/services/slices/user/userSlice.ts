@@ -50,7 +50,7 @@ export const userSlice = createSlice({
     selectUser: (state) => state.user,
     selectUserStatus: (state) => state.requestStatus,
     selectUserError:(state)=>state.error,
-    selectUserAuth:(state)=>state.isAuth
+    selectUserAuth:(state)=>state.isAuth,
   },
   extraReducers: (builder) => {
     builder

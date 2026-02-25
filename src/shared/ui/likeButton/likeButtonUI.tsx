@@ -4,10 +4,12 @@ import styles from './likeButton.module.scss';
 
 export const LikeButtonUI: React.FC<TLikeButtonProps> = ({
   isLiked,
-  onClick
+  onClick,
+  likeRef,
 }) => {
   return (
     <button
+      ref={likeRef}
       onClick={onClick}
       type='button'
       className={`${styles.like} ${isLiked ? styles.like_liked : ''}`}
