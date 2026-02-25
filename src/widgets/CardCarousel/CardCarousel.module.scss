@@ -1,0 +1,40 @@
+@use '@app/styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+}
+
+.swiper {
+  width: 100%;
+  max-width: 1368px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.buttonNext {
+  right: -16px;
+}
+
+.buttonPrev {
+  left: -16px;
+}
+
+.buttonNext, .buttonPrev {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-top: 0;
+  top: calc(50% - 16px);
+  background-color: $color-disabled;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  border: none;
+  cursor: pointer;
+}
