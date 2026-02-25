@@ -1,3 +1,6 @@
+import type { HomeCatalog } from "@/pages/HomeCatalog";
+import type { Favourites } from "@/shared/ui";
+
 // для Api запросов
 export const QUERY_ENDPOINTS = {
   getAllCities: 'rest/v1/rpc/get_cities',
@@ -34,4 +37,21 @@ export const requestStatus = {
   LOADING: 'loading',
   SUCCESS: 'success',
   ERROR: 'error'
+} as const;
+
+//навигация
+export const AppRoutes =  {
+  HomeCatalog : '/',
+  Login:'/login',
+  RegistrationLayout:'/register',
+  RegAccount:'/register/account',
+  RegPersonal:'/register/personal',
+  RegSkill:'/register/skill/:id',
+  Profile:'profile',
+  Favourites:'/profile/favourites',
+  Settings:'/settings',
+  Error:'error',
+
+
+  ProfileOrderInfo : '/profile/orders/:number'
 } as const;

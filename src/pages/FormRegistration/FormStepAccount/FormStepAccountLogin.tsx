@@ -25,6 +25,7 @@ export const FormStepAccountLogin = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
+  const isDisabled= emailError || passValue.length<8 ?'primary_disabled':'primary';
 
 
   // Сохраняем email в localStorage при изменении
@@ -89,7 +90,7 @@ export const FormStepAccountLogin = () => {
         passwordChange={handlePasswordChange}
       />
       <div className={styles.formButton}>
-        <Button status='primary' children='Войти' onClick={handleSubmit} />
+        <Button status={isDisabled} children='Войти' onClick={handleSubmit} />
         <button
           type='button'
           className={styles.registerButton}

@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FormStepAccountUI } from './FormStepAccountUI';
 import { Button } from '../../../shared/ui/button';
-import type { TAuthForm } from './types';
 import {
   validateEmail,
   checkPasswordLengthStatus
 } from '@/shared/lib/utils/formValidation';
 
 import styles from './FormStepAccount.module.scss';
+import { useDispatchedActions } from '@/services/hooks';
+import { formActions } from '@/services/slices/form';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from '@/shared/lib/constants';
 
 const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormEmail';
 
 export const FormStepAccountRegistr:React.FC = () => {
+  const navigate = useNavigate();
+  const { setfirstStepForm }= useDispatchedActions(formActions)
   const [emailValue, setEmailValue] = useState<string>(
     localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || ''
   );
-
   const [passValue, setPassValue] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
@@ -23,16 +27,7 @@ export const FormStepAccountRegistr:React.FC = () => {
     'empty' | 'short' | 'strong'
   >('empty');
 
-  // Убрала useEffect — сохранение будет только при submit
-  // Сохраняем данные в localStorage при их изменении
-  //useEffect(() => {
-  // if (emailValue) {
-  //   localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
-  // } else {
-  // Если email пустой, удаляем из localStorage
-  //   localStorage.removeItem(LOCAL_STORAGE_REGISTR_KEY);
-  //  }
-  // }, [emailValue]);
+  const isDisabled= emailError || passValue.length<8 ?'primary_disabled':'primary';
 
   const handleEmailChange = (newValue: string) => {
     setEmailValue(newValue);
@@ -68,25 +63,15 @@ export const FormStepAccountRegistr:React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // Здесь будет логика отправки регистрации что-то типо этого из userSlice
-    // await registerUser({ email: emailValue, password: passValue });
-    // Формируем объект с данными для отправки
     const registrationData = {
       email: emailValue,
       password: passValue
     };
-    console.log(registrationData);
-    try {
-      // Отправляем объект в API
-      //await registerUser(registrationData);
-
-      if (emailValue) {
+    if (emailValue) {
         localStorage.setItem(LOCAL_STORAGE_REGISTR_KEY, emailValue);
-      }
-      console.log('Пользователь зарегистрирован');
-    } catch (error) {
-      console.error('Ошибка регистрации:', error);
     }
+    setfirstStepForm(registrationData);
+    navigate(AppRoutes.RegPersonal);
   };
 
   return (
@@ -104,7 +89,7 @@ export const FormStepAccountRegistr:React.FC = () => {
         passwordChange={handlePasswordChange}
       />
       <div className={styles.formButton}>
-        <Button status='primary' children='Далее' onClick={handleSubmit} />
+        <Button status={isDisabled} children='Далее' onClick={handleSubmit} />
       </div>
     </div>
   );

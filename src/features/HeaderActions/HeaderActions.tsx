@@ -8,6 +8,7 @@ import heart from '@assets/icons/like.svg';
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/services/hooks";
 import { userSelectors } from "@/services/slices/user";
+import { AppRoutes } from "@/shared/lib/constants";
 
 export const HeaderActions: React.FC = () => {
   const [isNotificationModalOpen ,setNotificationModalOpen]=useState<boolean>(false);
@@ -17,19 +18,19 @@ export const HeaderActions: React.FC = () => {
   // добавить навигацию на роуты, когда появятся
 
   const handleLoginClick = () => {
-    navigate('/login');
+    navigate(AppRoutes.Login);
   };
 
   const handleRegisterClick = () => {
-    navigate('/register');
+    navigate(AppRoutes.RegAccount);
   };
 
   const handleFavouritesClick = ()=> {
-    navigate('/profile/favorites');
+    navigate(AppRoutes.Favourites);
   };
 
   const handleAvatarClick = ()=> {
-    navigate('/profile');
+    navigate(AppRoutes.Profile);
   };
 
   const handleNotificationClose = () => {
