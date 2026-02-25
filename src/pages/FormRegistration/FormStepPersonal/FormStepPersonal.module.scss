@@ -2,15 +2,14 @@
 @use '@/app/styles/mixins' as *;
 
 .formContainer {
-  white-space:no-wrap;
+
   display: flex;
   flex-direction: column;
   gap: 16px;
   border: none;
   border-radius: 8px;
   padding: 40px 60px;
-  max-width: 556px;
-  margin: 0 auto;
+  min-width: 556px;
   background-color: $form-bg-color;
   letter-spacing: 0.02em;
   max-height: 692px;
@@ -21,7 +20,6 @@
   display: flex;
   justify-content: center;
   position: relative;
-  padding-bottom: 9px;
 }
 
 .buttonAdd {
@@ -61,7 +59,6 @@
 
   margin-bottom: 4px;
   color: $color-text;
-  white-space:no-wrap;
 }
 
 .lable_subCategory {
