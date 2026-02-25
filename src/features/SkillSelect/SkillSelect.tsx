@@ -5,16 +5,32 @@ import type { SkillSelectProps } from './types';
 
 export const SkillSelect: React.FC<SkillSelectProps> = ({
   placeholderValue,
-  optionsArr
+  optionsArr,
+  value,
+  onChange,
+  disabled = false
 }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(value || null);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
+  // Синхронизируем внутреннее состояние с пропсом value
+  useEffect(() => {
+    if (value !== undefined) {
+      setSelected(value);
+    }
+  }, [value]);
+
   const handleSelect = useCallback((option: string) => {
+    if (disabled) return;
+
     setSelected(option);
     setOpen(false);
-  }, []);
+
+    if (onChange) {
+      onChange(option);
+    }
+  }, [onChange, disabled]);
 
 
  // Исправленный обработчик клика вне div контейнера что скрыть список
@@ -28,46 +44,44 @@ export const SkillSelect: React.FC<SkillSelectProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []); 
-
+  }, []);
 
   return (
     <div
-    className={`${styles.dropdown}`}
+    className={`${styles.dropdown} ${disabled ? styles.disabled : ''}`}
     ref={dropDownRef}
     >
       <div
-        className={`${styles.button_wrapper} ${open ? styles.button_wrapper_open : ''} `}
-        onClick={() => setOpen(!open)}
+        className={`${styles.button_wrapper} ${open ? styles.button_wrapper_open : ''} ${disabled ? styles.disabled : ''}`}
+        onClick={() => !disabled && setOpen(!open)}
       >
-        <button className={`${styles.dropbutton}`}>
+        <button
+          className={`${styles.dropbutton}`}
+          disabled={disabled}
+        >
           {selected ? selected : placeholderValue}
         </button>
         <DropdownTrigger
           isOpen={open}
-          onClick={() => setOpen(!open)}
+          onClick={() => !disabled && setOpen(!open)}
         ></DropdownTrigger>
       </div>
 
-      <div
-        className={
-          open
-            ? `${styles.dropdown_content_open}`
-            : `${styles.dropdown_content}`
-        }
-      >
-        {optionsArr.map((option) => (
-          <li key={optionsArr.indexOf(option)}>
-            <RadioButton
-              label={option}
-              value={`${optionsArr.indexOf(option)}`}
-              checked={selected === option}
-              onChange={() => handleSelect(option)}
-              name={`${option}_radio`}
-            ></RadioButton>
-          </li>
-        ))}
-      </div>
+      {open && !disabled && (
+        <div className={styles.dropdown_content_open}>
+          {optionsArr.map((option) => (
+            <li key={optionsArr.indexOf(option)}>
+              <RadioButton
+                label={option}
+                value={`${optionsArr.indexOf(option)}`}
+                checked={selected === option}
+                onChange={() => handleSelect(option)}
+                name={`${option}_radio`}
+              />
+            </li>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
