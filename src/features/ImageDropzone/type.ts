@@ -1,3 +1,3 @@
 export type TImageDropzoneProps = {
-  handleDelete: () => void;
+  handleDelete?: (file: File) => void;
 }
