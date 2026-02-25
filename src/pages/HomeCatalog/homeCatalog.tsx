@@ -20,6 +20,7 @@ import { filterSelectors } from '@/services/slices/filter';
 import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 
 import { SortSwapList } from '@/widgets/SortSwapList';
+import {MainRecommendationList} from '@widgets/MainRecomendationList';
 
 export const HomeCatalog: FC = () => {
   const userListRequestStatus  = useAppSelector(userListSelectors.selectUserListStatus);
@@ -47,6 +48,7 @@ export const HomeCatalog: FC = () => {
       <SortSwapList
       type='new'
       />
+      <MainRecommendationList />
       </>
     )}
     {isFilterActive && (

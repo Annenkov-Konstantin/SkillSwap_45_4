@@ -7,9 +7,8 @@ import appleIcon from '../../../assets/icons/apple.svg';
 import styles from './FormStepAccount.module.scss';
 
 import type { TAuthForm } from './types';
-import { useState, useEffect } from 'react';
 
-export const FormStepAccount: FC<TAuthForm> = ({
+export const FormStepAccountUI: FC<TAuthForm> = ({
   passPlaceholder,
   emailErrorText,
   passwordChange,
@@ -19,57 +18,9 @@ export const FormStepAccount: FC<TAuthForm> = ({
   emailError,
   passwordError,
   isFormRegistr,
-  registrInfo
+  errorInfo,
+  getPasswordHint,
 }) => {
-  const [passwordLengthStatus, setPasswordLengthStatus] = useState<
-    'empty' | 'short' | 'strong'
-  >('empty');
-
-  // Проверяем длину пароля при каждом изменении
-  useEffect(() => {
-    if (isFormRegistr) {
-      if (!passValue) {
-        setPasswordLengthStatus('empty');
-      } else if (passValue.length < 8) {
-        setPasswordLengthStatus('short');
-      } else {
-        setPasswordLengthStatus('strong');
-      }
-    }
-  }, [passValue, isFormRegistr]);
-
-  const handleEmailChange = (newValue: string) => {
-    emailChange(newValue); //  новый email
-  };
-
-  const handlePasswordChange = (newPassword: string) => {
-    passwordChange(newPassword); // новый пароль
-  };
-
-  // Определяем какую подсказку показать для пароля в режиме регистрации
-  const getPasswordHint = () => {
-    if (!isFormRegistr) return null;
-
-    switch (passwordLengthStatus) {
-      case 'empty':
-        return (
-          <p className={styles.hintNormal}>
-            Пароль должен содержать не менее 8 знаков
-          </p>
-        );
-      case 'short':
-        return (
-          <p className={styles.hintNormal}>
-            Пароль должен содержать не менее 8 знаков
-          </p>
-        );
-      case 'strong':
-        return <p className={styles.hintStrong}>Надёжный</p>;
-      default:
-        return null;
-    }
-  };
-
   return (
     <form className={styles.formContainer}>
       {/* Кнопки «Продолжить с Google» и «Продолжить с Apple» */}
@@ -103,7 +54,7 @@ export const FormStepAccount: FC<TAuthForm> = ({
           type='email'
           placeholder='Введите email'
           value={emailValue}
-          onChange={handleEmailChange}
+          onChange={emailChange}
           error={emailError}
           errorText=''
           name='email'
@@ -120,7 +71,7 @@ export const FormStepAccount: FC<TAuthForm> = ({
           type='password'
           placeholder={passPlaceholder}
           value={passValue}
-          onChange={handlePasswordChange}
+          onChange={passwordChange}
           error={passwordError}
           errorText=''
           name='password'
@@ -129,16 +80,17 @@ export const FormStepAccount: FC<TAuthForm> = ({
         {/* Контейнер для подсказок пароля */}
         <div className={styles.passwordHints}>
           {/* Подсказки для режима регистрации */}
-          {isFormRegistr && getPasswordHint()}
+          {isFormRegistr && getPasswordHint?.()}
 
           {/* Подсказка для режима входа при ошибке */}
           {!isFormRegistr && (passwordError || emailError) && (
             <p className={styles.hintError}>
-              Email или пароль введён неверно. Пожалуйста проверьте правильность
-              введённых данных
+             Email или пароль введён неверно. Пожалуйста проверьте правильность введённых данных
             </p>
           )}
+          {errorInfo === 'Invalid login credentials' && <p className={styles.hintError}>Неверный логин или пароль</p>}
         </div>
+
       </div>
     </form>
   );
