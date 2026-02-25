@@ -1,16 +1,13 @@
-import type { FC } from 'react';
-
-import { Input } from '@/shared/ui';
+import { type FC } from 'react';
+import { CalendarInput, Input } from '@/shared/ui';
 import { Select } from '@/shared/ui';
 import { CitySelect } from '@/features';
 import { SkillSelect } from '@/features/SkillSelect';
 import { Button } from '@/shared/ui';
-import { Icon } from '@/shared/ui/Icon';
-
+import styles from './formStepPersonal.module.scss';
 import { optionsGender } from './types';
 import type { FormStepPersonalUIProps } from './types';
-
-import styles from './formStepPersonal.module.scss';
+import { Icon } from '@/shared/ui/Icon';
 
 export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   nameValue,
@@ -19,17 +16,27 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   categoryArray,
   cityArray,
   genderValue,
+  cityValue,
+  selectedCategory,
+  selectedSkill,
   handleSubmit,
   profilePhotoAdd,
   onNameChange,
   onBirthChange,
-  onGenderChange
+  onGenderChange,
+  onCityChange,
+  onCategoryChange,
+  onSkillChange,
+  onForwardClick,
+  onBackClick,
+  showNameError,
+  getValueHint
 }: FormStepPersonalUIProps) => {
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit}>
       <div className={styles.profilePhotoContainer}>
-        {/* <Icon name='icon-user-circle' size={72} fill='none' /> */}
-        <svg
+        <Icon name='icon-user-circle' size={72} fill='none' />
+        {/* <svg
           width='56'
           height='56'
           viewBox='0 0 56 56'
@@ -43,7 +50,7 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
             strokeLinecap='round'
             strokeLinejoin='round'
           />
-        </svg>
+        </svg> */}
         <button
           type='button'
           className={styles.buttonAdd}
@@ -75,39 +82,56 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
           value={nameValue}
           onChange={onNameChange}
           name='userName'
-          className={styles.nameInput}
-        ></Input>
+          className={`${styles.nameInput} ${showNameError ? styles.inputError : ''}`}
+        />
+        {getValueHint && getValueHint()}
       </div>
       <div className={styles.personalDataContainer}>
         <div className={styles.dateBirthContainer}>
           <label htmlFor='dateBirth'>Дата рождения</label>
-          <Input
-            placeholder='дд.мм.гггг'
+          <CalendarInput
             value={birthValue}
             onChange={onBirthChange}
             name='dateBirth'
-          ></Input>
+          />
         </div>
         <Select label='Пол' options={optionsGender} value={genderValue} onChange={onGenderChange}></Select>
       </div>
-      <CitySelect cityList={cityArray}></CitySelect>
+      <CitySelect
+        cityList={cityArray}
+        value={cityValue}
+        onChange={onCityChange}
+      />
       <div className={styles.skillContainer}>
         <label>Категория навыка, которому хотите научиться</label>
         <SkillSelect
           placeholderValue='Выберите категорию'
           optionsArr={categoryArray}
-        ></SkillSelect>
+          value={selectedCategory}
+          onChange={onCategoryChange}
+        />
       </div>
       <div className={styles.skillContainer}>
         <label>Подкатегория навыка, которому хотите научиться</label>
         <SkillSelect
-          placeholderValue='Выберите подкатегорию'
+          placeholderValue={selectedCategory ? 'Выберите подкатегорию' : 'Сначала выберите категорию'}
           optionsArr={skillArray}
-        ></SkillSelect>
+          value={selectedSkill}
+          onChange={onSkillChange}
+          disabled={!selectedCategory}
+        />
       </div>
       <div className={styles.buttonContainer}>
-        <Button status='secondary' children='Назад'></Button>
-        <Button status='primary' children='Продолжить'></Button>
+        <Button
+          status='secondary'
+          children='Назад'
+          onClick={onForwardClick}
+        />
+        <Button
+          status='primary'
+          children='Продолжить'
+          onClick={onBackClick}
+        />
       </div>
     </form>
   );

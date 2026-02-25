@@ -8,11 +8,29 @@
   flex-direction: column;
   width: 100%;
   background-color: $color-card-input;
-  letter-spacing: 0.02em;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .button_wrapper {
+      cursor: not-allowed;
+
+      .dropbutton {
+        color: $color-disabled-text;
+        border-color: $color-disabled;
+        cursor: not-allowed;
+      }
+    }
+
+    * {
+      pointer-events: none;
+    }
+  }
 }
 
 .button_wrapper{
-  position: relative;
+  padding: 12px 20px;
   border: 1px solid $color-caption;
   border-radius: 12px;
   overflow: hidden;
@@ -43,28 +61,12 @@ li {
   background-color: $color-card-input;
   border: none;
   cursor: pointer;
-  display: block;
-  flex: 1 1 auto;
-  min-height: 48px;
-  text-align: left;
-  padding: 12px 54px 12px 20px;
-  outline: none;
-  letter-spacing: 0.02em;
 
-  &:focus,
-  &:focus-visible {
-    outline: none;
+  &:disabled {
+    color: $color-disabled-text;
+    border-color: $color-disabled;
+    cursor: not-allowed;
   }
-}
-
-.trigger {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .dropdown_content {
@@ -73,7 +75,7 @@ li {
   &_open {
     width: 100%;
     position: absolute;
-    flex: 0 0 auto;  
+    flex: 0 0 auto;
     z-index: 10;
     top: 100%;
     left: 0;

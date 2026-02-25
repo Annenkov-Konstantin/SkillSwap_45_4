@@ -641,13 +641,14 @@ export class Api {
             Authorization: `Bearer ${getCookie('access_token')}`
           },
           body: JSON.stringify({
-            skill_id: skillId
+            p_skill_id: skillId
             // user_id берется из токена на сервере через auth.uid()
           })
         }
       );
 
       const result = await response.json();
+      console.log(result)
       return result;
     } catch (error) {
       console.error('Ошибка переключения избранного:', error);
