@@ -1,0 +1,83 @@
+
+// MultiSkillSelect.module.scss
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.button_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+
+  &:hover {
+    border-color: #ABD27A;
+  }
+
+  &.button_wrapper_open {
+    border-color: #ABD27A;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
+
+    &:hover {
+      border-color: #e0e0e0;
+    }
+  }
+  padding-left: 10px;
+  padding-right: 18px;
+}
+
+.dropbutton {
+  flex: 1;
+  padding: 12px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: #999;
+  }
+}
+
+.dropdown_content_open {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ABD27A;
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: white;
+  z-index: 10;
+  padding: 8px 0;
+  padding-left: 12px;
+}
+
+.checkboxItem {
+  padding: 8px 0;
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+}

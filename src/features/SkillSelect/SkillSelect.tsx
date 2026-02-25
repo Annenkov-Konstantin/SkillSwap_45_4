@@ -69,6 +69,7 @@ export const SkillSelect: React.FC<SkillSelectProps> = ({
         onClick={() => !disabled && setOpen(!open)}
       >
         <button
+          type='button'
           className={`${styles.dropbutton}`}
           disabled={disabled}
         >

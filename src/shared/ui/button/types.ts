@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-type ButtonStatus =
+export type ButtonStatus =
   | 'primary'
   | 'primary_disabled'
   | 'secondary'
@@ -11,4 +11,5 @@ export type TButtonProps = {
   onClick?: () => void;
   status: ButtonStatus;
   children: ReactNode;
+  type?:"button" | "submit" | "reset" | undefined;
 };

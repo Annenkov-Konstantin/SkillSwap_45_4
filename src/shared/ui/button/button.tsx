@@ -5,7 +5,8 @@ import type { TButtonProps } from './types';
 export const Button: React.FC<TButtonProps> = ({
   onClick,
   status,
-  children
+  children,
+  type
 }) => {
   const isDisabled = status.toLowerCase().includes('disabled');
 
@@ -14,6 +15,7 @@ export const Button: React.FC<TButtonProps> = ({
       onClick={onClick}
       className={`${styles.button} ${styles[`button_${status}`]} `}
       disabled={isDisabled}
+      type={type?type:'button'}
     >
       {children}
     </button>

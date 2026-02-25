@@ -8,7 +8,7 @@ import { InputLabel } from '@shared/ui/inputLabel';
 import { InputAndDropdownWrapper } from '@shared/ui/inputAndDropdownWrapper';
 import { InputButton } from '@shared/ui/inputButton';
 
-export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChange }) => {
+export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChange,  placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState(value || '');
   const [filteredList, setFilteredList] = useState(cityList);
@@ -183,7 +183,7 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChang
             handleInputChange={handleInputChange}
             handleKeyDown={handleKeyDown}
             setIsOpen={setIsOpen}
-            placeholder='Не указан'
+            placeholder={placeholder}
           />
         }
         dropdownList={
