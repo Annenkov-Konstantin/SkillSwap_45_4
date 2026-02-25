@@ -1,19 +1,23 @@
 @use '@app/styles/_variables.scss' as *;
+@use '@app/styles/mixins' as *;
 
 .dropdown {
+  @include body-text;
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: $color-card-input;
+  letter-spacing: 0.02em;
 }
 
 .button_wrapper{
+  position: relative;
   border: 1px solid $color-caption;
   border-radius: 12px;
+  overflow: hidden;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
 
@@ -22,6 +26,11 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
+
+  &_disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 li {
@@ -29,10 +38,33 @@ li {
 }
 
 .dropbutton {
+  @include body-text;
   color: $color-caption;
   background-color: $color-card-input;
   border: none;
-  cursor: pointer;  
+  cursor: pointer;
+  display: block;
+  flex: 1 1 auto;
+  min-height: 48px;
+  text-align: left;
+  padding: 12px 54px 12px 20px;
+  outline: none;
+  letter-spacing: 0.02em;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.trigger {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dropdown_content {
@@ -57,4 +89,14 @@ li {
     align-items: flex-start;
     gap: 4px;
   }
+}
+
+.dropdown_content_open_scrollable {
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dropdown_content_open li {
+  width: 100%;
 }

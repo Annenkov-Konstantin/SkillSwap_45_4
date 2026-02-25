@@ -36,12 +36,37 @@
     }
   }
 
+  .customRadio_square {
+    border: 2px solid #000;
+    border-radius: 6px;
+    margin-right: 10px;
+
+    &::after {
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      border-radius: 0;
+      background-color: transparent;
+      transform: translate(-50%, -60%) rotate(-45deg) scale(0);
+    }
+  }
+
   input:checked + .customRadio {
     border-color: $color-text-link;
   }
 
   input:checked + .customRadio::after {
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  input:checked + .customRadio_square {
+    background-color: $color-accent;
+    border-color: $color-accent;
+  }
+
+  input:checked + .customRadio_square::after {
+    transform: translate(-50%, -60%) rotate(-45deg) scale(1);
   }
 
   @media (hover: none) {

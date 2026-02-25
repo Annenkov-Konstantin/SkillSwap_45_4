@@ -6,4 +6,5 @@ export type RadioButtonProps = {
   checked: boolean;
   onChange: (value:PreferenceOption) => void;
   name: string;
+  shape?: 'circle' | 'square';
 };

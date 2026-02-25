@@ -5,7 +5,8 @@ import {
   skillsSlice,
   citySlice,
   userSlice,
-  filterSlice
+  filterSlice,
+  formSlice
 } from '@slices';
 
 import { api } from '@/api';
@@ -16,7 +17,8 @@ export const rootReducer = combineSlices(
   skillsSlice,
   citySlice,
   userSlice,
-  filterSlice
+  filterSlice,
+  formSlice
 );
 
 export const store = configureStore({
