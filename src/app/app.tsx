@@ -22,7 +22,6 @@ import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
-
 import { FormStepAccountLogin } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountLogin';
 import { FormStepAccountRegistr } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountRegistr';
 
@@ -38,6 +37,8 @@ import { skillsActions } from '@/services/slices/skills';
 import { cityActions } from '@/services/slices/city';
 import { userActions } from '@/services/slices/user';
 import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonalUI';
+import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
+import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
 
 
 const App = () => {
@@ -106,7 +107,7 @@ return (
           <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
             <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
             <Route path={AppRoutes.RegAccount} element={<FormStepAccountRegistr />} />
-            {/* <Route path={AppRoutes.RegPersonal} element={<FormStepPersonalUI/>} /> */}
+            <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal/>} />
           </Route>
         </Route>
 

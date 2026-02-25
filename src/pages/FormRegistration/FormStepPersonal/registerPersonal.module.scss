@@ -1,0 +1,32 @@
+@use '@app/styles/_variables' as *;
+@use '@/app/styles/mixins' as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.section {
+  @include flex-center-column;
+
+  gap: 40px;
+  border: none;
+  border-radius: 8px;
+  padding: 132px 60px;
+  max-width: 556px;
+  margin: 0 auto;
+  background-color: $form-bg-color;
+}
+
+.descriptionWrapper {
+  @include flex-center-column;
+
+  gap: 12px;
+  max-width: 436px;
+}
+
+.description {
+  text-align: center;
+}

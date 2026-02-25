@@ -1,1 +1,1 @@
-import {FormStepPersonalUI} from './formStepPersonalUI';
+import {FormStepPersonal} from './FormStepPersonal';
