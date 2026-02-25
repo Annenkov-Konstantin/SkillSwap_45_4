@@ -7,32 +7,22 @@ import { skillsActions, skillsSelectors } from "@/services/slices/skills";
 import type { TCity } from "@/entities/city";
 import type { TSkills } from "@/entities/skills";
 import styles from './formStepPersonal.module.scss';
+import { AppRoutes } from "@/shared/lib/constants";
+import type { ButtonStatus } from "@/shared/ui/button/types";
 
 export const FormStepPersonal: FC = () => {
   const [nameValue, setNameValue] = useState('');
   const [birthValue, setBirthValue] = useState('');
   const [genderValue, setGenderValue] = useState('');
-  const [cityValue, setCityValue] = useState<string | null>(null);;
+  const [cityValue, setCityValue] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]); // массив
   const [valuedLengthStatus, setValueLengthStatus] = useState<'empty' | 'short' | 'strong'>('empty');
   const [showNameError, setShowNameError] = useState(false);
   const navigate = useNavigate();
 
-  const { fetchCity } = useDispatchedActions(cityActions);
-  const { fetchSkills } = useDispatchedActions(skillsActions);
-
   const cityArray: TCity[] | null = useAppSelector(citySelectors.selectCity);
   const skillsData: TSkills | null = useAppSelector(skillsSelectors.selectskills);
-
-  useEffect(() => {
-   Promise.all([
-    fetchCity(),
-    fetchSkills()
-  ]).catch(error => {
-    console.error('Один из запросов упал:', error);
-  });
-  }, [])
 
   // загрузка сохраненных данных при монтировании из localStorage
   useEffect(() => {
@@ -44,15 +34,20 @@ export const FormStepPersonal: FC = () => {
         setBirthValue(parsedData.dateOfBirth || '');
         setGenderValue(parsedData.gender || '');
         setCityValue(parsedData.location || null);
-        setSelectedSkill(parsedData.toLearn?.[0] || null);
 
-        // Если есть выбранный навык, пытаемся восстановить категорию
-        if (parsedData.toLearn?.[0] && skillsData) {
-          const skillCategory = skillsData.find(category =>
-            category.skills.some(skill => skill.title === parsedData.toLearn[0])
-          );
-          if (skillCategory) {
-            setSelectedCategory(skillCategory.category);
+        // Загружаем массив навыков
+        if (parsedData.toLearn && Array.isArray(parsedData.toLearn)) {
+          setSelectedSkills(parsedData.toLearn);
+
+          // Если есть выбранные навыки, пытаемся восстановить категорию по первому навыку
+          if (parsedData.toLearn.length > 0 && skillsData) {
+            const firstSkill = parsedData.toLearn[0];
+            const skillCategory = skillsData.find(category =>
+              category.skills.some(skill => skill.title === firstSkill)
+            );
+            if (skillCategory) {
+              setSelectedCategory(skillCategory.category);
+            }
           }
         }
       } catch (error) {
@@ -101,20 +96,23 @@ export const FormStepPersonal: FC = () => {
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    setSelectedSkill(null);
+    // Очищаем выбранные навыки при смене категории
+    setSelectedSkills([]);
   };
 
-  const handleSkillChange = (skill: string) => {
-    setSelectedSkill(skill);
+  // Обработчик для множественного выбора
+  const handleSkillsChange = (skills: string[]) => {
+    setSelectedSkills(skills);
   };
 
   const profilePhotoAdd = () => {
+    // TODO: реализовать добавление фото
   }
 
-    const onNameChange = (name: string) => {
+  const onNameChange = (name: string) => {
     setNameValue(name);
     if (showNameError && validateName(name)) {
-      setShowNameError(false); // Сбрасываем ошибку, если имя стало валидным
+      setShowNameError(false);
     }
   };
 
@@ -131,17 +129,17 @@ export const FormStepPersonal: FC = () => {
   }
 
   const onForwardClick = () => {
-    collectFormData();
     if (!canProceedToNextStep()) {
       setShowNameError(true);
       return;
     }
-    navigate('/register/skill');
+    collectFormData(); // Сохраняем данные перед переходом
+    navigate(AppRoutes.RegSkill);
   }
 
   const onBackClick = () => {
-    collectFormData();
-    navigate('/register/account');
+    collectFormData(); // Сохраняем данные перед переходом
+    navigate(AppRoutes.RegAccount);
   }
 
   //сбор данных
@@ -152,18 +150,18 @@ export const FormStepPersonal: FC = () => {
       dateOfBirth: birthValue || '',
       gender: genderValue || '',
       avatarPic: '', //TODO: доделать подгрузку фото
-      toLearn: selectedSkill ? [selectedSkill] : [],
+      toLearn: selectedSkills, // Теперь это массив
     };
 
     // Сохраняем в localStorage
     localStorage.setItem('registrationPersonalData', JSON.stringify(formData));
+    console.log('Данные сохранены:', formData); // Для отладки
 
     return formData;
   };
 
   // Определяем какую подсказку показать для имени в режиме регистрации
   const getValueHint = () => {
-    // Если showNameError true, всегда показываем ошибку
     if (showNameError) {
       return (
         <p className={styles.hintError}>
@@ -188,6 +186,7 @@ export const FormStepPersonal: FC = () => {
       case 'strong':
         return (
           <p className={styles.hintSuccess}>
+            {/* Можно добавить иконку успеха */}
           </p>
         );
       default:
@@ -195,9 +194,27 @@ export const FormStepPersonal: FC = () => {
     }
   };
 
+  //Проверка полей перед отпракой
+
+  const areAllFieldsFilled = (): boolean => {
+    const isNameValid = nameValue.trim().length >= 2;
+    const isBirthValid = birthValue.trim() !== '';
+    const isGenderValid = genderValue.trim() !== '';
+    const isCityValid = cityValue !== null && cityValue.trim() !== '';
+    const areSkillsValid = selectedSkills.length > 0;
+    return isNameValid && isBirthValid && isGenderValid && isCityValid && areSkillsValid;
+  };
+
+  // Функция для проверки возможности перехода на следующий шаг
+  const getButtonStatus = (): ButtonStatus => {
+  return areAllFieldsFilled() ? 'primary' : 'primary_disabled';
+};
+
   //отправка формы (для текущего шага)
   const handleSubmit = (e: SyntheticEvent) => {
-    if (e) e.preventDefault();
+    e.preventDefault();
+     const formData = collectFormData();
+     console.log(getButtonStatus())
     onForwardClick();
   };
 
@@ -217,13 +234,14 @@ export const FormStepPersonal: FC = () => {
       onGenderChange={onGenderChange}
       onCityChange={onCityChange}
       selectedCategory={selectedCategory}
-      selectedSkill={selectedSkill}
+      selectedSkills={selectedSkills} // Изменено: теперь массив
       onCategoryChange={handleCategoryChange}
-      onSkillChange={handleSkillChange}
+      onSkillsChange={handleSkillsChange} // Изменено: новый обработчик
       onForwardClick={onForwardClick}
       onBackClick={onBackClick}
       showNameError={showNameError}
       getValueHint={getValueHint}
+      buttonStatus={getButtonStatus()}
     />
   )
 }

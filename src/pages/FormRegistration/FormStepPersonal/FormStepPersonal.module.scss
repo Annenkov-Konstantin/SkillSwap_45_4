@@ -2,6 +2,7 @@
 @use '@/app/styles/mixins' as *;
 
 .formContainer {
+  white-space:no-wrap;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -57,9 +58,14 @@
 
 .formContainer label {
   @include body-text;
-  display: block;
+
   margin-bottom: 4px;
   color: $color-text;
+  white-space:no-wrap;
+}
+
+.lable_subCategory {
+  white-space: nowrap;
 }
 
 .buttonContainer {

@@ -8,6 +8,7 @@ import styles from './formStepPersonal.module.scss';
 import { optionsGender } from './types';
 import type { FormStepPersonalUIProps } from './types';
 import { Icon } from '@/shared/ui/Icon';
+import { MultiSkillSelect } from '@/shared/ui/multySkillSelect';
 
 export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   nameValue,
@@ -18,7 +19,7 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   genderValue,
   cityValue,
   selectedCategory,
-  selectedSkill,
+  selectedSkills,
   handleSubmit,
   profilePhotoAdd,
   onNameChange,
@@ -26,11 +27,12 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   onGenderChange,
   onCityChange,
   onCategoryChange,
-  onSkillChange,
+  onSkillsChange,
   onForwardClick,
   onBackClick,
   showNameError,
-  getValueHint
+  getValueHint,
+  buttonStatus
 }: FormStepPersonalUIProps) => {
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit}>
@@ -95,9 +97,10 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
             name='dateBirth'
           />
         </div>
-        <Select label='Пол' options={optionsGender} value={genderValue} onChange={onGenderChange}></Select>
+        <Select label='Пол' options={[optionsGender[1],optionsGender[2]]} value={genderValue} onChange={onGenderChange}></Select>
       </div>
       <CitySelect
+        placeholder='Выберите город'
         cityList={cityArray}
         value={cityValue}
         onChange={onCityChange}
@@ -112,25 +115,27 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
         />
       </div>
       <div className={styles.skillContainer}>
-        <label>Подкатегория навыка, которому хотите научиться</label>
-        <SkillSelect
-          placeholderValue={selectedCategory ? 'Выберите подкатегорию' : 'Сначала выберите категорию'}
+        <label className={styles.lable_subCategory}>Подкатегория навыка, которому хотите научиться</label>
+        <MultiSkillSelect
+          placeholderValue={selectedCategory ? 'Выберите подкатегории' : 'Сначала выберите категорию'}
           optionsArr={skillArray}
-          value={selectedSkill}
-          onChange={onSkillChange}
+          value={selectedSkills}
+          onChange={onSkillsChange}
           disabled={!selectedCategory}
-        />
+  />
       </div>
       <div className={styles.buttonContainer}>
         <Button
+          type="button"
           status='secondary'
           children='Назад'
-          onClick={onForwardClick}
+          onClick={onBackClick}
         />
         <Button
-          status='primary'
+          type="submit"
+          status={buttonStatus}
           children='Продолжить'
-          onClick={onBackClick}
+          onClick={onForwardClick}
         />
       </div>
     </form>

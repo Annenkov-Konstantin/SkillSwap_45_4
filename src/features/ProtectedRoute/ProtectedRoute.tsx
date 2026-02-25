@@ -11,7 +11,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({isPublic}) => {
   const location = useLocation();
 
   if (!isAuth){
-    console.log('🔄 Показываем Preloader (isLoading = LOADING)');
     return <Preloader/>
   }
 
