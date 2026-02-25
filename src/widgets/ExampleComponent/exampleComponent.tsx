@@ -120,8 +120,6 @@ export const ExampleComponent: FC = () => {
   return (
     <div>
 
-      <CardCarouselUI cards={cards}/>
-
       {/* <div>
         {name}
       </div>
