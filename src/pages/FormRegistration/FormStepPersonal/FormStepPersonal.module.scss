@@ -22,6 +22,7 @@
   position: relative;
 }
 
+
 .buttonAdd {
   display: inline-flex;
   align-items: center;
@@ -33,6 +34,7 @@
   bottom: 15%;
   padding: 0;
 }
+
 
 .nameContainer {
   display: flex;
@@ -83,4 +85,12 @@
   color: $color-disabled-text;
   margin: 0;
   line-height: 1.4;
+}
+
+.avatarImage {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ABD27A;
 }

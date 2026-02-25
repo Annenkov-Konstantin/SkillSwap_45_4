@@ -10,6 +10,7 @@ export const optionsGender = [
 ];
 
 export type FormStepPersonalUIProps = {
+  avatarPreview:string;
   nameValue: string;
   birthValue: string;
   skillArray: string[];

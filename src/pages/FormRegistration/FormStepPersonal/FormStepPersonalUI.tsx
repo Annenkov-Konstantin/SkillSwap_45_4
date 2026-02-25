@@ -11,6 +11,7 @@ import { Icon } from '@/shared/ui/Icon';
 import { MultiSkillSelect } from '@/shared/ui/multySkillSelect';
 
 export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
+  avatarPreview,
   nameValue,
   birthValue,
   skillArray,
@@ -37,7 +38,16 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit}>
       <div className={styles.profilePhotoContainer}>
-        <Icon name='icon-user-circle' size={72} fill='none' />
+         {avatarPreview ? (
+          <img
+            src={avatarPreview}
+            alt="Avatar preview"
+            className={styles.avatarImage}
+            width={72}
+            height={72}
+          />
+        ):
+        <Icon name='icon-user-circle' size={72} fill='none' />}
         {/* <svg
           width='56'
           height='56'
