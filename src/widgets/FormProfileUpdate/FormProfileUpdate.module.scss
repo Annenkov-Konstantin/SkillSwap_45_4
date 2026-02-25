@@ -65,14 +65,12 @@
   width: 244px;
   height: 244px;
   background-repeat: no-repeat;
-  background-size: contain;
   top: 0;
   right: 0;
-  background-image: url('https://randomuser.me/api/portraits/men/1.jpg');
 }
 
 .user_profile_picture_change_container {
-  position: inherit;
+  position: absolute;
   cursor: pointer;
   background-color: $color-button-hover;
   border-radius: 50%;
@@ -89,7 +87,7 @@
   transform: translate(-50%, -50%);
 }
 
-.button_container{
+.button_container {
   margin-top: 16px;
 }
 
