@@ -32,17 +32,15 @@ export const SkillActionModal: React.FC<TSkillActionModalProps> = ({
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
-      <ModalOverlayUI onClick={onClose} blur={true} isVisible={true} />
+      <ModalOverlayUI onClick={onClose} blur={true} isVisible={true} backdrop={true} />
       <dialog className={styles.modal}>
         {image && (
-          <img
-            className={styles.modal_icon}
-            src={image}
-            alt={'Иконка модалки'}
-          />
+          image
         )}
-        <h2>{maintText}</h2>
-        <p className={styles.modal_secondary_text}>{secondaryText}</p>
+        <div className={styles.text_container}>
+          <h2>{maintText}</h2>
+          <p className={styles.modal_secondary_text}>{secondaryText}</p>
+        </div>
         <div
           className={`${secondaryBtnText ? styles.modal_two_button_container : styles.modal_one_button_container}`}
         >

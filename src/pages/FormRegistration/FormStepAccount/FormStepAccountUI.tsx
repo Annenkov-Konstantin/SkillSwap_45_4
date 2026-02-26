@@ -91,8 +91,8 @@ export const FormStepAccountUI: FC<TAuthForm> = ({
           { errorInfo === 'Invalid login credentials' &&
            <p className={styles.hintError}>Неверный логин или пароль</p>
           }
-          {errorInfo === 'Сессия истекла' || 'Invalid login credentials' ? null:
-          <p className={styles.hintError}>{errorInfo}</p>
+          {errorInfo === 'Сессия истекла' || errorInfo === 'Invalid login credentials' ? null:
+            <p className={styles.hintError}>{errorInfo}</p>
           }
         </div>
 

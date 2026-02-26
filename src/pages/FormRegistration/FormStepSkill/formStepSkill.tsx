@@ -188,7 +188,6 @@ export const FormStepSkill: FC = () => {
 
   const handleForwardClick = () => {
     if (!skillName || !selectedCategory || selectedSubcategoryIds.length === 0 || !description) {
-      console.log('Заполните все поля');
       return;
     }
 
@@ -228,10 +227,7 @@ export const FormStepSkill: FC = () => {
         ],
         skillImages:skillImages
       }
-    )
-
-    console.log('Данные формы:', formData);
-    console.log('Данные для API:', apiData);
+    );
 
     // Сохраняем в localStorage
     localStorage.setItem('registrationTeachData', JSON.stringify({
@@ -260,7 +256,7 @@ export const FormStepSkill: FC = () => {
   const selectedSubcategories = subcategoryOptions.filter(
     sub => selectedSubcategoryIds.includes(sub.id)
   );
-
+console
 
   return (
     <FormStepSkillUI

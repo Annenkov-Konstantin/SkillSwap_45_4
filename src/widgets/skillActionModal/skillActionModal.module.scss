@@ -2,23 +2,30 @@
 @use '@/app/styles/mixins' as *;
 
 .modal {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: $color-card-input;
+  background-color: #fff;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
+  gap: 30px;
   right: 0;
   z-index: 110;
-  padding: 80px 60px;
+  padding: 45px 60px;
   border: solid 1px transparent;
   border-radius: 12px;
   width: 556px;
-  height: 480px;
+  height: 420px;
+}
+
+.text_container {
+  @include flex-center-column;
+  gap:10px;
+  margin-top: 18px;
 }
 
 .modal_icon {
@@ -32,7 +39,7 @@
   font-weight: $font-weight-regular;
   font-size: 16px;
   line-height: 24px;
-  margin-bottom: 32px;
+  // margin-bottom: 32px;
   width: 100%;
   text-align: center;
 }

@@ -41,6 +41,7 @@ import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/Fo
 import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
 import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
 import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
+import { Profile } from '@/pages/Profile';
 
 
 const App = () => {
@@ -94,6 +95,7 @@ const App = () => {
             <Route path={AppRoutes.Login} element={<FormLayout />}>
               <Route index element={<FormStepAccountLogin />} />
             </Route>
+            <Route path={AppRoutes.Skill} element={<Skill/>} />
 
             <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
               <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
@@ -101,6 +103,9 @@ const App = () => {
               <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal />} />
               <Route path={AppRoutes.RegSkill} element={<FormStepSkill />} />
             </Route>
+          </Route>
+          <Route element={<ProtectedRoute/>}>
+            <Route path={AppRoutes.Profile} element={<Profile />} />
           </Route>
 
           {/* Страницы ошибок */}

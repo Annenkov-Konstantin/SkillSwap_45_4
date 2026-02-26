@@ -101,14 +101,14 @@ export const IconSprite = () => (
 
       <symbol id='icon-Done' viewBox='0 0 24 24'>
         <path
-          stroke='currentColor'
-          strokeWidth='1.5'
+          // stroke='currentColor'
+          strokeWidth='0.5'
           d='M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
         />
         <path
-          stroke='currentColor'
+          // stroke='currentColor'
           strokeLinecap='round'
-          strokeWidth='1.5'
+          strokeWidth='0.5'
           d='m8.844 12.202 1.562 1.561a1.17 1.17 0 0 0 1.652 0l3.467-3.466'
         />
       </symbol>
@@ -201,17 +201,17 @@ export const IconSprite = () => (
 
       <symbol id='icon-user' viewBox='0 0 24 24'>
         <path
-          fill='currentColor'
+          // fill='currentColor'
           d='M11.988 12.698a5.356 5.356 0 0 1-5.349-5.35C6.64 4.4 9.04 2 11.988 2s5.349 2.4 5.349 5.349-2.4 5.349-5.349 5.349m0-9.303A3.96 3.96 0 0 0 8.035 7.35a3.96 3.96 0 0 0 3.953 3.953 3.96 3.96 0 0 0 3.954-3.953 3.96 3.96 0 0 0-3.954-3.954M19.979 22a.703.703 0 0 1-.698-.698c0-3.209-3.274-5.814-7.293-5.814-4.018 0-7.293 2.605-7.293 5.814a.703.703 0 0 1-.698.698.703.703 0 0 1-.697-.698c0-3.972 3.897-7.209 8.688-7.209 4.79 0 8.689 3.237 8.689 7.21a.703.703 0 0 1-.698.697'
         />
       </symbol>
 
       <symbol id='icon-user-circle' viewBox='0 0 24 24'>
         <path
-          stroke='currentColor'
+          // stroke='currentColor'
           strokeLinecap='round'
           strokeLinejoin='round'
-          strokeWidth='1.5'
+          strokeWidth='1'
           d='M17.982 18.725A7.49 7.49 0 0 0 12 15.75a7.49 7.49 0 0 0-5.982 2.975m11.964 0a9 9 0 1 0-11.964 0m11.964 0A8.97 8.97 0 0 1 12 21a8.97 8.97 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0'
         />
       </symbol>
