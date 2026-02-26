@@ -22,7 +22,6 @@ import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 import { SortSwapList } from '@/widgets/SortSwapList';
 import {MainRecommendationList} from '@widgets/MainRecomendationList';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SkillSwapModal } from '@/widgets/SkillSwapModal';
 import { SkillActionModal } from '@/widgets/skillActionModal';
 import { Icon } from '@/shared/ui/Icon';
 
@@ -39,7 +38,7 @@ export const HomeCatalog: FC = () => {
   const state = location.state;
 
   //исходный массив
-  const cards = useAppSelector(selectSwapCards, shallowEqual);
+  const cards = useAppSelector(selectSwapCards);
 
   // отфильтрованный массив (только для фильтров)
   const filteredCards  = useCardFilters(cards);

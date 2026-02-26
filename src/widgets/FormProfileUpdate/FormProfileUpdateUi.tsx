@@ -1,6 +1,6 @@
 import type React from "react";
 import styles from './FormProfileUpdate.module.scss';
-import { Button, Input, Select } from "@/shared/ui";
+import { Button, Input, Select, TextArea } from "@/shared/ui";
 import { CitySelect } from "@/features";
 import cityList from "../../../public/db/city/city.json";
 import { CalendarInput } from "@/shared/ui";
@@ -12,7 +12,8 @@ export const FormProfileUpdateUi: React.FC<TProfileUiProps> = ({
   handleImageSelect,
   handlePhotoClick,
   avatar,
-  fileInputRef
+  fileInputRef,
+  isMale
 }) => {
   return (
     <div className={styles.outer_container}>
@@ -45,20 +46,26 @@ export const FormProfileUpdateUi: React.FC<TProfileUiProps> = ({
           </div>
         </div>
         <div className={styles.form_input_container}>
-          <CitySelect onChange={(value) => handleFieldChange('city')(value as string)} cityList={cityList}></CitySelect>
+          <CitySelect placeholder="Выберите город" onChange={(value) => handleFieldChange('city')(value as string)} cityList={cityList}></CitySelect>
         </div>
         <div className={styles.form_input_container}>
           <label>
             <span className={styles.form_input_label}>О себе</span>
-            <Input onChange={handleFieldChange('description')} type="text" name="userDescription" value={formData.description || ''}></Input>
+            <TextArea onChange={handleFieldChange('description')} name="userDescription" value={formData.description || ''}></TextArea>
           </label>
         </div>
         <div className={styles.button_container}>
-          <Button status="primary">Сохранить</Button>
+          <Button type={'submit'} status="primary">Сохранить</Button>
         </div>
       </div>
       <div className={styles.profile_picture_inner_container}>
-        <div className={styles.user_profile_picture_photo} onClick={handlePhotoClick} style={{ backgroundImage: avatar ? `url(${avatar})` : 'url(https://randomuser.me/api/portraits/men/1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', cursor: 'pointer' }}>
+        <div
+          className={styles.user_profile_picture_photo}
+          onClick={handlePhotoClick}
+          style={{ backgroundImage: avatar ? `url(${avatar})`:
+          isMale && isMale === 'мужской'? 'url(src/assets/img/men.webp)':
+                  'url(src/assets/img/girl.webp)',
+          backgroundSize: 'cover', backgroundPosition: 'center', cursor: 'pointer' }}>
           <div className={styles.user_profile_picture_change_container}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.user_profile_picture_change_button}>
               <path d="M9.20741 10.84C7.79381 10.84 6.6499 9.69606 6.6499 8.28245C6.6499 6.86885 7.79381 5.72495 9.20741 5.72495C10.621 5.72495 11.7649 6.86885 11.7649 8.28245C11.7649 9.69606 10.621 10.84 9.20741 10.84ZM9.20741 7.11995C8.56571 7.11995 8.04491 7.64075 8.04491 8.28245C8.04491 8.92416 8.56571 9.44496 9.20741 9.44496C9.84911 9.44496 10.3699 8.92416 10.3699 8.28245C10.3699 7.64075 9.84911 7.11995 9.20741 7.11995Z" fill="#253017" />

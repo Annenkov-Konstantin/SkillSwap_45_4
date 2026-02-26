@@ -6,7 +6,7 @@ export type TFormProfileUpdate = {
   sex?: string;
   city?: string;
   description?: string;
-  avatar?: string;
+  avatarPic?: string;
 };
 
 export type THandleFieldChange = (
@@ -20,4 +20,9 @@ export type TProfileUiProps = {
   handlePhotoClick: () => void;
   avatar: string | null;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
+  isMale:string | undefined;
 };
+
+export type TFormProfileUpdateProp = {
+  onModalAction:()=>void;
+}
