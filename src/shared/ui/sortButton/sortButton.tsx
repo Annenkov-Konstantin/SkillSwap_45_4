@@ -26,7 +26,7 @@ export const SortButtonButton: React.FC = ({
   return (
     <div className={styles.sort_button_container}>
       <TertiaryButton
-        label={sortValue.label}
+        label={sortType[sortValue.value].label}
         onClickButton={handleSort}
         firstIcon={<Icon name='icon-sort' size={24} className={sortValue.value === 'new'? styles.revert: ''}/>}
         hasIcons={false}

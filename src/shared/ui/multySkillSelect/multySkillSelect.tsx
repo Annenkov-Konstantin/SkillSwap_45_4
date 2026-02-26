@@ -1,14 +1,14 @@
-// MultiSkillSelect.tsx
 import { DropdownTrigger } from '@/shared/ui';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { Checkbox } from '@/shared/ui';
 import styles from './multySkillSelect.module.scss'
+import type { TSkill } from '@/entities/skills';
 
 interface MultiSkillSelectProps {
   placeholderValue?: string;
-  optionsArr: string[];
-  value: string[]; // массив выбранных значений
-  onChange: (selected: string[]) => void;
+  optionsArr: TSkill[]; // массив объектов навыков
+  value: number[]; // массив выбранных ID (числа)
+  onChange: (selectedIds: number[]) => void; // возвращает массив ID
   disabled?: boolean;
 }
 
@@ -20,24 +20,24 @@ export const MultiSkillSelect: React.FC<MultiSkillSelectProps> = ({
   disabled = false
 }) => {
   const [open, setOpen] = useState(false);
-  const [selectedValues, setSelectedValues] = useState<string[]>(value);
+  const [selectedIds, setSelectedIds] = useState<number[]>(value);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
   // Синхронизируем внутреннее состояние с пропсом value
   useEffect(() => {
-    setSelectedValues(value);
+    setSelectedIds(value);
   }, [value]);
 
-  const handleCheckboxChange = (option: string, isChecked: boolean) => {
-    let newSelected: string[];
+  const handleCheckboxChange = (skill: TSkill, isChecked: boolean) => {
+    let newSelected: number[];
 
     if (isChecked) {
-      newSelected = [...selectedValues, option];
+      newSelected = [...selectedIds, skill.id]; // добавляем ID
     } else {
-      newSelected = selectedValues.filter(item => item !== option);
+      newSelected = selectedIds.filter(id => id !== skill.id); // удаляем по ID
     }
 
-    setSelectedValues(newSelected);
+    setSelectedIds(newSelected);
     onChange(newSelected);
   };
 
@@ -66,13 +66,20 @@ export const MultiSkillSelect: React.FC<MultiSkillSelectProps> = ({
 
   // Формируем текст для отображения в кнопке
   const getButtonText = () => {
-    if (selectedValues.length === 0) {
+    if (selectedIds.length === 0) {
       return placeholderValue;
     }
-    if (selectedValues.length === 1) {
-      return selectedValues[0];
+    if (selectedIds.length === 1) {
+      // Находим название выбранного навыка по ID
+      const selectedSkill = optionsArr.find(skill => skill.id === selectedIds[0]);
+      return selectedSkill?.title || placeholderValue;
     }
-    return `Выбрано: ${selectedValues.length}`;
+    return `Выбрано: ${selectedIds.length}`;
+  };
+
+  // Проверяем, выбран ли навык по ID
+  const isSkillSelected = (skillId: number): boolean => {
+    return selectedIds.includes(skillId);
   };
 
   return (
@@ -99,14 +106,14 @@ export const MultiSkillSelect: React.FC<MultiSkillSelectProps> = ({
 
       {open && !disabled && (
         <div className={styles.dropdown_content_open}>
-          {optionsArr.map((option, index) => (
-            <div key={`${option}_${index}`} className={styles.checkboxItem}>
+          {optionsArr.map((skill) => (
+            <div key={skill.id} className={styles.checkboxItem}>
               <Checkbox
-                label={option}
-                checked={selectedValues.includes(option)}
-                onChange={(isChecked: boolean) => handleCheckboxChange(option, isChecked)}
-                id={`skill_${option}_${index}`}
-                name={`skill_${option}`}
+                label={skill.title} // Показываем название навыка
+                checked={isSkillSelected(skill.id)} // Проверяем по ID
+                onChange={(isChecked: boolean) => handleCheckboxChange(skill, isChecked)}
+                id={`skill_${skill.id}`}
+                name={`skill_${skill.id}`}
               />
             </div>
           ))}

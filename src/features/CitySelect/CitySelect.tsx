@@ -88,7 +88,7 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChang
     setHighlightedIndex(-1);
 
     if (onChange && !newValue) {
-      onChange(null);
+      onChange('');
     }
   };
 
@@ -98,7 +98,7 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChang
     setHighlightedIndex(-1);
 
     if (onChange) {
-      const selectedCity = cityList.find(city => city.name === value)?.name || null;
+      const selectedCity = cityList.find(city => city.name === value)?.name || '';
       onChange(selectedCity);
     }
   };
@@ -109,7 +109,7 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChang
     setHighlightedIndex(-1);
 
     if (onChange) {
-      onChange(null);
+      onChange('');
     }
 
     inputRef.current?.focus();

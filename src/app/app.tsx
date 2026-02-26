@@ -39,6 +39,7 @@ import { userActions } from '@/services/slices/user';
 import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonalUI';
 import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
 import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
+import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 
 
 const App = () => {
@@ -96,7 +97,6 @@ return (
       <Routes location={location}>
         {/* Главная страница и страница навыка - доступна всем */}
         <Route path={AppRoutes.HomeCatalog} element={<HomeCatalog />} />
-        <Route path={AppRoutes.RegSkill} element={<div>Навыки (заглушка)</div>} />
 
         {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
         <Route element={<ProtectedRoute isPublic/>}>
@@ -108,6 +108,7 @@ return (
             <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
             <Route path={AppRoutes.RegAccount} element={<FormStepAccountRegistr />} />
             <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal/>} />
+            <Route path={AppRoutes.RegSkill} element={<FormStepSkill/>} />
           </Route>
         </Route>
 

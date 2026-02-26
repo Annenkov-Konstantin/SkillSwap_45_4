@@ -69,6 +69,43 @@
   white-space: nowrap;
 }
 
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldGroup label {
+  @include body-text;
+  color: $color-text;
+  margin-bottom: 1px;
+}
+
+.inputField,
+.selectField {
+  width: 100%;
+}
+
+.textarea {
+  @include body-text;
+  width: 100%;
+  height: 90px;
+  padding: 12px 20px;
+  border: 1px solid $border-input-color;
+  border-radius: 12px;
+  resize: vertical;
+  color: $color-text;
+  background-color: $color-card-input;
+}
+
+.textarea::placeholder {
+  color: $color-caption;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: $color-accent;
+}
+
 .buttonContainer {
   display: flex;
   gap: 20px;

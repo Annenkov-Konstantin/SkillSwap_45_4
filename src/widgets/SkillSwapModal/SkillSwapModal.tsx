@@ -4,28 +4,75 @@ import { SkillGallery, UserSkillDescription } from '@features/index';
 import { Button, ModalOverlayUI } from '@shared/ui';
 import type { SkillGalleryProps } from '../../features/SkillGallery/type';
 import type { UserSkillDescriptionProps } from '../../features/UserSkillDescription/type';
+import { Icon } from '@/shared/ui/Icon';
+import type { TSkillSwapModalProps } from './type';
+import { useAppSelector, useDispatchedActions } from '@/services/hooks';
+import { formSelectors } from '@/services/slices/form';
+import { userActions } from '@/services/slices/user';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes, mockSwapApiDataLearn } from '@/shared/lib/constants';
+import type { TSkillData } from '@/api/types';
+import { userSkillListActions } from '@/services/slices/userSkillList';
 
-export const SkillSwapModal: React.FC = () => {
+export const SkillSwapModal: React.FC<TSkillSwapModalProps> = ({onClose}) => {
+  const swapPreviwInfo = useAppSelector(formSelectors.selectSwapData);
+  const { fetchRegisterApi } = useDispatchedActions(userActions);
+  const { fetchAddNewUserSkill } = useDispatchedActions(userSkillListActions)
+  const dataForRegisth= useAppSelector(formSelectors.selectRegisterData)
+  const dataForSwapCard = useAppSelector(formSelectors.selectSwapData)
+
+  const navigate = useNavigate();
+
+  const handleClickEdit =()=>{
+    onClose()
+  }
+
   const userSkillData: UserSkillDescriptionProps = {
-    title: 'Игра на барабанах',
-    categoryId: 2,
-    skillId: 4,
-    description: `Привет! Я играю на барабанах уже больше 10 лет —от репетиций в гараже до
-      выступлений на сцене с живыми группами. Научу основам техники (и как не отбить
-      себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать
-      уверенно даже без паритуры`
+    title: swapPreviwInfo.swapInfo.skillName,
+    categoryId: swapPreviwInfo.canTeach[0].category,
+    skillId: swapPreviwInfo.canTeach[0].subcategory[0],
+    description: swapPreviwInfo.swapInfo.description
   };
 
   const galleryData: SkillGalleryProps = {
-    title: 'Игра на барабанах',
-    images: [
-      'https://i.ytimg.com/vi/f-hg4Ke9BVU/maxresdefault.jpg',
-      'https://i.ytimg.com/vi/QbKjlysK0d4/maxresdefault.jpg',
-      'https://avatars.mds.yandex.net/i?id=9693c935c95cc07c742e8f5d3b17a34f_l-3644822-images-thumbs&n=13',
-      'https://i.ytimg.com/vi/7nhN-eDSqGQ/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gVCgbMA8=&amp;rs=AOn4CLB1X9rBJNF_ZpqUA3tHUqhF19MxqA',
-      'https://avatars.mds.yandex.net/get-vthumb/761774/19a533ce73c1a7582e27cd1d02c5944a/564x318_1',
-      'https://i.ytimg.com/vi/2j6TH5MlZlY/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGGcgZyhnMA8=&amp;rs=AOn4CLAHBkqsyxdcoI9nh1t1hbdTryByHQ'
-    ]
+    title: swapPreviwInfo.swapInfo.skillName,
+    images:swapPreviwInfo.swapInfo.images
+  };
+
+  const swapApiDataTeach:TSkillData ={
+    title:dataForSwapCard.swapInfo.skillName,
+    description: dataForSwapCard.swapInfo.description,
+    type: "teach",
+    category: dataForSwapCard.canTeach[0].category,
+    subcategory: dataForSwapCard.canTeach[0].subcategory[0],
+    images:dataForSwapCard.swapInfo.images
+  }
+
+    const swapApiDataLearn:TSkillData ={
+    ... mockSwapApiDataLearn,
+    type: "learn",
+    category: dataForSwapCard.toLearn[0].category,
+    subcategory: dataForSwapCard.toLearn[0].subcategory[0],
+  }
+
+  const clearRegistrationData = () => {
+    localStorage.removeItem('registrationTeachData');
+    localStorage.removeItem('registrationPersonalData');
+    localStorage.removeItem('registrationFormEmail');
+  };
+
+  const handleSubmitClick = async () => {
+    try {
+      await fetchRegisterApi(dataForRegisth).unwrap();
+      await fetchAddNewUserSkill(swapApiDataTeach);
+      await fetchAddNewUserSkill(swapApiDataLearn);
+      clearRegistrationData();
+      navigate(AppRoutes.HomeCatalog);
+    } catch (error) {
+      navigate(AppRoutes.RegAccount, {
+        state: { badLogin: true }
+      });
+    }
   };
 
   return (
@@ -46,14 +93,15 @@ export const SkillSwapModal: React.FC = () => {
               description={userSkillData.description}
             />
             <div className={styles.buttons}>
-              <Button status='secondary'>
+              <Button
+                onClick={handleClickEdit}
+                status='secondary'>
                 {'Редактировать'}
-                <img
-                  className={styles['edit-icon']}
-                  src='src\assets\icons\edit.svg'
-                />
+                <Icon name={'icon-edit'} className={styles.icon_pen}/>
               </Button>
-              <Button status='primary'>{'Готово'}</Button>
+              <Button
+              onClick={handleSubmitClick}
+              status='primary'>{'Готово'}</Button>
             </div>
           </div>
           <SkillGallery title={galleryData.title} images={galleryData.images} />

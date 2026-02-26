@@ -1,4 +1,3 @@
-export type SkillSwapModalProps = {
-  title: string,
-  description: string
+export type TSkillSwapModalProps = {
+  onClose:()=>void;
 }
