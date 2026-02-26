@@ -1,11 +1,11 @@
 .container {
-  margin: 32px 36px 60px 32px; // mb remove
+  margin-top: 43px;
+  margin-bottom: 60px; // mb remove
   display: grid;
   grid-template-columns: 324px 1fr;
-  grid-template-rows: auto auto; // let it be for now
-  grid-template-areas: 
+  grid-template-rows: auto; // let it be for now
+  grid-template-areas:
   'card info'
-  'heading .'
   'sugestions sugestions';
   row-gap: 60px;
   column-gap: 24px;

@@ -1,0 +1,29 @@
+import styles from './skill.module.scss';
+import { SkillDetails } from '@/widgets/SkillDetails/SkillDetails';
+import { UserInfoCard } from '@/widgets/UserCard/UserInfoCard';
+import type { FC } from 'react';
+import { CardCarouselUI } from '@/widgets/CardCarousel';
+import type { SkillPageUIProps } from './types';
+
+export const SkillUI: FC<SkillPageUIProps> = ({ user, skill, suggestionCards }) => {
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.teacher_card}>
+        <UserInfoCard user={user}></UserInfoCard>
+      </div>
+      <div className={styles.info_card}>
+        <SkillDetails
+          title={skill.title}
+          images={skill.images}
+          categoryId={skill.category}
+          skillId={skill.subCategory}
+          description={skill.description}
+        ></SkillDetails>
+      </div>
+      <div className={styles.sugestions_content}>
+        <CardCarouselUI cards={suggestionCards} title={'Похожие предложения'}/>
+      </div>
+    </div>
+  );
+};

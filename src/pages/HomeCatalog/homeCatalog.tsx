@@ -44,21 +44,21 @@ export const HomeCatalog: FC = () => {
   const filteredCards  = useCardFilters(cards);
 
   const handleClose = ()=> {
-    setShow(false)
-  }
+    setShow(false);
+  };
 
-   useEffect(() => {
-  if (state?.success) {
-    setShow(true);
-    navigate(location.pathname, {
-      replace: true,
-      state: {}
-    });
-  }
-}, [state]);
+  useEffect(() => {
+    if (state?.success) {
+      setShow(true);
+      navigate(location.pathname, {
+        replace: true,
+        state: {}
+      });
+    }
+  }, [state]);
 
   return (
-  <div className={styles.container}>
+    <div className={styles.container}>
       {show && <SkillActionModal
       image= {<Icon name={'icon-Done'} size={100} stroke="#253017" fill={'none'}/>}
       maintText='Вы успешно зарегистрировались'
@@ -67,42 +67,42 @@ export const HomeCatalog: FC = () => {
       onClose={handleClose}
       isOpen={show}
       />}
-    <FilterAside />
-    {!isFilterActive && (
-      <>
-      <SortSwapList
-      type='popular'
-      />
-      <SortSwapList
-      type='new'
-      />
-      <MainRecommendationList />
-      </>
-    )}
-    {isFilterActive && (
-      <>
-        <div className={styles.filter_buttons}>
-          <PreferenceAndSkillWrapper />
-        </div>
-        {isLoading ? (
-          <Preloader radius={70} />
-        ) : (
-          <div className={styles.main_content}>
-             <div className={styles.main_heading}>
-              <h1>Подходящие предложения: <span className={styles.heading_counter}>{filteredCards.length}</span></h1>
-              <SortButtonButton/>
-              </div>
-            {filteredCards.map((card, index) => (
-              <UserCard
-                key={index}
-                user={card.user}
-                swap={card.skill}
-              />
-            ))}
+      <FilterAside />
+      {!isFilterActive && (
+        <>
+          <SortSwapList
+            type='popular'
+          />
+          <SortSwapList
+            type='new'
+          />
+          <MainRecommendationList />
+        </>
+      )}
+      {isFilterActive && (
+        <>
+          <div className={styles.filter_buttons}>
+            <PreferenceAndSkillWrapper />
           </div>
-        )}
-      </>
-    )}
-  </div>
-);
-}
+          {isLoading ? (
+            <Preloader radius={70} />
+          ) : (
+            <div className={styles.main_content}>
+              <div className={styles.main_heading}>
+                <h1>Подходящие предложения: <span className={styles.heading_counter}>{filteredCards.length}</span></h1>
+                <SortButtonButton/>
+              </div>
+              {filteredCards.map((card, index) => (
+                <UserCard
+                  key={index}
+                  user={card.user}
+                  swap={card.skill}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
