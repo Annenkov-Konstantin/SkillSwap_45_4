@@ -1,13 +1,6 @@
-export type TFormProfileUpdate = {
-  id?: string;
-  email?: string;
-  name?: string;
-  date?: string;
-  sex?: string;
-  city?: string;
-  description?: string;
-  avatar?: string;
-};
+import type {TUser} from '@entities/user';
+
+export type TFormProfileUpdate = Partial<TUser>;
 
 export type THandleFieldChange = (
   fieldName: keyof TFormProfileUpdate
@@ -18,6 +11,6 @@ export type TProfileUiProps = {
   handleFieldChange: THandleFieldChange;
   handleImageSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handlePhotoClick: () => void;
-  avatar: string | null;
+  avatarPic: string | null;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
 };

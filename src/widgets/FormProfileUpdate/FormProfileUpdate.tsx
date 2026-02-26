@@ -1,11 +1,15 @@
 import { useCallback, useRef, useState } from "react";
 import { FormProfileUpdateUi } from "./FormProfileUpdateUi";
 import type { TFormProfileUpdate, THandleFieldChange } from "./types";
+import {useDispatchedActions} from '@store-hooks';
+import { userActions } from "@/services/slices/user";
 
 export const FormProfileUpdate: React.FC = () => {
   const [formData, setFormData] = useState<TFormProfileUpdate>({});
   const [avatar, setAvatar] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { fetchUpdateUserApi } = useDispatchedActions(userActions);
 
   const handleImageSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -15,7 +19,7 @@ export const FormProfileUpdate: React.FC = () => {
         const avatarUrl = reader.result as string;
         setAvatar(avatarUrl);
         setFormData(prev => ({
-          ...prev, avatar: avatarUrl,
+          ...prev, avatarPic: avatarUrl,
         }));
       };
       reader.readAsDataURL(file);
@@ -37,7 +41,7 @@ export const FormProfileUpdate: React.FC = () => {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log('Submit form:', formData);
+    fetchUpdateUserApi(formData);
   };
 
   return (
@@ -47,7 +51,7 @@ export const FormProfileUpdate: React.FC = () => {
         handleFieldChange={handleFieldChange}
         handleImageSelect={handleImageSelect}
         handlePhotoClick={handlePhotoClick}
-        avatar={avatar}
+        avatarPic={avatar}
         fileInputRef={fileInputRef} />
     </form>
   );
