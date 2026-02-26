@@ -20,7 +20,6 @@ export const UserCard: React.FC<TUserCardProps> = ({
   const currnetUser = useAppSelector(userSelectors.selectUser)
   const skills = useAppSelector(skillsSelectors.selectskills);
   const isInFavorites = ()=>{
-    console.log('user.favoriteSkills:', currnetUser?.favoriteSkills);
     return currnetUser?.favoriteSkills.some(skill => skill === swap._id);
   }
 
@@ -30,6 +29,8 @@ export const UserCard: React.FC<TUserCardProps> = ({
   const handleLike = (e:React.MouseEvent)=>{
     e.stopPropagation();
     if (!user) return null;
+    if(user && user._id === currnetUser?._id ) return;
+
     const likeButton = e.target as HTMLButtonElement;
     if(!currnetUser && likeButton ){
       setLikeMessage(true);
@@ -74,7 +75,7 @@ export const UserCard: React.FC<TUserCardProps> = ({
       skillsToLearn={skillsToLearn}
       skillsCanTeach={skillsCanTeach}
       handleMore={() => {}}
-      isFavorite={false}
+      isFavorite={isInFavorites}
       isSuggested={false}
       handleLike={handleLike}
       type={swap.type}

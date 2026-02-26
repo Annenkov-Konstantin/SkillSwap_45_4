@@ -15,6 +15,7 @@ import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 // Страницы
 import { HomeCatalog } from '@/pages/HomeCatalog';
+import { Skill } from '@/pages/Skill';
 import { NotFound404 } from '@/pages/NotFound-404';
 import { ServerError500 } from '@/pages/ServerError-500';
 // Виджеты
@@ -39,6 +40,7 @@ import { userActions } from '@/services/slices/user';
 import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonalUI';
 import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
 import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
+import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 
 
 const App = () => {
@@ -84,10 +86,18 @@ const App = () => {
     </>
   );
 
-  return (
-    <SkillsModalProvider>
-      <IconSprite />
-      <SkillsModalManager />
+return (
+  <SkillsModalProvider>
+    <IconSprite />
+    <SkillsModalManager />
+
+    {/* Показываем Header только на страницах, где нет FormLayout */}
+    {showHeaderFooter && <Header />}
+
+    <div className={styles.container}>
+      <Routes location={location}>
+        {/* Главная страница и страница навыка - доступна всем */}
+        <Route path={AppRoutes.HomeCatalog} element={<HomeCatalog />} />
 
       {/* Показываем Header только на страницах, где нет FormLayout */}
       {showHeaderFooter && <Header />}
@@ -111,11 +121,11 @@ const App = () => {
             </Route>
           </Route>
 
-          {/* Профиль - ТОЛЬКО для авторизованных */}
-          <Route element={<ProtectedRoute />}>
-            {/* Здесь будут защищенные маршруты, например: */}
-            <Route path={AppRoutes.Profile} element={<div>Профиль пользователя</div>} />
-            <Route path={AppRoutes.Settings} element={<div>Настройки</div>} />
+          <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
+            <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
+            <Route path={AppRoutes.RegAccount} element={<FormStepAccountRegistr />} />
+            <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal/>} />
+            <Route path={AppRoutes.RegSkill} element={<FormStepSkill/>} />
           </Route>
 
           {/* Другие страницы - доступны всем */}

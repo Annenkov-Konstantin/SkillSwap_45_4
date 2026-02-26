@@ -1,0 +1,28 @@
+.container {
+  margin: 32px 36px 60px 32px; // mb remove
+  display: grid;
+  grid-template-columns: 324px 1fr;
+  grid-template-rows: auto auto; // let it be for now
+  grid-template-areas: 
+  'card info'
+  'heading .'
+  'sugestions sugestions';
+  row-gap: 60px;
+  column-gap: 24px;
+}
+
+.teacher_card {
+  grid-area: card;
+}
+
+.info_card {
+  grid-area: info;
+}
+
+.sugestions_heading {
+  grid-area: heading;
+}
+
+.sugestions_content {
+  grid-area: sugestions;
+}
