@@ -48,6 +48,7 @@ export const AppRoutes =  {
   RegPersonal:'/register/personal',
   RegSkill:'/register/skill',
   Profile:'profile',
+  Skill:'skill/:id',
   Favourites:'/profile/favourites',
   Settings:'/settings',
   Error:'error',
