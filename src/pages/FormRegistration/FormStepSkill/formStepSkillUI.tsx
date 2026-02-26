@@ -63,7 +63,6 @@ export const FormStepSkillUI: FC<FormStepSkillUIProps> = ({
 
     <div className={styles.formContainer}>
       {showModal && <SkillSwapModal onClose={closeModal}/>}
-      <h2>Добавьте навыки, которым вы можете научить</h2>
 
       <div className={styles.formSection}>
         <div className={styles.fieldGroup}>

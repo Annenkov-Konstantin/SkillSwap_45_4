@@ -9,6 +9,8 @@ import type { ButtonStatus } from '@/shared/ui/button/types';
 import categoriesData from '../../../../public/db/skills/skills.json';
 import { formActions, formSelectors } from '@/services/slices/form';
 import type { TCategoryOption, TFormSkill } from '@/shared/lib/types';
+import styles from './formStepSkill.module.scss';
+import schoolBoard from '@/assets/img/school-board.svg';
 
 
 
@@ -259,27 +261,43 @@ export const FormStepSkill: FC = () => {
 console
 
   return (
-    <FormStepSkillUI
-      skillImages={skillImages}
-      showModal={showModal}
-      skillName={skillName}
-      selectedCategory={selectedCategory}
-      selectedSubcategoryIds={selectedSubcategoryIds}
-      selectedSubcategories={selectedSubcategories}
-      description={description}
-      categoryOptions={categoryOptions}
-      subcategoryOptions={subcategoryOptions}
-      onSkillNameChange={setSkillName}
-      onCategoryChange={handleCategoryChange}
-      onSubcategoryChange={handleSubcategoryChange}
-      onDescriptionChange={setDescription}
-      onForwardClick={handleForwardClick}
-      onBackClick={handleBackClick}
-      isFormValid={isFormValid()}
-      buttonStatus={getButtonStatus()}
-      onImagesAdded={handleImagesAdded}
-      onImageRemoved={handleImageRemoved}
-      closeModal={handleCloseModal}
-    />
+    <div className={styles.container}>
+      <FormStepSkillUI
+        skillImages={skillImages}
+        showModal={showModal}
+        skillName={skillName}
+        selectedCategory={selectedCategory}
+        selectedSubcategoryIds={selectedSubcategoryIds}
+        selectedSubcategories={selectedSubcategories}
+        description={description}
+        categoryOptions={categoryOptions}
+        subcategoryOptions={subcategoryOptions}
+        onSkillNameChange={setSkillName}
+        onCategoryChange={handleCategoryChange}
+        onSubcategoryChange={handleSubcategoryChange}
+        onDescriptionChange={setDescription}
+        onForwardClick={handleForwardClick}
+        onBackClick={handleBackClick}
+        isFormValid={isFormValid()}
+        buttonStatus={getButtonStatus()}
+        onImagesAdded={handleImagesAdded}
+        onImageRemoved={handleImageRemoved}
+        closeModal={handleCloseModal}
+      />
+
+      <div className={styles.section}>
+        <img
+          src={schoolBoard}
+          alt='Иллюстрация навыка'
+          className={styles.illustration}
+        />
+        <div className={styles.descriptionWrapper}>
+          <h2>Укажите, чем вы готовы поделиться</h2>
+          <p className={styles.description}>
+            Так другие люди смогут увидеть ваши предложения и предложить вам обмен!
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
