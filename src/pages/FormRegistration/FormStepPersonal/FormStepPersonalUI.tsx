@@ -102,9 +102,9 @@ const handleMultiSkillChange = (ids: number[]) => {
           value={nameValue}
           onChange={onNameChange}
           name='userName'
-          className={`${styles.nameInput} ${showNameError ? styles.inputError : ''}`}
+          // className={`${styles.nameInput} ${showNameError ? styles.inputError : ''}`}
         />
-        {getValueHint && getValueHint()}
+        {/* {getValueHint && getValueHint()} */}
       </div>
 
       <div className={styles.personalDataContainer}>
