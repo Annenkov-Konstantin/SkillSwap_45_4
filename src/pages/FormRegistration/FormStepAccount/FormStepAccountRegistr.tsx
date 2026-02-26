@@ -30,7 +30,7 @@ export const FormStepAccountRegistr:React.FC = () => {
     'empty' | 'short' | 'strong'
   >('empty');
 
-  const badLogin = location.state?.badLogin || false;
+  const badLogin = location.state?.badLogin;
 
   const isDisabled= emailError || passValue.length<8 ?'primary_disabled':'primary';
 

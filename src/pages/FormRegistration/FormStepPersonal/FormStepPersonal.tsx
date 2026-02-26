@@ -157,19 +157,12 @@ export const FormStepPersonal: FC = () => {
   useEffect(() => {
     // Этот эффект сработает когда загрузится категория и обновится skillArray
     if (selectedCategory && selectedSkillIds.length > 0) {
-      console.log('Синхронизация навыков:', {
-        skillArray: skillArray.map(s => s.id),
-        selectedSkillIds
-      });
-
       const validIds = selectedSkillIds.filter(id =>
         skillArray.some(skill => skill.id === id)
       );
 
       if (validIds.length !== selectedSkillIds.length) {
-        console.warn('Некоторые ID навыков не найдены в текущей категории:', {
-          missing: selectedSkillIds.filter(id => !skillArray.some(skill => skill.id === id))
-        });
+        // Оставил комментарий вместо warn, чтобы не терять логику проверки
       }
     }
   }, [skillArray, selectedCategory, selectedSkillIds]);
@@ -183,7 +176,6 @@ export const FormStepPersonal: FC = () => {
       );
 
       if (validIds.length !== selectedSkillIds.length) {
-        console.log('Очищаем невалидные навыки при смене категории');
         setSelectedSkillIds(validIds);
       }
     }
@@ -328,7 +320,6 @@ export const FormStepPersonal: FC = () => {
     return isNameValid && isCategoryValid && isBirthValid &&
       isGenderValid && isCityValid && areSkillsValid && isAboutMeValid;
   };
-
   // Функция для определения статуса кнопки
   const getButtonStatus = (): ButtonStatus => {
     return areAllFieldsFilled() ? 'primary' : 'primary_disabled';

@@ -21,7 +21,7 @@ import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 
 import { SortSwapList } from '@/widgets/SortSwapList';
 import {MainRecommendationList} from '@widgets/MainRecomendationList';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SkillSwapModal } from '@/widgets/SkillSwapModal';
 import { SkillActionModal } from '@/widgets/skillActionModal';
 import { Icon } from '@/shared/ui/Icon';
@@ -34,7 +34,7 @@ export const HomeCatalog: FC = () => {
   const isLoading =
     userListRequestStatus === requestStatus.LOADING ||
     userSkillListRequestStatus === requestStatus.LOADING;
-
+  const navigate= useNavigate();
   const location = useLocation();
   const state = location.state;
 
@@ -47,12 +47,16 @@ export const HomeCatalog: FC = () => {
   const handleClose = ()=> {
     setShow(false)
   }
-    useEffect(()=>{
-    if(state && state?.success){
-      setShow(true)
-      window.history.replaceState({}, document.title);
-    }
-  },[state])
+
+   useEffect(() => {
+  if (state?.success) {
+    setShow(true);
+    navigate(location.pathname, {
+      replace: true,
+      state: {}
+    });
+  }
+}, [state]);
 
   return (
   <div className={styles.container}>
