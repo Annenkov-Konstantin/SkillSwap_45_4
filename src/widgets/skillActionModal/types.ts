@@ -1,5 +1,5 @@
 export type TSkillActionModalProps = {
-  image?: string;
+  image?:  React.ReactNode;
   maintText: string;
   secondaryText: string;
   primaryBtnText: string;

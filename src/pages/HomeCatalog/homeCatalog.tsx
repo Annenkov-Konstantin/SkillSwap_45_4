@@ -1,5 +1,5 @@
 // Реакт
-import { type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { shallowEqual } from 'react-redux';
 // Стили и UI
 import styles from './homeCatalog.module.scss';
@@ -21,8 +21,13 @@ import { SortButtonButton } from '@/shared/ui/sortButton/sortButton';
 
 import { SortSwapList } from '@/widgets/SortSwapList';
 import {MainRecommendationList} from '@widgets/MainRecomendationList';
+import { useLocation } from 'react-router-dom';
+import { SkillSwapModal } from '@/widgets/SkillSwapModal';
+import { SkillActionModal } from '@/widgets/skillActionModal';
+import { Icon } from '@/shared/ui/Icon';
 
 export const HomeCatalog: FC = () => {
+  const [show, setShow] = useState(false);
   const userListRequestStatus  = useAppSelector(userListSelectors.selectUserListStatus);
   const userSkillListRequestStatus  = useAppSelector(userSkillListSelectors.selectUserSkillListStatus);
   const isFilterActive = useAppSelector(filterSelectors.selectActiveFilter);
@@ -30,15 +35,35 @@ export const HomeCatalog: FC = () => {
     userListRequestStatus === requestStatus.LOADING ||
     userSkillListRequestStatus === requestStatus.LOADING;
 
+  const location = useLocation();
+  const state = location.state;
+
   //исходный массив
   const cards = useAppSelector(selectSwapCards, shallowEqual);
 
   // отфильтрованный массив (только для фильтров)
   const filteredCards  = useCardFilters(cards);
 
+  const handleClose = ()=> {
+    setShow(false)
+  }
+    useEffect(()=>{
+    if(state && state?.success){
+      setShow(true)
+      window.history.replaceState({}, document.title);
+    }
+  },[state])
 
   return (
   <div className={styles.container}>
+      {show && <SkillActionModal
+      image= {<Icon name={'icon-Done'} size={100} stroke="#253017" fill={'none'}/>}
+      maintText='Важе предложение создано'
+      secondaryText='Теперь вы можете предложить обмен'
+      primaryBtnText= 'Готово'
+      onClose={handleClose}
+      isOpen={show}
+      />}
     <FilterAside />
     {!isFilterActive && (
       <>

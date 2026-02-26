@@ -101,14 +101,14 @@ export const IconSprite = () => (
 
       <symbol id='icon-Done' viewBox='0 0 24 24'>
         <path
-          stroke='currentColor'
-          strokeWidth='1.5'
+          // stroke='currentColor'
+          strokeWidth='0.5'
           d='M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
         />
         <path
-          stroke='currentColor'
+          // stroke='currentColor'
           strokeLinecap='round'
-          strokeWidth='1.5'
+          strokeWidth='0.5'
           d='m8.844 12.202 1.562 1.561a1.17 1.17 0 0 0 1.652 0l3.467-3.466'
         />
       </symbol>

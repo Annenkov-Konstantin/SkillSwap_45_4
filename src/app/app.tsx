@@ -94,6 +94,7 @@ const App = () => {
             <Route path={AppRoutes.Login} element={<FormLayout />}>
               <Route index element={<FormStepAccountLogin />} />
             </Route>
+            <Route path={AppRoutes.Skill} element={<Skill/>} />
 
             <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
               <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />

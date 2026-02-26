@@ -7,7 +7,7 @@ import type { UserSkillDescriptionProps } from '../../features/UserSkillDescript
 import { Icon } from '@/shared/ui/Icon';
 import type { TSkillSwapModalProps } from './type';
 import { useAppSelector, useDispatchedActions } from '@/services/hooks';
-import { formSelectors } from '@/services/slices/form';
+import { formActions, formSelectors } from '@/services/slices/form';
 import { userActions } from '@/services/slices/user';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes, mockSwapApiDataLearn } from '@/shared/lib/constants';
@@ -18,6 +18,7 @@ export const SkillSwapModal: React.FC<TSkillSwapModalProps> = ({onClose}) => {
   const swapPreviwInfo = useAppSelector(formSelectors.selectSwapData);
   const { fetchRegisterApi } = useDispatchedActions(userActions);
   const { fetchAddNewUserSkill } = useDispatchedActions(userSkillListActions)
+  const { clearForm } = useDispatchedActions(formActions);
   const dataForRegisth= useAppSelector(formSelectors.selectRegisterData)
   const dataForSwapCard = useAppSelector(formSelectors.selectSwapData)
 
@@ -67,7 +68,10 @@ export const SkillSwapModal: React.FC<TSkillSwapModalProps> = ({onClose}) => {
       await fetchAddNewUserSkill(swapApiDataTeach);
       await fetchAddNewUserSkill(swapApiDataLearn);
       clearRegistrationData();
-      navigate(AppRoutes.HomeCatalog);
+      clearForm();
+      navigate(AppRoutes.HomeCatalog,{
+        state: { success: true }
+      });
     } catch (error) {
       navigate(AppRoutes.RegAccount, {
         state: { badLogin: true }
@@ -79,10 +83,10 @@ export const SkillSwapModal: React.FC<TSkillSwapModalProps> = ({onClose}) => {
     <>
       <div className={styles.modal}>
         <header className={styles.header}>
-          <h2 className={styles.title}>{'Ваше предложение'}</h2>
-          <p className={styles.description}>
-            {'Пожалуйста, проверьте и подтвердите правильность данных'}
-          </p>
+            <h2 className={styles.title}>{'Ваше предложение'}</h2>
+            <p className={styles.description}>
+              {'Пожалуйста, проверьте и подтвердите правильность данных'}
+            </p>
         </header>
         <div className={styles.main}>
           <div className={styles.skill}>

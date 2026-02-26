@@ -17,6 +17,11 @@
   z-index: 9999;
 }
 
+.text_container {
+  @include flex-center-column;
+  
+}
+
 .header {
   text-align: center;
 }
