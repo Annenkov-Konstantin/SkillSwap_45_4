@@ -6,6 +6,5 @@ export interface SkillPageUIProps {
   user: TUser;
   skill: TUserSkill;
   suggestionCards: SkillCard[];
+  onSwapClick:()=>void;
 }
-
-

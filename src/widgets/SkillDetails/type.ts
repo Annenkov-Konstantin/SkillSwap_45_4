@@ -4,4 +4,5 @@ export type SkillDetailsProps = {
   categoryId: number;
   skillId: number;
   description: string;
+  onSwapClick?:()=>void;
 }

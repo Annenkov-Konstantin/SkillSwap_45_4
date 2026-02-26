@@ -1,13 +1,21 @@
 import { useAppSelector } from "@/services/hooks";
 import {  userSkillListSlice } from "@/services/slices";
-import { type FC } from "react";
-import { useParams } from "react-router-dom";
+import { useState, type FC } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { SkillUI } from "./skillUI";
 import { selectSwapCards } from "@/services/selectors/swapCardSelector";
 import { Preloader } from "@/shared/ui/preloader";
+import { userSelectors } from "@/services/slices/user";
+import { AppRoutes } from "@/shared/lib/constants";
+import { SkillActionModal } from "@/widgets/skillActionModal";
+import { Icon } from "@/shared/ui/Icon";
 
 export const Skill: FC = () => {
+  const [showModal, setShowModal ] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate()
   const { id } = useParams();
+  const currentUser = useAppSelector(userSelectors.selectUser);
 
   const cards = useAppSelector(selectSwapCards);
 
@@ -32,11 +40,40 @@ export const Skill: FC = () => {
     return <Preloader />;
   }
 
+  const handleOnClose = ()=>{
+    setShowModal(false);
+  }
+
+   const handleOnOpen = ()=>{
+    setShowModal(true);
+  }
+
+  const onSwapClick =()=>{
+    if(!currentUser){
+      navigate(AppRoutes.Login,{state: { from: location.pathname}})
+    }else{
+      handleOnOpen()
+    }
+  }
+
   return (
-    <SkillUI
-      user={user}
-      skill={userSkill}
-      suggestionCards={suggestionCards}
-    />
+    <>
+    {showModal &&
+      <SkillActionModal
+        image={<Icon name='icon-Done' size={100}/>}
+        maintText={'Важе предложение создано'}
+        secondaryText={'Теперь вы можете предложить обмен'}
+        primaryBtnText={""}
+        onClose={handleOnClose}
+        isOpen={showModal}
+      />
+    }
+      <SkillUI
+        user={user}
+        skill={userSkill}
+        suggestionCards={suggestionCards}
+        onSwapClick={onSwapClick}
+      />
+    </>
   );
 };

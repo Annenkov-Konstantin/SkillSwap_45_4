@@ -5,7 +5,12 @@ import type { FC } from 'react';
 import { CardCarouselUI } from '@/widgets/CardCarousel';
 import type { SkillPageUIProps } from './types';
 
-export const SkillUI: FC<SkillPageUIProps> = ({ user, skill, suggestionCards }) => {
+export const SkillUI: FC<SkillPageUIProps> = ({
+  user,
+  skill,
+  suggestionCards,
+  onSwapClick
+  }) => {
 
   return (
     <div className={styles.container}>
@@ -19,6 +24,7 @@ export const SkillUI: FC<SkillPageUIProps> = ({ user, skill, suggestionCards }) 
           categoryId={skill.category}
           skillId={skill.subCategory}
           description={skill.description}
+          onSwapClick={onSwapClick}
         ></SkillDetails>
       </div>
       <div className={styles.sugestions_content}>

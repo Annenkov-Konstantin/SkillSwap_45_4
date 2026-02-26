@@ -11,7 +11,8 @@ export const SkillDetails:React.FC<SkillDetailsProps> = ({
   images,
   categoryId,
   skillId,
-  description
+  description,
+  onSwapClick
 }) => {
   return (
     <div className={styles.container}>
@@ -45,6 +46,7 @@ export const SkillDetails:React.FC<SkillDetailsProps> = ({
           <Button
             status='primary'
             children='Предложить обмен'
+            onClick={onSwapClick}
           />
         </div>
         <SkillGallery
