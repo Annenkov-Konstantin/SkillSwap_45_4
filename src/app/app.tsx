@@ -15,6 +15,7 @@ import { SkillsModalManager } from '@/features/SkillsModalManager';
 
 // Страницы
 import { HomeCatalog } from '@/pages/HomeCatalog';
+import { Skill } from '@/pages/Skill';
 import { NotFound404 } from '@/pages/NotFound-404';
 import { ServerError500 } from '@/pages/ServerError-500';
 // Виджеты

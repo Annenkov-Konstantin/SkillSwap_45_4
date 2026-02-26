@@ -21,3 +21,7 @@ export type TUserCardProps = {
   user:TUser;
   swap:TUserSkill;
 };
+
+export type TUserInfoCardProps = {
+  user:TUser | null;
+}
