@@ -1,0 +1,90 @@
+@use '@app/styles/variables' as *;
+@use '@app/styles/mixins' as *;
+
+.textAreaContainer {
+  position: relative;
+  width: 100%;
+}
+
+.textAreaContainer:focus-within .editIconButton {
+  display: none;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.textArea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 16px;
+  border: 1px solid $color-caption;
+  @include border-radius;
+  background: $color-card-input;
+  resize: none;
+  @include apply-text-style($body-text);
+  color: $color-text;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: $color-caption;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background: $text-area-disable-bg;
+    color: $text-area-disable-color;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $textarea-error-color;
+    box-shadow: none;
+  }
+}
+
+.withTrailingContent {
+  .textArea {
+    padding-right: 48px;
+  }
+}
+
+.editIconButton {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  z-index: 10;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    border-radius: 6px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    color: $color-text;
+  }
+}
+
+.disabled .editIconButton {
+  pointer-events: none;
+  opacity: 0.5;
+}
