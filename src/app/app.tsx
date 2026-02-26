@@ -6,7 +6,7 @@ import styles from './app.module.scss';
 import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
 // Роутинг
-import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppRoutes } from '@/shared/lib/constants';
 
 // Контекст
@@ -23,7 +23,7 @@ import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
-import { FormStepAccountLogin } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountLogin';
+import { FormStepAccountLogin } from '@/pages/Login/FormStepAccountLogin';
 import { FormStepAccountRegistr } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountRegistr';
 
 // Защита маршрутов
@@ -37,8 +37,6 @@ import { userSkillListActions } from '@/services/slices/userSkillList';
 import { skillsActions } from '@/services/slices/skills';
 import { cityActions } from '@/services/slices/city';
 import { userActions } from '@/services/slices/user';
-import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonalUI';
-import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
 import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
 import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 import { Profile } from '@/pages/Profile';

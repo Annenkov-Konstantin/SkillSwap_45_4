@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormStepAccountUI } from './FormStepAccountUI';
-import { Button } from '../../../shared/ui/button';
+import { FormStepAccountUI } from '../FormRegistration/FormStepAccount';
+import { Button } from '@/shared/ui';
 import {
   validateEmail,
   checkPasswordLengthStatus
 } from '@/shared/lib/utils/formValidation';
 
-import styles from './FormStepAccount.module.scss';
+import styles from '../FormRegistration/FormStepAccount/FormStepAccount.module.scss';
 import { useAppSelector, useDispatchedActions } from '@/services/hooks';
 import { userActions, userSelectors } from '@/services/slices/user';
 

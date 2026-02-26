@@ -60,10 +60,10 @@ export const Skill: FC = () => {
     <>
     {showModal &&
       <SkillActionModal
-        image={<Icon name='icon-Done' size={100}/>}
-        maintText={'Важе предложение создано'}
-        secondaryText={'Теперь вы можете предложить обмен'}
-        primaryBtnText={""}
+        image={<Icon name='icon-notification' fill={'none'} size={100}/>}
+        maintText={'Вы предложили обмен'}
+        secondaryText={'Теперь дождитесь подтверждения. Вам придёт уведомление'}
+        primaryBtnText={"Готово"}
         onClose={handleOnClose}
         isOpen={showModal}
       />
