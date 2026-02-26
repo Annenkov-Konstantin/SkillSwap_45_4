@@ -1,4 +1,6 @@
 export type TLikeButtonProps = {
-  isLiked: boolean;
-  onClick: () => void;
+  isLiked: boolean | undefined;
+  onClick: (e:React.MouseEvent) => void;
+  likeRef?: React.Ref<HTMLButtonElement>;
+  likeButtonId?:string;
 };

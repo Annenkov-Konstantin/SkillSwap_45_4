@@ -1,3 +1,6 @@
 export type TImageDropzoneProps = {
-  handleDelete: () => void;
+  handleDelete?: (file: File) => void;
+  onImagesAdded?: (files: File[]) => void;
+  onImageRemoved?: (index: number, file: File) => void;
+  images:string[];
 }

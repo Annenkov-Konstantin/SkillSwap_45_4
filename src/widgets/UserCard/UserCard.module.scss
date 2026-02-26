@@ -11,6 +11,26 @@
   background-color: $color-card-input;
   width: 324px;
 }
+.like_info {
+@include body-text;
+@include border-radius;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 12px;
+  left: 15px;
+  bottom: 95%;
+  z-index: 3;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-width: max-content;
+  padding: 3px 5px 3px 20px;
+  background-color: rgba(222, 235, 197, 1);
+  box-shadow:0 0 4px 1px $color-alarm;
+  font-size: 14px;
+  list-style: revert;
+
+}
 
 .skills {
   display: flex;
@@ -35,7 +55,7 @@
 
 .likesCount {
   @include body-text;
-  color: $color-text; 
+  color: $color-text;
 }
 
 .description {

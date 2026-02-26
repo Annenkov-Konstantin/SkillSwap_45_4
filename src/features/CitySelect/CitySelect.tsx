@@ -8,15 +8,21 @@ import { InputLabel } from '@shared/ui/inputLabel';
 import { InputAndDropdownWrapper } from '@shared/ui/inputAndDropdownWrapper';
 import { InputButton } from '@shared/ui/inputButton';
 
-export const CitySelect: React.FC<CitySelectProps> = ({ cityList }) => {
+export const CitySelect: React.FC<CitySelectProps> = ({ cityList, value, onChange,  placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(value || '');
   const [filteredList, setFilteredList] = useState(cityList);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setInputValue(value || '');
+    }
+  }, [value]);
 
   // Дебаунс для поиска
   const debouncedSearch = useDebounce(inputValue, 300);
@@ -76,21 +82,36 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList }) => {
   }, [highlightedIndex]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
     setInputValue(e.target.value);
     setIsOpen(true);
     setHighlightedIndex(-1);
+
+    if (onChange && !newValue) {
+      onChange('');
+    }
   };
 
   const handleValueSelect = (value: string) => {
     setInputValue(value);
     setIsOpen(false);
     setHighlightedIndex(-1);
+
+    if (onChange) {
+      const selectedCity = cityList.find(city => city.name === value)?.name || '';
+      onChange(selectedCity);
+    }
   };
 
   const handleClear = () => {
     setInputValue('');
     setIsOpen(false);
     setHighlightedIndex(-1);
+
+    if (onChange) {
+      onChange('');
+    }
+
     inputRef.current?.focus();
   };
 
@@ -162,7 +183,7 @@ export const CitySelect: React.FC<CitySelectProps> = ({ cityList }) => {
             handleInputChange={handleInputChange}
             handleKeyDown={handleKeyDown}
             setIsOpen={setIsOpen}
-            placeholder='Не указан'
+            placeholder={placeholder}
           />
         }
         dropdownList={

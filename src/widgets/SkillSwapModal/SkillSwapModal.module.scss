@@ -50,9 +50,10 @@
 .buttons {
   display: flex;
   gap: 12px;
+  justify-content: space-between;
 }
 
-.edit-icon {
+.icon_pen {
   @include icon-size;
   margin-left: 8px;
 }

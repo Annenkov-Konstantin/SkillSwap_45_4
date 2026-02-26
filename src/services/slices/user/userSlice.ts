@@ -50,7 +50,7 @@ export const userSlice = createSlice({
     selectUser: (state) => state.user,
     selectUserStatus: (state) => state.requestStatus,
     selectUserError:(state)=>state.error,
-    selectUserAuth:(state)=>state.isAuth
+    selectUserAuth:(state)=>state.isAuth,
   },
   extraReducers: (builder) => {
     builder
@@ -82,7 +82,8 @@ export const userSlice = createSlice({
       .addMatcher(
         isAnyOf(
           fetchUserApi.fulfilled,
-          fetchLoginApi.fulfilled
+          fetchLoginApi.fulfilled,
+          fetchRegisterApi.fulfilled
         ),
         (state, action: PayloadAction<TUser>) => {
           state.requestStatus = requestStatus.SUCCESS;
@@ -92,30 +93,7 @@ export const userSlice = createSlice({
         }
       )
       /*       // Успешный вход (login)
-      .addMatcher(
-        fetchLoginApi.fulfilled,
-        (
-          state,
-          action: PayloadAction<{
-            user: TUser;
-            tokens: { access_token: string; refresh_token: string };
-          }>
-        ) => {
-          state.requestStatus = requestStatus.SUCCESS;
-          state.user = action.payload.user;
-        }
-      )
-      // Успешная регистрация
-      .addMatcher(
-        fetchRegisterApi.fulfilled,
-        (
-          state,
-          action: PayloadAction<TUser>
-        ) => {
-          state.requestStatus = requestStatus.SUCCESS;
-          state.user = action.payload;
-        }
-      )
+      
       // Успешное обновление профиля
       .addMatcher(
         fetchUpdateUserApi.fulfilled,

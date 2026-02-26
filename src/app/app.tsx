@@ -7,6 +7,7 @@ import { IconSprite } from '@/assets/IconSprite'; // спрайт иконок
 
 // Роутинг
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
+import { AppRoutes } from '@/shared/lib/constants';
 
 // Контекст
 import { SkillsModalProvider } from '@/shared/context/SkillsModalProvider';
@@ -22,21 +23,24 @@ import { Header } from '@/widgets/Header/Header';
 import { Footer } from '@/widgets/Footer';
 import { FormProfileUpdate } from '@/widgets/FormProfileUpdate';
 import { FormLayout } from '@/widgets/FormLayout/FormLayout';
-
-import { FormStepAccountLogin } from '@/widgets/FormRegistration/FormStepAccount/FormStepAccountLogin';
-import { FormStepAccountRegistr } from '@/widgets/FormRegistration/FormStepAccount/FormStepAccountRegistr';
+import { FormStepAccountLogin } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountLogin';
+import { FormStepAccountRegistr } from '@/pages/FormRegistration/FormStepAccount/FormStepAccountRegistr';
 
 // Защита маршрутов
 import { ProtectedRoute } from '@features/index';
 // Хуки
 import { useEffect } from 'react';
-import { useAppSelector, useDispatchedActions } from '@/services/hooks';
+import { useDispatchedActions } from '@/services/hooks';
 // Сторы
 import { userListActions } from '@/services/slices/userList';
 import { userSkillListActions } from '@/services/slices/userSkillList';
 import { skillsActions } from '@/services/slices/skills';
 import { cityActions } from '@/services/slices/city';
-import { userActions, userSelectors } from '@/services/slices/user';
+import { userActions } from '@/services/slices/user';
+import { FormStepPersonalUI } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonalUI';
+import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/FormStepPersonal';
+import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
+import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 
 
 const App = () => {
@@ -45,7 +49,6 @@ const App = () => {
   const { fetchSkills } = useDispatchedActions(skillsActions);
   const { fetchCity } = useDispatchedActions(cityActions);
   const { fetchUserApi, authUser } = useDispatchedActions(userActions);
-  const isAuthUser = useAppSelector(userSelectors.selectUserAuth)
   const location = useLocation();
 
   // Массив путей, на которых не должны отображаться Header и Footer
@@ -93,31 +96,32 @@ return (
 
     <div className={styles.container}>
       <Routes location={location}>
-        {/* Главная страница - доступна всем */}
-        <Route path='/' element={<HomeCatalog />} />
+        {/* Главная страница и страница навыка - доступна всем */}
+        <Route path={AppRoutes.HomeCatalog} element={<HomeCatalog />} />
+
         {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
-        <Route element={<ProtectedRoute onlyUnAuth={isAuthUser} />}>
-          {/* <Route path='/login' element={<FormLayout />}>
+        <Route element={<ProtectedRoute isPublic/>}>
+          <Route path={AppRoutes.Login} element={<FormLayout />}>
             <Route index element={<FormStepAccountLogin />} />
-          </Route> */}
-          <Route path='/login' element={<Skill />}></Route>
-          <Route path='/register' element={<FormLayout />}>
-            <Route index element={<Navigate to="account" replace />} />
-            <Route path="account" element={<FormStepAccountRegistr />} />
-            <Route path="personal" element={<div>Личные данные (заглушка)</div>} />
-            <Route path="skill" element={<div>Навыки (заглушка)</div>} />
+          </Route>
+
+          <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
+            <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
+            <Route path={AppRoutes.RegAccount} element={<FormStepAccountRegistr />} />
+            <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal/>} />
+            <Route path={AppRoutes.RegSkill} element={<FormStepSkill/>} />
           </Route>
         </Route>
 
         {/* Профиль - ТОЛЬКО для авторизованных */}
         <Route element={<ProtectedRoute />}>
           {/* Здесь будут защищенные маршруты, например: */}
-          <Route path='/profile' element={<div>Профиль пользователя</div>} />
-          <Route path='/settings' element={<div>Настройки</div>} />
+          <Route path={AppRoutes.Profile} element={<div>Профиль пользователя</div>} />
+          <Route path={AppRoutes.Settings} element={<div>Настройки</div>} />
         </Route>
 
         {/* Другие страницы - доступны всем */}
-        <Route path='/error' element={<ServerError500 />} />
+        <Route path={AppRoutes.Error} element={<ServerError500 />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 

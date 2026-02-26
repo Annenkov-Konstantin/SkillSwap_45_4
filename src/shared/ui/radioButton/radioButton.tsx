@@ -7,7 +7,8 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   value,
   checked,
   onChange,
-  name
+  name,
+  shape = 'circle'
 }) => {
   return (
     <label className={styles.radioButton}>
@@ -19,7 +20,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
         onChange={() => onChange(value)}
         aria-label={label}
       />
-      <span className={styles.customRadio} />
+      <span
+        className={`${styles.customRadio} ${shape === 'square' ? styles.customRadio_square : ''}`}
+      />
       {label}
     </label>
   );

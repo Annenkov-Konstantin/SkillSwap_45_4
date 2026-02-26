@@ -1,26 +1,54 @@
 @use '@app/styles/_variables.scss' as *;
+@use '@app/styles/mixins' as *;
 
 .dropdown {
+  @include body-text;
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: $color-card-input;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .button_wrapper {
+      cursor: not-allowed;
+
+      .dropbutton {
+        color: $color-disabled-text;
+        border-color: $color-disabled;
+        cursor: not-allowed;
+      }
+    }
+
+    * {
+      pointer-events: none;
+    }
+  }
 }
 
 .button_wrapper{
+  padding: 12px 20px;
   border: 1px solid $color-caption;
   border-radius: 12px;
+  overflow: hidden;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  justify-content: space-between;
 
   &_open {
     border-bottom: 1px solid transparent;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  &_disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
@@ -29,10 +57,17 @@ li {
 }
 
 .dropbutton {
+  @include body-text;
   color: $color-caption;
   background-color: $color-card-input;
   border: none;
-  cursor: pointer;  
+  cursor: pointer;
+
+  &:disabled {
+    color: $color-disabled-text;
+    border-color: $color-disabled;
+    cursor: not-allowed;
+  }
 }
 
 .dropdown_content {
@@ -41,7 +76,7 @@ li {
   &_open {
     width: 100%;
     position: absolute;
-    flex: 0 0 auto;  
+    flex: 0 0 auto;
     z-index: 10;
     top: 100%;
     left: 0;
@@ -55,6 +90,16 @@ li {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 8px;
   }
+}
+
+.dropdown_content_open_scrollable {
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dropdown_content_open li {
+  width: 100%;
 }

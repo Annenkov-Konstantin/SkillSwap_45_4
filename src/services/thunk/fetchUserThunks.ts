@@ -4,20 +4,6 @@ import type { Tdelta, TFavoriteData, TlikeData, TLoginCredentials, TRegisterData
 import type { TUser } from '@/entities/user';
 import { setCookie } from '@/shared/lib/utils/cookie';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Логин пользователя
  */
@@ -49,10 +35,10 @@ export const fetchRegisterApi = createAppAsyncThunk<
     if (!result.success) {
       throw new Error(result.message || 'Registration failed');
     }
-    setCookie(
-      'access_token',
-      result.access_token
-    )
+    localStorage.setItem('refresh_token', result.refresh_token);
+    setCookie('access_token', result.access_token, {
+      expires: 7 * 24 * 60 * 60 // на неделю
+    });
     return result.profile; // успешный ответ с profile и токенами
   }
 );

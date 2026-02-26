@@ -7,12 +7,14 @@ export type TUserCardUIProps = {
   user:TUser;
   skillsToLearn: TSkillAdapter[];
   skillsCanTeach: TSkillAdapter[];
-  isFavorite: boolean;
+  isFavorite:()=>boolean | undefined;
   isSuggested: boolean;
   handleMore: () => void;
-  handleLike: () => void;
+  handleLike: (value:React.MouseEvent) => void;
   type: 'learn' | 'teach';
   likeCounter:number;
+  likeRef?: React.Ref<HTMLButtonElement>;
+  isLikeMessage?:boolean;
 };
 
 export type TUserCardProps = {

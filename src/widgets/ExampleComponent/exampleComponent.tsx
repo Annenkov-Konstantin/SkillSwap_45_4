@@ -3,7 +3,7 @@ import type { FC } from 'react';
 // import { UserCard } from '@widgets/UserCard';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
 import { skillsActions, skillsSelectors } from '@slice/skills';
-//-----------------------------------------
+//
 import { skillsListAdapter } from '@shared/lib/utils/skillsListAdapter';
 // import { FilterAside } from '../FilterAside/FilterAside';
 
@@ -15,12 +15,13 @@ import { userListActions, userListSelectors } from '@slice/userList';
 import { useSelector } from 'react-redux';
 import { selectSwapCards } from '@/services/selectors/swapCardSelector';
 import { ImageDropzone } from '@/features/ImageDropzone';
+import { CardCarouselUI } from '../CardCarousel';
 
 
 export const ExampleComponent: FC = () => {
-  const { fetchGetAllUsers } = useDispatchedActions(userListActions);
-  const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
-  const { fetchSkills } = useDispatchedActions(skillsActions);
+  // const { fetchGetAllUsers } = useDispatchedActions(userListActions);
+  // const { fetchUserListSkills } = useDispatchedActions(userSkillListActions);
+  // const { fetchSkills } = useDispatchedActions(skillsActions);
 
   useEffect(() => {
     fetchGetAllUsers();
@@ -109,6 +110,9 @@ export const ExampleComponent: FC = () => {
   //   };
   //   testLike();
   // }, []);
+
+
+  const cards = useAppSelector(selectSwapCards);
 
   return (
     <div>

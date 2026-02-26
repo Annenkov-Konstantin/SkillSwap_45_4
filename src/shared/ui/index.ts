@@ -13,3 +13,4 @@ export { InputButton } from './inputButton';
 export { DropdownList } from './dropdownList';
 export { Select } from './select';
 export { LikeButtonUI } from './likeButton';
+export { CalendarInput } from './DateInputCalendar'

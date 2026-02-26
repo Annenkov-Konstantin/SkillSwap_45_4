@@ -57,7 +57,12 @@ export const Select: React.FC<TSelectProps> = ({
     setHighlightedIndex(selectedIndex >= 0 ? selectedIndex : 0);
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
     if (disabled) {
       return;
     }
@@ -69,7 +74,12 @@ export const Select: React.FC<TSelectProps> = ({
     openDropdown();
   };
 
-  const handleSelect = (nextValue: string) => {
+  const handleSelect = (nextValue: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
     if (!isControlled) {
       setInternalValue(nextValue);
     }
@@ -80,6 +90,8 @@ export const Select: React.FC<TSelectProps> = ({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
     if (disabled || options.length === 0) {
       return;
     }
@@ -87,6 +99,7 @@ export const Select: React.FC<TSelectProps> = ({
     switch (event.key) {
     case 'ArrowDown':
       event.preventDefault();
+      event.stopPropagation();
       if (!isOpen) {
         openDropdown();
         return;
@@ -97,6 +110,7 @@ export const Select: React.FC<TSelectProps> = ({
       break;
     case 'ArrowUp':
       event.preventDefault();
+      event.stopPropagation();
       if (!isOpen) {
         openDropdown();
         return;
@@ -106,6 +120,7 @@ export const Select: React.FC<TSelectProps> = ({
     case 'Enter':
     case ' ':
       event.preventDefault();
+      event.stopPropagation();
       if (!isOpen) {
         openDropdown();
         return;
@@ -117,6 +132,7 @@ export const Select: React.FC<TSelectProps> = ({
     case 'Escape':
       if (isOpen) {
         event.preventDefault();
+        event.stopPropagation();
         closeDropdown();
       }
       break;
@@ -156,8 +172,33 @@ export const Select: React.FC<TSelectProps> = ({
     }
   }, [highlightedIndex, isDropdownOpen]);
 
+  const handleControlClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleDropdown(e);
+  };
+
+  const handleTriggerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleDropdown(e);
+  };
+
+  const handleOptionClick = (optionValue: string, e: React.MouseEvent<HTMLLIElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSelect(optionValue, e);
+  };
+
   return (
-    <div className={clsx(styles.container, className)} ref={containerRef}>
+    <div
+      className={clsx(styles.container, className)}
+      ref={containerRef}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
       {label && <InputLabel inputId={selectId} labelValue={label} />}
 
       <div
@@ -165,6 +206,10 @@ export const Select: React.FC<TSelectProps> = ({
           [styles.controlWrapperOpen]: isDropdownOpen,
           [styles.controlWrapperDisabled]: disabled
         })}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       >
         <button
           type='button'
@@ -177,7 +222,7 @@ export const Select: React.FC<TSelectProps> = ({
           aria-haspopup='listbox'
           aria-label={label ?? placeholder}
           disabled={disabled}
-          onClick={toggleDropdown}
+          onClick={handleControlClick}
           onKeyDown={handleKeyDown}
           ref={controlRef}
         >
@@ -186,9 +231,12 @@ export const Select: React.FC<TSelectProps> = ({
 
         <div
           className={styles.trigger}
-          onClick={(event) => event.stopPropagation()}
+          onClick={handleTriggerClick}
         >
-          <DropdownTrigger isOpen={isDropdownOpen} onClick={toggleDropdown} />
+          <DropdownTrigger
+            isOpen={isDropdownOpen}
+            onClick={toggleDropdown}
+          />
         </div>
       </div>
 
@@ -199,6 +247,10 @@ export const Select: React.FC<TSelectProps> = ({
           className={styles.list}
           role='listbox'
           aria-labelledby={selectId}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
         >
           {options.map((option, index) => (
             <li
@@ -209,7 +261,7 @@ export const Select: React.FC<TSelectProps> = ({
                 [styles.optionHighlighted]: highlightedIndex === index,
                 [styles.optionSelected]: selectedValue === option.value
               })}
-              onClick={() => handleSelect(option.value)}
+              onClick={(e) => handleOptionClick(option.value, e)}
               onMouseEnter={() => setHighlightedIndex(index)}
             >
               {option.label}
