@@ -9,7 +9,7 @@ export const Header: React.FC = ({
       }) => {
   const [ search, setSearch ]= useState('');
   // юзаем контекст состояния модалки
-  const [shouldModalRender, setShouldmodalRender] = useContext(SkillsModalContext);
+  const {shouldModalRender, setShouldmodalRender} = useContext(SkillsModalContext);
   const { searchChange } = useDispatchedActions(filterActions);
 
 

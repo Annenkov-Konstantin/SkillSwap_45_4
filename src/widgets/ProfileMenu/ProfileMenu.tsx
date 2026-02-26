@@ -7,25 +7,26 @@ import { Button } from '@/shared/ui';
 import { deleteCookie } from '@/shared/lib/utils/cookie';
 import { useDispatchedActions } from '@/services/hooks';
 import { userActions } from '@/services/slices/user';
+import { AppRoutes } from '@/shared/lib/constants';
 
 const sidebarItems: IPMItem[] = [
   {
-    to: '/',
+    to: '/my-orders',
     icon: 'request',
     text: 'Заявки',
   },
   {
-    to: '/swaps',
+    to: '/my-swap',
     icon: 'message-text',
     text: 'Мои обмены'
   },
   {
-    to: '/favorites',
+    to: AppRoutes.Favourites,
     icon: 'like',
     text: 'Избранное'
   },
   {
-    to: '/skills',
+    to: '/my-skills',
     icon: 'idea',
     text: 'Мои навыки',
     strokeIcon: true

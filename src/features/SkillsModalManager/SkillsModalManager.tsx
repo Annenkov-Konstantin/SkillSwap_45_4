@@ -6,7 +6,7 @@ import { SkillsModalContext } from '@/shared/context/SkillsModalContext';
 import skills from '../../../public/db/skills/skills.json';
 
 export const SkillsModalManager:FC = () => {
-  const [shouldModalRender, setShouldmodalRender] = useContext(SkillsModalContext);
+  const {shouldModalRender, setShouldmodalRender} = useContext(SkillsModalContext);
   const [isSkillModalVisible, setSkillModalVisible] = useState(false);
 
   // рефы на таймеры

@@ -1,38 +1,36 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from './profile.module.scss';
 import { ProfileMenu } from '@widgets/ProfileMenu';
-import { FormProfileUpdate } from '@widgets/FormProfileUpdate';
 import { SkillActionModal } from "@/widgets/skillActionModal";
 import { Icon } from "@/shared/ui/Icon";
+import { FavouritesCollection } from "@/widgets/Favourites";
+import { Outlet } from "react-router-dom";
+import { FormProfileUpdate } from "@/widgets/FormProfileUpdate";
+import { SkillsModalContext } from "@/shared/context/SkillsModalContext";
 
 export const Profile: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-
+ const {showProfileModal, setShowProfileModal} = useContext(SkillsModalContext);
 
     const handleClose= ()=>{
-      setShowModal(false)
+      setShowProfileModal(false)
     }
-
-     const handleOpen= ()=>{
-      setShowModal(true)
-    }
-
+    //  const handleOpen= ()=>{
+    //    setShowProfileModal(true);
+    // }
 
     return(
     <div className={styles.container}>
-      {showModal &&
+      {showProfileModal &&
        <SkillActionModal
           image={<Icon name={'icon-user'} size={100} fill={'#abd27a'} />}
           maintText={'Ваши данные обновлены'}
           secondaryText={''}
           primaryBtnText={'Ок'}
           onClose={handleClose}
-          isOpen={showModal}
+          isOpen={showProfileModal}
        />}
       <ProfileMenu />
-      <FormProfileUpdate
-        onModalAction={handleOpen}
-      />
+      <Outlet/>
     </div>
   );
 }

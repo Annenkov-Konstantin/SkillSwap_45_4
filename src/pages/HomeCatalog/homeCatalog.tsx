@@ -61,7 +61,7 @@ export const HomeCatalog: FC = () => {
   <div className={styles.container}>
       {show && <SkillActionModal
       image= {<Icon name={'icon-Done'} size={100} stroke="#253017" fill={'none'}/>}
-      maintText='Важе предложение создано'
+      maintText='Вы успешно зарегистрировались'
       secondaryText='Теперь вы можете предложить обмен'
       primaryBtnText= 'Готово'
       onClose={handleClose}

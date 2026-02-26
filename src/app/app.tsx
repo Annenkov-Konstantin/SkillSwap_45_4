@@ -42,6 +42,7 @@ import { FormStepPersonal } from '@/pages/FormRegistration/FormStepPersonal/Form
 import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/registerPersonal';
 import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 import { Profile } from '@/pages/Profile';
+import { FavouritesCollection } from '@/widgets/Favourites';
 
 
 const App = () => {
@@ -105,7 +106,10 @@ const App = () => {
             </Route>
           </Route>
           <Route element={<ProtectedRoute/>}>
-            <Route path={AppRoutes.Profile} element={<Profile />} />
+            <Route path={AppRoutes.Profile} element={<Profile />}>
+              <Route index element={<FormProfileUpdate/>}/>
+              <Route path={AppRoutes.Favourites} element={<FavouritesCollection/>}/>
+            </Route>
           </Route>
 
           {/* Страницы ошибок */}

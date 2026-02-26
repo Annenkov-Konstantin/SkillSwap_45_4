@@ -3,14 +3,12 @@
 @use 'sass:map';
 
 .aside {
-  // max-width: fit-content;
-  // min-width: 300px;
-  // margin-left: 40px;
   grid-row: 1/4;
   padding:20px;
   @include border-radius;
   background-color: #fff;
   max-width: 324px;
+  max-height: fit-content;
 }
 
 .filter_header {

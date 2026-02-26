@@ -24,5 +24,5 @@ export type TProfileUiProps = {
 };
 
 export type TFormProfileUpdateProp = {
-  onModalAction:()=>void;
+  // onModalAction:()=>void;
 }
