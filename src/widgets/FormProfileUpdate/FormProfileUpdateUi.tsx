@@ -1,6 +1,6 @@
 import type React from "react";
 import styles from './FormProfileUpdate.module.scss';
-import { Button, Input, Select } from "@/shared/ui";
+import { Button, Input, Select, TextArea } from "@/shared/ui";
 import { CitySelect } from "@/features";
 import cityList from "../../../public/db/city/city.json";
 import { CalendarInput } from "@/shared/ui";
@@ -45,12 +45,12 @@ export const FormProfileUpdateUi: React.FC<TProfileUiProps> = ({
           </div>
         </div>
         <div className={styles.form_input_container}>
-          <CitySelect onChange={(value) => handleFieldChange('city')(value as string)} cityList={cityList}></CitySelect>
+          <CitySelect placeholder="Выберите город" onChange={(value) => handleFieldChange('city')(value as string)} cityList={cityList}></CitySelect>
         </div>
         <div className={styles.form_input_container}>
           <label>
             <span className={styles.form_input_label}>О себе</span>
-            <Input onChange={handleFieldChange('description')} type="text" name="userDescription" value={formData.description || ''}></Input>
+            <TextArea onChange={handleFieldChange('description')} name="userDescription" value={formData.description || ''}></TextArea>
           </label>
         </div>
         <div className={styles.button_container}>
