@@ -71,12 +71,12 @@ const App = () => {
       fetchUserApi()
     ]).catch((error) => {
       console.error('Один из запросов упал:', error);
-    }).finally(()=>authUser())
+    }).finally(() => authUser())
   }, []);
 
   const LayoutWithShell = () => (
     <>
-      <Header/>
+      <Header />
       <IconSprite />
       <SkillsModalManager />
       <main className={styles.container}>
@@ -99,10 +99,26 @@ return (
         {/* Главная страница и страница навыка - доступна всем */}
         <Route path={AppRoutes.HomeCatalog} element={<HomeCatalog />} />
 
-        {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
-        <Route element={<ProtectedRoute isPublic/>}>
-          <Route path={AppRoutes.Login} element={<FormLayout />}>
-            <Route index element={<FormStepAccountLogin />} />
+      {/* Показываем Header только на страницах, где нет FormLayout */}
+      {showHeaderFooter && <Header />}
+
+      <div className={styles.container}>
+        <Routes location={location}>
+          {/* Главная страница и страница навыка - доступна всем */}
+          <Route path={AppRoutes.HomeCatalog} element={<HomeCatalog />} />
+          <Route path={AppRoutes.RegSkill} element={<div>Навыки (заглушка)</div>} />
+
+          {/* Страницы логина и регистрации - ТОЛЬКО для неавторизованных */}
+          <Route element={<ProtectedRoute isPublic />}>
+            <Route path={AppRoutes.Login} element={<FormLayout />}>
+              <Route index element={<FormStepAccountLogin />} />
+            </Route>
+
+            <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
+              <Route index element={<Navigate to={AppRoutes.RegAccount} replace />} />
+              <Route path={AppRoutes.RegAccount} element={<FormStepAccountRegistr />} />
+              <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal />} />
+            </Route>
           </Route>
 
           <Route path={AppRoutes.RegistrationLayout} element={<FormLayout />}>
@@ -111,25 +127,17 @@ return (
             <Route path={AppRoutes.RegPersonal} element={<RegisterPersonal/>} />
             <Route path={AppRoutes.RegSkill} element={<FormStepSkill/>} />
           </Route>
-        </Route>
 
-        {/* Профиль - ТОЛЬКО для авторизованных */}
-        <Route element={<ProtectedRoute />}>
-          {/* Здесь будут защищенные маршруты, например: */}
-          <Route path={AppRoutes.Profile} element={<div>Профиль пользователя</div>} />
-          <Route path={AppRoutes.Settings} element={<div>Настройки</div>} />
-        </Route>
+          {/* Другие страницы - доступны всем */}
+          <Route path={AppRoutes.Error} element={<ServerError500 />} />
+          <Route path='*' element={<NotFound404 />} />
+        </Routes>
 
-        {/* Другие страницы - доступны всем */}
-        <Route path={AppRoutes.Error} element={<ServerError500 />} />
-        <Route path='*' element={<NotFound404 />} />
-      </Routes>
-
-      {/* Показываем Footer только на страницах, где нет FormLayout */}
-      {showHeaderFooter && <Footer />}
-    </div>
-  </SkillsModalProvider>
-);
+        {/* Показываем Footer только на страницах, где нет FormLayout */}
+        {showHeaderFooter && <Footer />}
+      </div>
+    </SkillsModalProvider>
+  );
 };
 
 export default App;
