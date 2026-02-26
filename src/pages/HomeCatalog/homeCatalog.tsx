@@ -38,43 +38,43 @@ export const HomeCatalog: FC = () => {
 
 
   return (
-  <div className={styles.container}>
-    <FilterAside />
-    {!isFilterActive && (
-      <>
-      <SortSwapList
-      type='popular'
-      />
-      <SortSwapList
-      type='new'
-      />
-      <MainRecommendationList />
-      </>
-    )}
-    {isFilterActive && (
-      <>
-        <div className={styles.filter_buttons}>
-          <PreferenceAndSkillWrapper />
-        </div>
-        {isLoading ? (
-          <Preloader radius={70} />
-        ) : (
-          <div className={styles.main_content}>
-             <div className={styles.main_heading}>
-              <h1>Подходящие предложения: <span className={styles.heading_counter}>{filteredCards.length}</span></h1>
-              <SortButtonButton/>
-              </div>
-            {filteredCards.map((card, index) => (
-              <UserCard
-                key={index}
-                user={card.user}
-                swap={card.skill}
-              />
-            ))}
+    <div className={styles.container}>
+      <FilterAside />
+      {!isFilterActive && (
+        <>
+          <SortSwapList
+            type='popular'
+          />
+          <SortSwapList
+            type='new'
+          />
+          <MainRecommendationList />
+        </>
+      )}
+      {isFilterActive && (
+        <>
+          <div className={styles.filter_buttons}>
+            <PreferenceAndSkillWrapper />
           </div>
-        )}
-      </>
-    )}
-  </div>
-);
-}
+          {isLoading ? (
+            <Preloader radius={70} />
+          ) : (
+            <div className={styles.main_content}>
+              <div className={styles.main_heading}>
+                <h1>Подходящие предложения: <span className={styles.heading_counter}>{filteredCards.length}</span></h1>
+                <SortButtonButton/>
+              </div>
+              {filteredCards.map((card, index) => (
+                <UserCard
+                  key={index}
+                  user={card.user}
+                  swap={card.skill}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
