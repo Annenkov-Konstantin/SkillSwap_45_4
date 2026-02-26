@@ -68,7 +68,7 @@ const handleMultiSkillChange = (ids: number[]) => {
             height={72}
           />
         ) : (
-          <Icon name='icon-user-circle' size={72} fill='none' />
+          <Icon name='icon-user-circle' size={72} fill='none' stroke='currentColor' />
         )}
         <button
           type='button'
