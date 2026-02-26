@@ -33,6 +33,9 @@ export const userSlice = createSlice({
   name: SLICE_NAMES.USER,
   initialState,
   reducers: {
+    clearUser: (state) => {
+      state.user = null;
+    },
     clearError: (state) => {
       state.error = null;
     },
@@ -51,6 +54,7 @@ export const userSlice = createSlice({
     selectUserStatus: (state) => state.requestStatus,
     selectUserError:(state)=>state.error,
     selectUserAuth:(state)=>state.isAuth,
+    selectUserGender:(state)=>state.user?.gender
   },
   extraReducers: (builder) => {
     builder
@@ -64,7 +68,16 @@ export const userSlice = createSlice({
           }
         }
       )
-
+      .addCase( fetchUpdateUserApi.fulfilled,
+        (state, action: PayloadAction<Partial<TUser>>) => {
+          state.requestStatus = requestStatus.SUCCESS;
+          const newData = action.payload;
+          if (state.user) {
+            // Обновляем весь массив избранного (сервер вернул актуальный)
+            state.user= {...state.user, ...newData};
+          }
+        }
+      )
         // Общий pending для всех асинхронных операций с пользователем
       .addMatcher(
         isAnyOf(
@@ -92,23 +105,6 @@ export const userSlice = createSlice({
           state.isAuth=true;
         }
       )
-      /*       // Успешный вход (login)
-      
-      // Успешное обновление профиля
-      .addMatcher(
-        fetchUpdateUserApi.fulfilled,
-        (
-          state,
-          action: PayloadAction<{
-            data: TUser;
-            message: string;
-            success: boolean;
-          }>
-        ) => {
-          state.requestStatus = requestStatus.SUCCESS;
-          state.user = action.payload.data;
-        }
-      ) */
       // Обработка ошибок для всех thunks
       .addMatcher(
         isAnyOf(

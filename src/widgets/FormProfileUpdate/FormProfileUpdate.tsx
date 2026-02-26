@@ -1,11 +1,17 @@
-import { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { FormProfileUpdateUi } from "./FormProfileUpdateUi";
-import type { TFormProfileUpdate, THandleFieldChange } from "./types";
+import type { TFormProfileUpdate, TFormProfileUpdateProp, THandleFieldChange } from "./types";
+import { useAppSelector, useDispatchedActions } from "@/services/hooks";
+import { userActions, userSelectors } from "@/services/slices/user";
+import { userSkillListActions } from "@/services/slices/userSkillList";
 
-export const FormProfileUpdate: React.FC = () => {
+export const FormProfileUpdate: React.FC<TFormProfileUpdateProp> =({onModalAction}) => {
   const [formData, setFormData] = useState<TFormProfileUpdate>({});
   const [avatar, setAvatar] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const gender = useAppSelector(userSelectors.selectUserGender);
+  const { fetchUpdateUserApi } = useDispatchedActions(userActions)
+  const { fetchUserListSkills } = useDispatchedActions(userSkillListActions)
 
   const handleImageSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -15,7 +21,7 @@ export const FormProfileUpdate: React.FC = () => {
         const avatarUrl = reader.result as string;
         setAvatar(avatarUrl);
         setFormData(prev => ({
-          ...prev, avatar: avatarUrl,
+          ...prev, avatarPic: avatarUrl,
         }));
       };
       reader.readAsDataURL(file);
@@ -35,10 +41,10 @@ export const FormProfileUpdate: React.FC = () => {
   };
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    console.log('Submit form:', formData);
-  };
+        e.preventDefault();
+        fetchUpdateUserApi(formData)
+        .then(()=>onModalAction())
+      };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -48,7 +54,9 @@ export const FormProfileUpdate: React.FC = () => {
         handleImageSelect={handleImageSelect}
         handlePhotoClick={handlePhotoClick}
         avatar={avatar}
-        fileInputRef={fileInputRef} />
+        fileInputRef={fileInputRef}
+        isMale={gender}
+      />
     </form>
   );
 };

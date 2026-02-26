@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@store-hooks';
 import { SLICE_NAMES } from '@constants';
-import type { Tdelta, TFavoriteData, TlikeData, TLoginCredentials, TRegisterData, TToggleFavoriteParams, TTokens } from '@api/types';
+import type { TFavoriteData, TLoginCredentials, TRegisterData, TToggleFavoriteParams } from '@api/types';
 import type { TUser } from '@/entities/user';
 import { setCookie } from '@/shared/lib/utils/cookie';
 

@@ -162,7 +162,6 @@ export class Api {
   getUserApi = async (): Promise<TServerResponse<TUser> | null> => {
     try {
       const authData = await this.fetchAuthUser();
-      console.log(authData)//пусто
       const userId = authData.id;
       const response = await fetch(
         `${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`,
@@ -180,7 +179,6 @@ export class Api {
       );
 
       const result = await response.json();
-      console.log(result)//пусто
 
       //  Проверяем структуру ответа
       if (!result.success) {
@@ -263,74 +261,89 @@ export class Api {
       });
   };
 
-  // Обновление профиля
   updateUserProfileApi = async (
-    profileData: Partial<TUser>
-  ): Promise<TGetAuthUserById> => {
-    const toLowerCaseData = transformKeysToLowercase(profileData);
-    try {
-      // Получаем актуальные токены и auth данные
-      const authData = await this.fetchAuthUser();
-      const userId = authData.id; // UUID из auth
-      // Получаем _id пользователя из таблицы
-      const userResponse = await fetch(
-        `${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
-            apikey: this.apiKey,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ auth_id: userId })
-        }
-      );
+      profileData: Partial<TUser>
+    ): Promise<TGetAuthUserById> => {
+      try {
+        // Получаем актуальные токены и auth данные
+        const authData = await this.fetchAuthUser();
+        const userId = authData.id;
 
-      const userResult = await userResponse.json();
-
-      if (!userResult.success) {
-        throw new Error(userResult.message || 'Пользователь не найден');
-      }
-      // Обновляем профиль
-      const response = await fetch(
-        `${this.baseUrl}/${QUERY_ENDPOINTS.updateUserProfile}`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
-            apikey: this.apiKey,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            _id: userResult.data._id, // _id из таблицы
-            ...toLowerCaseData
-          })
-        }
-      );
-
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.message);
-      }
-      return result;
-    } catch (error) {
-      console.error('Ошибка обновления профиля:', error);
-
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      if (
-        errorMessage.includes('Session expired') ||
-        errorMessage.includes('сессия истекла')
-      ) {
-        return Promise.reject(
-          new Error('Сессия истекла. Пожалуйста, войдите снова')
+        // Получаем _id пользователя из таблицы
+        const userResponse = await fetch(
+          `${this.baseUrl}/${QUERY_ENDPOINTS.getUserByAuthId}`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${getCookie('access_token')}`,
+              apikey: this.apiKey,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ auth_id: userId })
+          }
         );
-      }
 
-      return Promise.reject(error);
-    }
-  };
+        const userResult = await userResponse.json();
+
+        if (!userResult.success) {
+          throw new Error(userResult.message || 'Пользователь не найден');
+        }
+
+        // Преобразуем ключи в нижний регистр для БД
+        const lowerCaseData = transformKeysToLowercase(profileData);
+
+        // СОЗДАЕМ ОБЪЕКТ С ИМЕНОВАННЫМИ ПАРАМЕТРАМИ
+        const functionParams = {
+          _id: userResult.data._id,                    // _id
+          name: lowerCaseData.name || null,              // name
+          email: lowerCaseData.email || null,             // email
+          dateofbirth: lowerCaseData.dateofbirth || null, // dateofbirth
+          gender: lowerCaseData.gender || null,           // gender
+          location: lowerCaseData.location || null,       // location
+          aboutme: lowerCaseData.aboutme || null,         // aboutme
+          favoriteskills: lowerCaseData.favoriteskills || null, // favoriteskills
+          tolearn: lowerCaseData.tolearn || null,         // tolearn
+          canteach: lowerCaseData.canteach || null,       // canteach
+          avatarpic: lowerCaseData.avatarpic || null      // avatarpic
+        };
+
+        const response = await fetch(
+          `${this.baseUrl}/${QUERY_ENDPOINTS.updateUserProfile}`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${getCookie('access_token')}`,
+              apikey: this.apiKey,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(functionParams) // Теперь это объект!
+          }
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message);
+        }
+
+        return result;
+      } catch (error) {
+        console.error('Ошибка обновления профиля:', error);
+
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        if (
+          errorMessage.includes('Session expired') ||
+          errorMessage.includes('сессия истекла')
+        ) {
+          return Promise.reject(
+            new Error('Сессия истекла. Пожалуйста, войдите снова')
+          );
+        }
+
+        return Promise.reject(error);
+      }
+    };
 
   // Добавление нового навыка
   addNewUserSkillApi = async (
