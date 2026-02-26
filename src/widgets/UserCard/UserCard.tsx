@@ -1,27 +1,35 @@
 // UserCard.tsx
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { UserCardUI } from './UserCardUI';
 import type { TUserCardProps } from './type';
 import { skillsListAdapter } from '@/shared/lib/utils/skillsListAdapter';
 import { skillsSelectors } from '@slice/skills';
 import { useDispatchedActions, useAppSelector } from '@store-hooks';
-import { userSkillListActions, userSkillListSelectors } from '@slice/userSkillList';
+import { userSkillListActions, userSkillListSlice } from '@slice/userSkillList';
 import { userActions, userSelectors } from '@slice/user';
-import { current } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 
 export const UserCard: React.FC<TUserCardProps> = ({
   user,
   swap
 }) => {
-  const {fetchUpdateSkillLikeApi}  = useDispatchedActions(userSkillListActions)
-  const {fetchToggleFavoriteApi} = useDispatchedActions(userActions)
+  const {fetchUpdateSkillLikeApi}  = useDispatchedActions(userSkillListActions);
+  const {fetchToggleFavoriteApi} = useDispatchedActions(userActions);
   const buttonLikeRef= useRef<HTMLButtonElement>(null);
   const [showLikeMessage, setLikeMessage] = useState (false);
-  const currnetUser = useAppSelector(userSelectors.selectUser)
+  const currnetUser = useAppSelector(userSelectors.selectUser);
   const skills = useAppSelector(skillsSelectors.selectskills);
+  const allSkills = useAppSelector(userSkillListSlice.selectors.selectSkillUserList);
+
   const isInFavorites = ()=>{
     return currnetUser?.favoriteSkills.some(skill => skill === swap._id);
-  }
+  };
+
+  const navigate = useNavigate();
+  const navId = allSkills?.find((skill) => skill.userId === user?._id)?._id;
+  const handlemore = () => {
+    navigate(`/skill/${navId}`);
+  };
 
   const skillsToLearn = skillsListAdapter(user.toLearn, skills);
   const skillsCanTeach = skillsListAdapter(user.canTeach, skills);
@@ -34,18 +42,18 @@ export const UserCard: React.FC<TUserCardProps> = ({
     const likeButton = e.target as HTMLButtonElement;
     if(!currnetUser && likeButton ){
       setLikeMessage(true);
-      return
+      return;
     }
     if(currnetUser){
       if (!isInFavorites()){
-        fetchUpdateSkillLikeApi({skillId:swap._id,delta:1})
-        fetchToggleFavoriteApi({skillId:swap._id})
+        fetchUpdateSkillLikeApi({skillId:swap._id,delta:1});
+        fetchToggleFavoriteApi({skillId:swap._id});
       } else {
-        fetchUpdateSkillLikeApi({skillId:swap._id,delta: -1})
-        fetchToggleFavoriteApi({skillId:swap._id})
+        fetchUpdateSkillLikeApi({skillId:swap._id,delta: -1});
+        fetchToggleFavoriteApi({skillId:swap._id});
       }
     }
-  }
+  };
 
   // Подсказка если не зареган
   useEffect(() => {
@@ -74,7 +82,7 @@ export const UserCard: React.FC<TUserCardProps> = ({
       user={user}
       skillsToLearn={skillsToLearn}
       skillsCanTeach={skillsCanTeach}
-      handleMore={() => {}}
+      handleMore={handlemore}
       isFavorite={isInFavorites}
       isSuggested={false}
       handleLike={handleLike}

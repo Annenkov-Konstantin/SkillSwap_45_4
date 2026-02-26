@@ -1,4 +1,4 @@
-import { useRef, type FC } from "react";
+import { useEffect, useRef, type FC } from "react";
 import styles from './CardCarousel.module.scss';
 import type { CardCarouselProps } from "./type";
 import { UserCard } from "../UserCard";
@@ -11,11 +11,18 @@ export const CardCarouselUI: FC<CardCarouselProps> = ({ cards, title }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(0, 0);
+    }
+  }, [cards]);
+
   return (
     <section className={styles.container}>
       <h2>{title}</h2>
       <div className={styles.swiper_container}>
         <Swiper
+          initialSlide={0}
           spaceBetween={24}
           slidesPerView={4}
           className={styles.swiper}
