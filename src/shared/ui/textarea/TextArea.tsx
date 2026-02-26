@@ -3,18 +3,23 @@ import { forwardRef } from 'react';
 import styles from './TextArea.module.scss';
 import { Icon } from '../Icon';
 
-export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
   containerClassName?: string;
   showIcon?: boolean;
   onEditClick?: () => void;
+  onChange: (value: string) => void;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
-    { className, containerClassName, showIcon = false, onEditClick, ...rest },
+    { className, containerClassName, showIcon = false, onChange, onEditClick, ...rest },
     ref
   ) => {
     const hasTrailingElement = showIcon;
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onChange(e.target.value);
+    };
 
     return (
       <div
@@ -30,6 +35,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
         <textarea
           ref={ref}
           className={clsx(styles.textArea, className)}
+          onChange={handleChange}
           {...rest}
         />
 
