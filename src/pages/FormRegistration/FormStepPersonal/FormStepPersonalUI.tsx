@@ -8,8 +8,11 @@ import styles from './formStepPersonal.module.scss';
 import { optionsGender } from './types';
 import type { FormStepPersonalUIProps } from './types';
 import { Icon } from '@/shared/ui/Icon';
+import { MultiSkillSelect } from '@/shared/ui/multySkillSelect';
+import type { TSkill } from '@/entities/skills';
 
 export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
+  avatarPreview,
   nameValue,
   birthValue,
   skillArray,
@@ -18,7 +21,8 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   genderValue,
   cityValue,
   selectedCategory,
-  selectedSkill,
+  aboutMe,
+  onAboutMeChange,
   handleSubmit,
   profilePhotoAdd,
   onNameChange,
@@ -26,31 +30,46 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
   onGenderChange,
   onCityChange,
   onCategoryChange,
-  onSkillChange,
+  onSkillsChange,
   onForwardClick,
   onBackClick,
   showNameError,
-  getValueHint
+  getValueHint,
+  buttonStatus,
+  selectedSkills, // это TSkill[] от родителя
 }: FormStepPersonalUIProps) => {
+
+  // ИСПРАВЛЕНО: Преобразуем TSkill[] в number[] для MultiSkillSelect
+const selectedSkillIds = selectedSkills.map(skill => skill.id);
+
+// ИСПРАВЛЕНО: Обработчик для MultiSkillSelect (получает ID, преобразует в TSkill[])
+const handleMultiSkillChange = (ids: number[]) => {
+  // Преобразуем ID обратно в объекты TSkill
+  const selectedSkillObjects = ids
+    .map(id => skillArray.find(skill => skill.id === id))
+    .filter((skill): skill is TSkill => skill !== undefined);
+
+  // ИСПРАВЛЕНО: Преобразуем объекты обратно в ID для onSkillsChange
+  const selectedIds = selectedSkillObjects.map(skill => skill.id);
+
+  // Вызываем onSkillsChange с number[] как он ожидает
+  onSkillsChange(selectedIds);
+};
+
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit}>
       <div className={styles.profilePhotoContainer}>
-        <Icon name='icon-user-circle' size={72} fill='none' />
-        {/* <svg
-          width='56'
-          height='56'
-          viewBox='0 0 56 56'
-          fill='none'
-          xmlns='http://www.w3.org/2000/svg'
-        >
-          <path
-            d='M45.6945 47.9241C43.598 45.1491 40.8859 42.8986 37.7717 41.3499C34.6576 39.8011 31.2265 38.9964 27.7485 38.9991C24.2705 38.9964 20.8394 39.8011 17.7253 41.3499C14.6111 42.8986 11.899 45.1491 9.80251 47.9241M45.6945 47.9241C49.785 44.2857 52.6729 39.4898 53.9751 34.1724C55.2773 28.855 54.9323 23.2674 52.9859 18.1505C51.0395 13.0337 47.5837 8.62944 43.0767 5.52181C38.5697 2.41417 33.2245 0.75 27.75 0.75C22.2755 0.75 16.9303 2.41417 12.4233 5.52181C7.91633 8.62944 4.46049 13.0337 2.51411 18.1505C0.567724 23.2674 0.222759 28.855 1.52496 34.1724C2.82716 39.4898 5.712 44.2857 9.80251 47.9241M45.6945 47.9241C40.756 52.3277 34.3652 54.7574 27.7485 54.7491C21.1308 54.7581 14.7418 52.3284 9.80251 47.9241M36.7485 20.9991C36.7485 23.3861 35.8003 25.6753 34.1125 27.3631C32.4246 29.0509 30.1355 29.9991 27.7485 29.9991C25.3616 29.9991 23.0724 29.0509 21.3845 27.3631C19.6967 25.6753 18.7485 23.3861 18.7485 20.9991C18.7485 18.6122 19.6967 16.323 21.3845 14.6352C23.0724 12.9473 25.3616 11.9991 27.7485 11.9991C30.1355 11.9991 32.4246 12.9473 34.1125 14.6352C35.8003 16.323 36.7485 18.6122 36.7485 20.9991Z'
-            stroke='#253017'
-            strokeWidth='1.5'
-            strokeLinecap='round'
-            strokeLinejoin='round'
+        {avatarPreview ? (
+          <img
+            src={avatarPreview}
+            alt="Avatar preview"
+            className={styles.avatarImage}
+            width={72}
+            height={72}
           />
-        </svg> */}
+        ) : (
+          <Icon name='icon-user-circle' size={72} fill='none' />
+        )}
         <button
           type='button'
           className={styles.buttonAdd}
@@ -75,6 +94,7 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
           </svg>
         </button>
       </div>
+
       <div className={styles.nameContainer}>
         <label htmlFor='userName'>Имя</label>
         <Input
@@ -86,6 +106,7 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
         />
         {getValueHint && getValueHint()}
       </div>
+
       <div className={styles.personalDataContainer}>
         <div className={styles.dateBirthContainer}>
           <label htmlFor='dateBirth'>Дата рождения</label>
@@ -95,42 +116,71 @@ export const FormStepPersonalUI: FC<FormStepPersonalUIProps> = ({
             name='dateBirth'
           />
         </div>
-        <Select label='Пол' options={optionsGender} value={genderValue} onChange={onGenderChange}></Select>
+        <Select
+          label='Пол'
+          options={[optionsGender[1], optionsGender[2]]}
+          value={genderValue}
+          onChange={onGenderChange}
+        />
       </div>
+
       <CitySelect
+        placeholder='Выберите город'
         cityList={cityArray}
         value={cityValue}
         onChange={onCityChange}
       />
+
       <div className={styles.skillContainer}>
         <label>Категория навыка, которому хотите научиться</label>
         <SkillSelect
           placeholderValue='Выберите категорию'
           optionsArr={categoryArray}
-          value={selectedCategory}
-          onChange={onCategoryChange}
+          value={selectedCategory?.id || null}
+          onChange={(id: number | null) => {
+            const category = categoryArray.find(cat => cat.id === id) || null;
+            onCategoryChange(category);
+          }}
         />
       </div>
+
       <div className={styles.skillContainer}>
-        <label>Подкатегория навыка, которому хотите научиться</label>
-        <SkillSelect
-          placeholderValue={selectedCategory ? 'Выберите подкатегорию' : 'Сначала выберите категорию'}
+        <label className={styles.lable_subCategory}>
+          Подкатегория навыка, которому хотите научиться
+        </label>
+        <MultiSkillSelect
+          placeholderValue={selectedCategory ? 'Выберите подкатегории' : 'Сначала выберите категорию'}
           optionsArr={skillArray}
-          value={selectedSkill}
-          onChange={onSkillChange}
+          value={selectedSkillIds} // ИСПРАВЛЕНО: передаем number[]
+          onChange={handleMultiSkillChange} // ИСПРАВЛЕНО: используем адаптированный обработчик
           disabled={!selectedCategory}
         />
       </div>
+       {/* ДОБАВЛЕНО: поле "О себе" */}
+      <div className={styles.fieldGroup}>
+          <label htmlFor='skillDescription'>О себе</label>
+          <textarea
+            id='skillDescription'
+            className={styles.textarea}
+            placeholder='Коротко расскажите о себе... '
+            value={aboutMe}
+             onChange={(event) => onAboutMeChange(event.target.value)}
+            rows={4}
+          />
+        </div>
+
       <div className={styles.buttonContainer}>
         <Button
+          type="button"
           status='secondary'
           children='Назад'
-          onClick={onForwardClick}
+          onClick={onBackClick}
         />
         <Button
-          status='primary'
+          type="submit"
+          status={buttonStatus}
           children='Продолжить'
-          onClick={onBackClick}
+          onClick={onForwardClick}
         />
       </div>
     </form>

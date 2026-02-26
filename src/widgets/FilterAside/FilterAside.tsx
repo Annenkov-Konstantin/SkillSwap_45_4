@@ -60,8 +60,6 @@ export const FilterAside:React.FC = () => {
     return filter.cityFilter.some(item => item._id === city._id);
   }
 
-
-
   //Показать/скрыть категории
   const handleCategoryToggle = (id:number)=>{
     setCategoryOpen(prev => {

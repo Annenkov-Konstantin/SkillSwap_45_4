@@ -641,7 +641,7 @@ export class Api {
             Authorization: `Bearer ${getCookie('access_token')}`
           },
           body: JSON.stringify({
-            p_skill_id: skillId
+            skill_id: skillId
             // user_id берется из токена на сервере через auth.uid()
           })
         }

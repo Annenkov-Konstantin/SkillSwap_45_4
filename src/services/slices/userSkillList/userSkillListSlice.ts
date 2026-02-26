@@ -6,6 +6,7 @@ import type { TRequestStatus } from '@types';
 import {
   fetchUpdateSkillLikeApi,
   fetchUserListSkills,
+  fetchAddNewUserSkill
 } from '@thunks';
 import type { TlikeData } from '@/api/types';
 
@@ -44,15 +45,21 @@ export const userSkillListSlice = createSlice({
             const skillIndex = state.userSkillList.findIndex(s => s._id === skillId);
             if (skillIndex !== -1) {
               state.userSkillList[skillIndex].likes = likes;
-            } 
+            }
           }
         }
       )
-
+      .addCase(
+        fetchAddNewUserSkill.fulfilled,
+        (state, action: PayloadAction<TUserSkill>) => {
+          const newSkill = action.payload;
+          state.userSkillList?.push(newSkill)
+        }
+      )
       // Общая обработка для всех pending thunk
       .addMatcher(
         isAnyOf(
-          fetchUserListSkills.pending,
+          fetchUserListSkills.pending,fetchAddNewUserSkill.pending
         ),
         (state) => {
           state.requestStatus = requestStatus.LOADING;
@@ -75,7 +82,7 @@ export const userSkillListSlice = createSlice({
       )
       // Общая обработка для всех остальных rejected
       .addMatcher(
-        isAnyOf(fetchUserListSkills.rejected),
+        isAnyOf(fetchUserListSkills.rejected, fetchAddNewUserSkill.rejected),
         (state, action) => {
           state.requestStatus = requestStatus.ERROR;
           if (action.error.message) {

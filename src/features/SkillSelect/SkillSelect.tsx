@@ -1,7 +1,7 @@
 import { DropdownTrigger, RadioButton } from '@/shared/ui';
 import { useCallback, useEffect, useState, useRef } from 'react';
 import styles from './SkillSelect.module.scss';
-import type { SkillSelectProps } from './types';
+import type { SkillSelectProps, CategoryOption } from './types';
 
 export const SkillSelect: React.FC<SkillSelectProps> = ({
   placeholderValue,
@@ -11,27 +11,29 @@ export const SkillSelect: React.FC<SkillSelectProps> = ({
   disabled = false
 }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(value || null);
+  const [selectedId, setSelectedId] = useState<number | null>(value || null);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const isControlled = value !== undefined;
-  const selectedValue =
-    isControlled && value && optionsArr.includes(value) ? value : isControlled ? null : selected;
+
+  // Находим выбранный объект по id
+  const selectedOption = optionsArr.find(opt => opt.id === selectedId);
+  const displayValue = selectedOption ? selectedOption.category : '';
 
   // Синхронизируем внутреннее состояние с пропсом value
   useEffect(() => {
     if (value !== undefined) {
-      setSelected(value);
+      setSelectedId(value);
     }
   }, [value]);
 
-  const handleSelect = useCallback((option: string) => {
+  const handleSelect = useCallback((option: CategoryOption) => {
     if (disabled) return;
 
-    setSelected(option);
+    setSelectedId(option.id);
     setOpen(false);
 
     if (onChange) {
-      onChange(option);
+      onChange(option.id);
     }
   }, [onChange, disabled]);
 
@@ -39,7 +41,6 @@ export const SkillSelect: React.FC<SkillSelectProps> = ({
     if (disabled || optionsArr.length === 0) {
       return;
     }
-
     setOpen((prevOpen) => !prevOpen);
   }, [disabled, optionsArr.length]);
 
@@ -61,35 +62,36 @@ export const SkillSelect: React.FC<SkillSelectProps> = ({
 
   return (
     <div
-    className={`${styles.dropdown} ${disabled ? styles.disabled : ''}`}
-    ref={dropDownRef}
+      className={`${styles.dropdown} ${disabled ? styles.disabled : ''}`}
+      ref={dropDownRef}
     >
       <div
         className={`${styles.button_wrapper} ${open ? styles.button_wrapper_open : ''} ${disabled ? styles.disabled : ''}`}
         onClick={() => !disabled && setOpen(!open)}
       >
         <button
+          type='button'
           className={`${styles.dropbutton}`}
           disabled={disabled}
         >
-          {selected ? selected : placeholderValue}
+          {displayValue || placeholderValue}
         </button>
         <DropdownTrigger
           isOpen={open}
           onClick={() => !disabled && setOpen(!open)}
-        ></DropdownTrigger>
+        />
       </div>
 
       {open && !disabled && (
         <div className={styles.dropdown_content_open}>
           {optionsArr.map((option) => (
-            <li key={optionsArr.indexOf(option)}>
+            <li key={option.id}>
               <RadioButton
-                label={option}
-                value={`${optionsArr.indexOf(option)}`}
-                checked={selected === option}
+                label={option.category}
+                value={String(option.id)}
+                checked={selectedId === option.id}
                 onChange={() => handleSelect(option)}
-                name={`${option}_radio`}
+                name={`category_${option.id}`}
               />
             </li>
           ))}

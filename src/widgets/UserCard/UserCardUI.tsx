@@ -10,7 +10,7 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
   handleMore,
   skillsToLearn,
   skillsCanTeach,
-  isFavorite = false,
+  isFavorite,
   isSuggested = false,
   handleLike,
   type,
@@ -29,7 +29,7 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
         <span>{likeCounter}</span>
         <LikeButtonUI
         onClick={(e)=>handleLike(e)}
-        isLiked={isFavorite}
+        isLiked={isFavorite()}
         likeRef={likeRef}
         />
       </div>

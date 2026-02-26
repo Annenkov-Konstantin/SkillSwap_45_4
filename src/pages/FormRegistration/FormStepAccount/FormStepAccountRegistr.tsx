@@ -7,16 +7,19 @@ import {
 } from '@/shared/lib/utils/formValidation';
 
 import styles from './FormStepAccount.module.scss';
-import { useDispatchedActions } from '@/services/hooks';
+import { useAppSelector, useDispatchedActions } from '@/services/hooks';
 import { formActions } from '@/services/slices/form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@/shared/lib/constants';
+import { userSelectors } from '@/services/slices/user';
 
 const LOCAL_STORAGE_REGISTR_KEY = 'registrationFormEmail';
 
 export const FormStepAccountRegistr:React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { setfirstStepForm }= useDispatchedActions(formActions)
+  const registrError = useAppSelector(userSelectors.selectUserError)
   const [emailValue, setEmailValue] = useState<string>(
     localStorage.getItem(LOCAL_STORAGE_REGISTR_KEY) || ''
   );
@@ -26,6 +29,8 @@ export const FormStepAccountRegistr:React.FC = () => {
   const [passwordStatus, setPasswordStatus] = useState<
     'empty' | 'short' | 'strong'
   >('empty');
+
+  const badLogin = location.state?.badLogin || false;
 
   const isDisabled= emailError || passValue.length<8 ?'primary_disabled':'primary';
 
@@ -87,6 +92,7 @@ export const FormStepAccountRegistr:React.FC = () => {
         getPasswordHint={getPasswordHint}
         emailChange={handleEmailChange}
         passwordChange={handlePasswordChange}
+        errorInfo={badLogin?registrError:''}
       />
       <div className={styles.formButton}>
         <Button status={isDisabled} children='Далее' onClick={handleSubmit} />

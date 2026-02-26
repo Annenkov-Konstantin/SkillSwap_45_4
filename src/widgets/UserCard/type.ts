@@ -7,7 +7,7 @@ export type TUserCardUIProps = {
   user:TUser;
   skillsToLearn: TSkillAdapter[];
   skillsCanTeach: TSkillAdapter[];
-  isFavorite: boolean;
+  isFavorite:()=>boolean | undefined;
   isSuggested: boolean;
   handleMore: () => void;
   handleLike: (value:React.MouseEvent) => void;

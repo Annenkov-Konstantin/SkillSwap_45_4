@@ -1,57 +1,68 @@
-﻿import { useMemo, useState, type FC } from 'react';
-import { useAppSelector } from '@store-hooks';
-import { skillsSelectors } from '@slice/skills';
-import type { TSkills } from '@/entities/skills';
-import categoriesData from '../../../../public/db/skills/skills.json';
+import { useEffect, useState, useMemo, type FC, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormStepSkillUI } from './formStepSkillUI';
+import { useAppSelector, useDispatchedActions } from '@/services/hooks';
+import { skillsSelectors } from '@/services/slices/skills';
+import type { TSkills, TSkill } from '@/entities/skills';
+import { AppRoutes } from '@/shared/lib/constants';
+import type { ButtonStatus } from '@/shared/ui/button/types';
+import categoriesData from '../../../../public/db/skills/skills.json';
+import { formActions, formSelectors } from '@/services/slices/form';
+import type { TCategoryOption, TFormSkill } from '@/shared/lib/types';
+
+
 
 const normalizeLabel = (value: string): string =>
   value.replace(/\s+/g, ' ').trim().toLowerCase();
 
-export type FormStepSkillValues = {
-  skillName: string;
-  categoryId: number | null;
-  category: string;
-  subcategoryId: number | null;
-  subcategory: string;
-  description: string;
-};
+export const FormStepSkill: FC = () => {
+  const navigate = useNavigate()
+  const isSecondStepTrue = useAppSelector(formSelectors.selectIsFirstStepTrue);
+  const { setThirdStepForm } = useDispatchedActions(formActions);
+  const [skillImages, setSkillImages] = useState<string[]>([]);
+   //При прямом переходе без заполненных полей 2 формыы на выход!
 
-type FormStepSkillProps = {
-  categoryOptions?: string[];
-  initialValues?: Partial<FormStepSkillValues>;
-  onBack?: () => void;
-  onContinue?: (values: FormStepSkillValues) => void;
-  onImageDelete?: (file: File) => void;
-};
+    if (!isSecondStepTrue) {
+      navigate(AppRoutes.RegPersonal, { replace: true });
+    }
 
-export const FormStepSkill: FC<FormStepSkillProps> = ({
-  categoryOptions,
-  initialValues,
-  onBack,
-  onContinue,
-  onImageDelete
-}) => {
-  const skills = useAppSelector(skillsSelectors.selectskills);
 
-  const [skillName, setSkillName] = useState(initialValues?.skillName ?? '');
-  const [categoryId, setCategoryId] = useState<number | null>(
-    initialValues?.categoryId ?? null
-  );
-  const [category, setCategory] = useState(initialValues?.category ?? '');
-  const [subcategoryId, setSubcategoryId] = useState<number | null>(
-    initialValues?.subcategoryId ?? null
-  );
-  const [subcategory, setSubcategory] = useState(
-    initialValues?.subcategory ?? ''
-  );
-  const [description, setDescription] = useState(
-    initialValues?.description ?? ''
-  );
+  const skillsData: TSkills | null = useAppSelector(skillsSelectors.selectskills);
 
+  // Состояния формы
+  const [skillName, setSkillName] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<TCategoryOption | null>(null);
+  const [selectedSubcategoryIds, setSelectedSubcategoryIds] = useState<number[]>([]);
+  const [description, setDescription] = useState('');
+  const [showModal, setShowModal]=useState(false);
+
+  // Флаг для первоначальной загрузки
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+
+  // Обработчик добавления фото - ВЫНЕСЕН НАВЕРХ
+  const handleImagesAdded = async (files: File[]) => {
+    const convertFileToBase64 = (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    };
+
+    const base64Images = await Promise.all(files.map(convertFileToBase64));
+    setSkillImages(prev => [...prev, ...base64Images]);
+  };
+
+  const handleImageRemoved = (index: number) => {
+    setSkillImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // Объединяем данные из store и локального файла
   const mergedSkills = useMemo<TSkills>(() => {
     const localSkills = categoriesData as TSkills;
-    const storeSkills = skills ?? [];
+    const storeSkills = skillsData ?? [];
 
     const categoryMap = new Map<
       string,
@@ -107,104 +118,172 @@ export const FormStepSkill: FC<FormStepSkillProps> = ({
       category: categoryItem.category,
       skills: Array.from(categoryItem.skillsMap.values())
     }));
-  }, [skills]);
+  }, [skillsData]);
 
-  const categoryOptionsFromStore = useMemo(() => {
-    if (mergedSkills.length === 0) {
-      return [];
+  // Массив категорий для селекта
+  const categoryOptions: TCategoryOption[] = mergedSkills.map(item => ({
+    id: item.id,
+    category: item.category
+  }));
+
+  // Массив подкатегорий для выбранной категории
+  const subcategoryOptions: TSkill[] = selectedCategory
+    ? mergedSkills.find(cat => cat.id === selectedCategory.id)?.skills || []
+    : [];
+
+  // Загрузка сохраненных данных
+  useEffect(() => {
+    if (isInitialLoad) {
+      const savedData = localStorage.getItem('registrationTeachData');
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          // Загружаем данные в форму
+          setSkillName(parsedData.skillName || '');
+          setDescription(parsedData.description || '');
+          // Категорию и подкатегории нужно восстановить по ID
+          if (parsedData.categoryId) {
+            const category = categoryOptions.find(c => c.id === parsedData.categoryId);
+            setSelectedCategory(category || null);
+          }
+          if (parsedData.subcategoryIds) {
+            setSelectedSubcategoryIds(parsedData.subcategoryIds);
+          }
+        } catch (error) {
+          console.error('Ошибка загрузки данных:', error);
+        }
+      }
+      setIsInitialLoad(false);
     }
+  }, [isInitialLoad, categoryOptions]);
 
-    return mergedSkills.map((item) => item.category);
-  }, [mergedSkills]);
+  //Модалка
+   const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+  //  обработчик клавиши ESC
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && showModal) {
+        handleCloseModal();
+      }
+    };
 
-  const selectedCategoryFromValue = useMemo(() => {
-    if (mergedSkills.length === 0 || !category) {
-      return null;
-    }
+    document.addEventListener('keydown', handleEscKey);
 
-    const normalizedCategory = normalizeLabel(category);
-    return (
-      mergedSkills.find(
-        (item) => normalizeLabel(item.category) === normalizedCategory
-      ) ?? null
-    );
-  }, [mergedSkills, category]);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [showModal, handleCloseModal]);
 
-  const subcategoryOptionsFromStore = useMemo(() => {
-    if (!selectedCategoryFromValue) {
-      return [];
-    }
-
-    return selectedCategoryFromValue.skills.map((item) => item.title);
-  }, [selectedCategoryFromValue]);
-
-  const resolvedCategoryOptions = categoryOptions ?? categoryOptionsFromStore;
-  const resolvedSubcategoryOptions = subcategoryOptionsFromStore;
-
-  const isContinueDisabled =
-    !skillName.trim() || !category || !subcategory || !description.trim();
-
-  const handleCategoryChange = (value: string) => {
-    const normalizedCategory = normalizeLabel(value);
-    const nextCategory =
-      mergedSkills.find(
-        (item) => normalizeLabel(item.category) === normalizedCategory
-      ) ?? null;
-
-    setCategory(value);
-    setCategoryId(nextCategory ? nextCategory.id : null);
-    setSubcategoryId(null);
-    setSubcategory('');
+  // Обработчики
+  const handleCategoryChange = (category: TCategoryOption | null) => {
+    setSelectedCategory(category);
+    setSelectedSubcategoryIds([]);
   };
 
-  const handleSubcategoryChange = (value: string) => {
-    if (!selectedCategoryFromValue) {
-      setSubcategory('');
-      setSubcategoryId(null);
+  const handleSubcategoryChange = (subcategoryIds: number[]) => {
+    setSelectedSubcategoryIds(subcategoryIds);
+  };
+
+  const handleForwardClick = () => {
+    if (!skillName || !selectedCategory || selectedSubcategoryIds.length === 0 || !description) {
+      console.log('Заполните все поля');
       return;
     }
 
-    const normalizedSubcategory = normalizeLabel(value);
-    const nextSubcategory =
-      selectedCategoryFromValue.skills.find(
-        (item) => normalizeLabel(item.title) === normalizedSubcategory
-      ) ?? null;
+    // Получаем названия выбранных подкатегорий
+    const selectedSubcategoryNames = selectedSubcategoryIds
+      .map(id => subcategoryOptions.find(s => s.id === id)?.title || '')
+      .filter(name => name !== '');
 
-    setSubcategory(value);
-    setSubcategoryId(nextSubcategory ? nextSubcategory.id : null);
-  };
-
-  const handleContinue = () => {
-    if (isContinueDisabled) {
-      return;
-    }
-
-    onContinue?.({
+    // Собираем данные формы
+    const formData: TFormSkill = {
       skillName,
-      categoryId,
-      category,
-      subcategoryId,
-      subcategory,
-      description
-    });
+      categoryId: selectedCategory.id,
+      categoryName: selectedCategory.category,
+      subcategoryIds: selectedSubcategoryIds,
+      subcategoryNames: selectedSubcategoryNames,
+      description:description
+    };
+
+    // Подготавливаем данные для API (только ID)
+    const apiData = {
+      toTeach: [{
+        category: selectedCategory.id,
+        subcategory: selectedSubcategoryIds
+      }]
+    };
+
+    setThirdStepForm(
+      {
+        skillName: formData.skillName,
+        categoryId: formData.categoryId,
+        description: formData.description,
+        toTeach: [
+          {
+            category: selectedCategory.id,
+            subcategory: selectedSubcategoryIds
+          }
+        ],
+        skillImages:skillImages
+      }
+    )
+
+    console.log('Данные формы:', formData);
+    console.log('Данные для API:', apiData);
+
+    // Сохраняем в localStorage
+    localStorage.setItem('registrationTeachData', JSON.stringify({
+      ...formData,
+      toTeach: apiData.toTeach
+    }));
+
+    setShowModal(true);
+
   };
+
+  const handleBackClick = () => {
+    navigate(AppRoutes.RegPersonal);
+  };
+
+  // Проверка валидности формы
+  const isFormValid = (): boolean => {
+    return !!(skillName && selectedCategory && selectedSubcategoryIds.length > 0 && description);
+  };
+
+  const getButtonStatus = (): 'primary' | 'primary_disabled' => {
+    return isFormValid() ? 'primary' : 'primary_disabled';
+  };
+
+  // Получаем объекты выбранных подкатегорий для отображения
+  const selectedSubcategories = subcategoryOptions.filter(
+    sub => selectedSubcategoryIds.includes(sub.id)
+  );
+
 
   return (
     <FormStepSkillUI
-      skillNameValue={skillName}
-      categoryValue={category}
-      subcategoryValue={subcategory}
-      descriptionValue={description}
-      categoryOptions={resolvedCategoryOptions}
-      subcategoryOptions={resolvedSubcategoryOptions}
+      skillImages={skillImages}
+      showModal={showModal}
+      skillName={skillName}
+      selectedCategory={selectedCategory}
+      selectedSubcategoryIds={selectedSubcategoryIds}
+      selectedSubcategories={selectedSubcategories}
+      description={description}
+      categoryOptions={categoryOptions}
+      subcategoryOptions={subcategoryOptions}
       onSkillNameChange={setSkillName}
       onCategoryChange={handleCategoryChange}
       onSubcategoryChange={handleSubcategoryChange}
       onDescriptionChange={setDescription}
-      onBack={() => onBack?.()}
-      onContinue={handleContinue}
-      onImageDelete={(file) => onImageDelete?.(file)}
-      isContinueDisabled={isContinueDisabled}
+      onForwardClick={handleForwardClick}
+      onBackClick={handleBackClick}
+      isFormValid={isFormValid()}
+      buttonStatus={getButtonStatus()}
+      onImagesAdded={handleImagesAdded}
+      onImageRemoved={handleImageRemoved}
+      closeModal={handleCloseModal}
     />
   );
 };

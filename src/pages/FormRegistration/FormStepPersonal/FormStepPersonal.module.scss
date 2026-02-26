@@ -2,6 +2,7 @@
 @use '@/app/styles/mixins' as *;
 
 .formContainer {
+  white-space:no-wrap;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -22,6 +23,7 @@
   padding-bottom: 9px;
 }
 
+
 .buttonAdd {
   display: inline-flex;
   align-items: center;
@@ -33,6 +35,7 @@
   bottom: 15%;
   padding: 0;
 }
+
 
 .nameContainer {
   display: flex;
@@ -56,9 +59,51 @@
 
 .formContainer label {
   @include body-text;
-  display: block;
+
   margin-bottom: 4px;
   color: $color-text;
+  white-space:no-wrap;
+}
+
+.lable_subCategory {
+  white-space: nowrap;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldGroup label {
+  @include body-text;
+  color: $color-text;
+  margin-bottom: 1px;
+}
+
+.inputField,
+.selectField {
+  width: 100%;
+}
+
+.textarea {
+  @include body-text;
+  width: 100%;
+  height: 90px;
+  padding: 12px 20px;
+  border: 1px solid $border-input-color;
+  border-radius: 12px;
+  resize: vertical;
+  color: $color-text;
+  background-color: $color-card-input;
+}
+
+.textarea::placeholder {
+  color: $color-caption;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: $color-accent;
 }
 
 .buttonContainer {
@@ -79,4 +124,12 @@
   color: $color-disabled-text;
   margin: 0;
   line-height: 1.4;
+}
+
+.avatarImage {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ABD27A;
 }
