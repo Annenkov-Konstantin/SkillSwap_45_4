@@ -50,8 +50,7 @@ export const AppRoutes =  {
   Profile:'profile',
   Skill:'skill/:id',
   Favourites:'/profile/favourites',
-  Settings:'/settings',
-  Error:'error',
+  Error:'/error',
 
 
   ProfileOrderInfo : '/profile/orders/:number'
