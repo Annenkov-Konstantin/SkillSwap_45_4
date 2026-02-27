@@ -1,6 +1,11 @@
 @use '@/app/styles/variables' as *;
 @use '@/app/styles/mixins' as *;
 
+
+.button_container {
+  position: relative;
+}
+
 .button {
   @include button-main;
 

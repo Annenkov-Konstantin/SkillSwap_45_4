@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/services/hooks";
 import {  userSkillListSlice } from "@/services/slices";
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { SkillUI } from "./skillUI";
 import { selectSwapCards } from "@/services/selectors/swapCardSelector";
@@ -34,7 +34,6 @@ export const Skill: FC = () => {
   const matching = cards.filter(item => item.skill.category=== targetSuggestion);
   const nonMatching = cards.filter(item => item.skill.category !== targetSuggestion);
   const suggestionCards = [...matching, ...nonMatching];
-
 
   if (!user || !userSkill) {
     return <Preloader />;

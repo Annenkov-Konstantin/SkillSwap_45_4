@@ -4,7 +4,7 @@ import type { TSkills } from '@/entities/skills';
 
 export type TModalProps = {
   onClose: () => void;
-  skills: TSkills
+  skills: TSkills | null
   isVisible?: boolean;
 };
 

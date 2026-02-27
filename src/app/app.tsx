@@ -41,6 +41,8 @@ import { RegisterPersonal } from '@/pages/FormRegistration/FormStepPersonal/regi
 import { FormStepSkill } from '@/pages/FormRegistration/FormStepSkill';
 import { Profile } from '@/pages/Profile';
 import { FavouritesCollection } from '@/widgets/Favourites';
+import ScrollToTop from '@/features/ScrollToTop/SkrollToTop';
+
 
 
 const App = () => {
@@ -79,7 +81,7 @@ const App = () => {
       {/* Единый спрайт и менеджер */}
       <IconSprite />
       <SkillsModalManager />
-
+      <ScrollToTop/>
       {/* Хедер для всех страниц кроме форм */}
       {showHeaderFooter && <Header />}
 

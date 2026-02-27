@@ -2,12 +2,13 @@ import type { FC } from 'react';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { SkillsDropdown } from '@/features';
 import { SkillsModalContext } from '@/shared/context/SkillsModalContext';
-
-import skills from '../../../public/db/skills/skills.json';
+import { useAppSelector } from '@/services/hooks';
+import { skillsSelectors } from '@/services/slices/skills';
 
 export const SkillsModalManager:FC = () => {
   const {shouldModalRender, setShouldmodalRender} = useContext(SkillsModalContext);
   const [isSkillModalVisible, setSkillModalVisible] = useState(false);
+  const skills = useAppSelector(skillsSelectors.selectskills)
 
   // рефы на таймеры
   const openTimerRef = useRef<number | null>(null);

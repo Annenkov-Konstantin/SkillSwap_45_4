@@ -19,11 +19,7 @@ export const SkillUI: FC<SkillPageUIProps> = ({
       </div>
       <div className={styles.info_card}>
         <SkillDetails
-          title={skill.title}
-          images={skill.images}
-          categoryId={skill.category}
-          skillId={skill.subCategory}
-          description={skill.description}
+          skill={skill}
           onSwapClick={onSwapClick}
         ></SkillDetails>
       </div>

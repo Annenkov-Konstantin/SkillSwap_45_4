@@ -39,10 +39,6 @@ export const UserCardUI: React.FC<TUserCardUIProps> = ({
         location={location}
         dateOfBirth={dateOfBirth}
       />
-      {/* <div className={styles.skills}>
-        <UserCardSkillUI title='Может научить' skills={skillsCanTeach} />
-        <UserCardSkillUI title='Хочет научиться' skills={skillsToLearn} />
-      </div> */}
       <div className={styles.skills}>
         {type === 'learn' && (
           <>
